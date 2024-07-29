@@ -1,0 +1,44 @@
+/**
+  Fonts
+ */
+$font-base: 'poppins', sans-serif;
+$font-condensed: 'futura-pt-condensed', sans-serif;
+$font-head: 'stolzl', sans-serif;
+$font-sans: 'elza', sans-serif;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1300px,
+  xxl: 1500px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1260px,
+  xxl: 1420px
+);
+
+// Bootstrap overrides
+$font-family-sans-serif: $font-base;
+$headings-font-family: $font-base;
+
+// Bootstrap icons
+$bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
+
+$color-1: #1a1a1a;
+$color-2: #02605c;
+$color-3: #2a9b91;
+$color-4: #9ac5c3;
+$color-5: #cbd4d9;
+$color-6: #e8e8e8;
+
+$body-color: $color-5;
+$body-bg: $color-1;
+
+$primary: lighten($color-3, 10%);
+$secondary: $color-2;

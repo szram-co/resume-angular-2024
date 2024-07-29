@@ -1,1 +1,153 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:math';
+
+@import 'scss/app';
+
+// Layout & components
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/images';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/button-group';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/dropdown';
+@import 'bootstrap/scss/popover';
+@import 'bootstrap/scss/spinners';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/navbar';
+
+// Helpers
+@import 'bootstrap/scss/helpers';
+
+// Utilities
+@import 'bootstrap/scss/utilities/api';
+
+// Icons
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+:root {
+  --color-1: #{$color-1};
+  --color-2: #{$color-2};
+  --color-3: #{$color-3};
+  --color-4: #{$color-4};
+  --color-5: #{$color-5};
+  --color-6: #{$color-6};
+
+  --color-gray: #{mix($body-bg, $body-color)};
+
+  --font-family: #{$font-base};
+  --font-size: 16px;
+
+  --background: #{$body-bg};
+  --border: #{lighten($body-bg, 10%)};
+  --color: #{$body-color};
+
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+
+  --brand-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --brand-gradient-radial: radial-gradient(ellipse at top, var(--border) 0%, var(--background) 90%);
+}
+
+::selection {
+  color: var(--color-5);
+  background: var(--color-4);
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--brand-gradient-radial);
+
+  &::-webkit-scrollbar {
+    width: 0.375rem;
+    height: 0.375rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+    border: var(--border) 1px solid;
+    border-top: 0;
+    border-bottom: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--primary), var(--secondary) 85%);
+    outline: none;
+  }
+}
+
+// Custom
+.resume-container {
+  margin: 0 auto;
+  transition: 0.2s all ease;
+}
+
+.resume-line-x {
+  height: 3px;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 3rem;
+  background: var(--brand-gradient);
+  transition: 1s background-color ease;
+  position: relative;
+}
+
+.resume-navbar {
+  height: 3.5rem;
+}
+
+.resume-contact-space {
+  padding: 3rem 0 2rem 0;
+  @include media-breakpoint-down(lg) {
+    padding: 1rem 0;
+  }
+  @include media-breakpoint-down(md) {
+    padding-bottom: 0.5rem;
+  }
+}
+
+.text-verified {
+  @include font-size(1rem);
+  text-align: center;
+  line-height: 2.5rem;
+}
+
+.resume-social {
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    --social-color: var(--secondary);
+    color: var(--color-5);
+    margin: 0 0.25rem;
+  }
+}
+
+.resume-soft {
+  font-family: $font-head;
+  @include font-size(3.25rem);
+  font-weight: 700;
+  line-height: 3rem;
+  margin-block-start: 1rem;
+  margin-block-end: 2.5rem;
+}
+
+.nav-item--lang {
+  width: 2.2rem;
+}

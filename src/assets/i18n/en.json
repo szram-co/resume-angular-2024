@@ -1,0 +1,67 @@
+{
+  "HELLO": "Hello, I’m<br />Patryk Szram",
+  "DESCRIPTION": [
+    "For a decade, I have been developing my skills as a programmer, gaining experience in web development, specializing in designing responsive web applications tailored to the business needs of clients. I am an engaged, self-taught learner, understanding good programming practices, business goals, and client project requirements.",
+    "My readiness to tackle challenges has always been my hallmark. I'm intrigued by all aspects of web development, from application architecture to code development/maintenance, optimization, and process automation. I also have graphic design skills supported by professional experience in UX/UI and understand the processes of designing materials for print/publication."
+  ],
+  "DOWNLOAD": "Download resume PDF",
+  "HEAD": {
+    "EXPERIENCE": "Experience",
+    "SKILLS": "Skills",
+    "TECHNOLOGIES": "Technologies"
+  },
+  "CITY": {
+    "WARSAW": "Warsaw"
+  },
+  "CITY_FROM": {
+    "WARSAW": "in Warsaw, Poland",
+    "GDANSK": "in Gdańsk, Poland",
+    "GRUDZIADZ": "in Grudziądz, Poland"
+  },
+  "COUNTRY": {
+    "POLAND": "Poland"
+  },
+  "DATE": {
+    "YEAR": {
+      "ONE": "{{count}} year",
+      "OTHER": "{{count}} years"
+    },
+    "MONTH": {
+      "ONE": "{{count}} month",
+      "OTHER": "{{count}} months"
+    },
+    "AND": "and",
+    "PRESENT": "Present"
+  },
+  "MONTH": {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
+  "BUTTON": {
+    "MORE": "Show more",
+    "LESS": "Show less"
+  },
+  "SKILLS": [
+    "Working in Scrum/Agile",
+    "Understanding business goals",
+    "Adapting to new technologies",
+    "Planning scalable architecture",
+    "Ensuring app quality and testing",
+    "Empathy in team relationships",
+    "Proactive efficiency seeking",
+    "Independence and initiative",
+    "Creativity in problem-solving",
+    "Ability to learn quickly",
+    "UX/UI interface design"
+  ]
+}

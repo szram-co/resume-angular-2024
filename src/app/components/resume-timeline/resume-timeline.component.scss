@@ -1,0 +1,305 @@
+@use 'sass:math';
+
+@import '../../../scss/app';
+
+.resume-timeline {
+  $logo-size: 75px;
+  $position-size: 1.5rem;
+  $line-gap-col: 1.5rem;
+  $line-gap-row: 3rem;
+
+  display: grid;
+  row-gap: $line-gap-row;
+  column-gap: $line-gap-col;
+  grid-template-columns: auto auto 1fr;
+  overflow: hidden;
+
+  @include media-breakpoint-down(lg) {
+    row-gap: math.div($line-gap-row, 1.5);
+    column-gap: math.div($line-gap-col, 1.5);
+  }
+
+  &__company {
+    --dot-size: 10px;
+    --company-logo-bg: var(--primary);
+    --company-logo-color: var(--secondary);
+    --company-dot: var(--company-dot);
+    --company-dot-next: var(--company-dot);
+    --company-highlight: var(--company-logo-bg);
+    --company-highlight-color: var(--company-logo-color);
+    --company-position-color: color-mix(in srgb, var(--company-dot), var(--bs-body-color) 15%);
+    --company-stack-color: var(--color-gray);
+
+    display: contents;
+
+    & *::selection {
+      color: var(--company-highlight-color);
+      background: var(--company-highlight);
+    }
+  }
+
+  &__logo {
+    max-width: rfs-value(100px);
+    box-sizing: border-box;
+
+    .company-color {
+      background: var(--company-logo-bg);
+    }
+
+    img {
+      box-sizing: border-box;
+      border: transparent 1px solid;
+      width: $logo-size;
+      max-width: rfs-value(100px);
+      min-width: rfs-value(70px);
+    }
+  }
+
+  &__dot {
+    --color-line-size: 3px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-self: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    width: calc(var(--dot-size) * 1.5);
+
+    // Line
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: math.div($position-size, 2);
+      transform: translateX(-50%);
+      width: var(--color-line-size);
+      height: calc(100% + $logo-size);
+      background: linear-gradient(to bottom, var(--company-dot) 40%, var(--company-dot-next));
+    }
+
+    // Dot
+    i {
+      box-sizing: border-box;
+      display: block;
+      width: var(--dot-size);
+      height: var(--dot-size);
+      position: absolute;
+      left: 50%;
+      top: math.div($position-size, 2);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+
+      &::before {
+        content: '';
+        display: block;
+        width: var(--dot-size);
+        height: var(--dot-size);
+        border-radius: 50%;
+        background: var(--company-dot);
+        border: 1px solid var(--company-dot);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        width: var(--dot-size);
+        height: var(--dot-size);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        background: var(--company-dot);
+        z-index: -1;
+        border-radius: 50%;
+        opacity: 0;
+      }
+    }
+  }
+
+  &__logo + &__dot {
+    --dot-size: 16px;
+
+    &:after {
+      top: 50%;
+      height: calc(100% + math.div($line-gap-row, 2));
+    }
+
+    i {
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      --animation-delay: 0.3s;
+
+      &::after {
+        animation: dot-pulse 3s ease-in-out;
+        animation-iteration-count: infinite;
+        animation-delay: var(--animation-delay);
+
+        @keyframes dot-pulse {
+          25%,
+          75% {
+            opacity: 0.1;
+          }
+          to {
+            transform: translate(-50%, -50%) scale(3);
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &__name {
+    font-family: $font-sans;
+    @include font-size(1.75rem);
+    font-style: italic;
+    align-self: center;
+    line-height: 2rem;
+    position: relative;
+    font-weight: 600;
+
+    @include media-breakpoint-down(lg) {
+      @include font-size(1.5rem);
+    }
+
+    span {
+      display: block;
+      position: relative;
+      top: 0.125rem;
+    }
+
+    em {
+      font-family: $font-base;
+      font-weight: 400;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      display: block;
+      @include font-size(1rem);
+      opacity: 0.5;
+
+      @include media-breakpoint-down(lg) {
+        @include font-size(0.875rem);
+      }
+    }
+  }
+
+  &__date {
+    font-family: $font-condensed;
+    font-style: italic;
+    justify-self: center;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.025rem;
+    color: var(--bs-body-color);
+    line-height: 1;
+
+    @include font-size(1.125rem);
+
+    @include media-breakpoint-down(lg) {
+      @include font-size(1rem);
+    }
+
+    .date-formatted {
+      display: block;
+      width: 150%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: 0.3s all ease;
+      white-space: nowrap;
+    }
+
+    .date-translated {
+      display: block;
+      opacity: 1;
+      transition: 0.3s all ease;
+      white-space: nowrap;
+    }
+
+    &--active {
+      .date-formatted {
+        opacity: 1;
+      }
+
+      .date-translated {
+        opacity: 0;
+      }
+    }
+  }
+
+  .date-start {
+    position: relative;
+    opacity: 0.5;
+  }
+
+  .date-end {
+    opacity: 0.5;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .date-current {
+    opacity: 1;
+    @include font-size(1.25rem);
+
+    @include media-breakpoint-down(lg) {
+      @include font-size(1.125rem);
+    }
+  }
+
+  &__position {
+    h4 {
+      color: var(--company-position-color);
+      font-family: $font-head;
+      line-height: 1;
+      font-weight: 400;
+      @include font-size($position-size);
+
+      @include media-breakpoint-down(lg) {
+        @include font-size($position-size - 0.25rem);
+      }
+    }
+
+    p {
+      @include font-size(1.125rem);
+      line-height: 2;
+      font-style: italic;
+      text-align: justify;
+      margin-bottom: 0;
+      @include media-breakpoint-down(lg) {
+        @include font-size(1rem);
+      }
+    }
+
+    &__stack {
+      display: flex;
+      padding: 0;
+      margin: 1rem 0 0;
+      list-style: none;
+      gap: 0.5rem;
+      line-height: 0.75rem;
+      color: var(--company-stack-color);
+
+      li {
+        display: block;
+        border: 1.5px solid var(--company-stack-color);
+        min-width: 3rem;
+        text-align: center;
+        padding: 0.35rem 0.25rem 0.15rem 0.25rem;
+        font-size: 0.875rem;
+        border-radius: 0.25rem;
+        line-height: 0.875rem;
+      }
+    }
+  }
+}
+
+.btn-show-more {
+  margin: 2rem 0 2rem 7rem;
+}

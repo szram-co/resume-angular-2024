@@ -1,0 +1,17 @@
+{
+  "name": "Patryk Szram",
+  "email": "patryk@szram.co",
+  "phone": "+48505646447",
+  "links": [
+    {
+      "key": "github",
+      "name": "GitHub",
+      "value": "https://github.com/szram-co/"
+    },
+    {
+      "key": "linkedin",
+      "name": "LinkedIn",
+      "value": "https://www.linkedin.com/in/patryk-szram/"
+    }
+  ]
+}

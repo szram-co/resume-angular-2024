@@ -1,0 +1,69 @@
+{
+  "HELLO": "Witaj, jestem<br />Patryk Szram",
+  "DESCRIPTION": [
+    "Od dekady rozwijam się jako programista zdobywając doświadczenie w web developmentcie, specjalizując się w projektowaniu responsywnych aplikacji webowych dostosowanych do potrzeb biznesowych klientów. Jestem zaangażowanym, szybko uczącym się samoukiem. Rozumiem dobre praktyki programowania, stawiane przede mną cele biznesowe oraz wymagania projektowe klientów.",
+    "Gotowość do podejmowania wyzwań zawsze była moją cechą charakterystyczną. Ciekawi mnie wszystko co związane jest z web developmentem. Architektura aplikacji, rozwijanie/utrzymywanie kodu, optymalizacja i automatyzacja procesów oraz projektowanie środowisk developerskich aby wykorzystywać technologie do zwiększania produktywność czy wydajność aplikacji. Posiadam umiejętności graficzne poparte doświadczeniem zawodowym w UX/UI i rozumiem procesy projektowania materiałów przeznaczonych do druku/publikacji."
+  ],
+  "DOWNLOAD": "Pobierz CV w PDF",
+  "HEAD": {
+    "EXPERIENCE": "Doświadczenie",
+    "SKILLS": "Umiejętności",
+    "TECHNOLOGIES": "Technologie"
+  },
+  "CITY": {
+    "WARSAW": "Warszawa"
+  },
+  "CITY_FROM": {
+    "WARSAW": "w Warszawie, Polska",
+    "GDANSK": "w Gdańsku, Polska",
+    "GRUDZIADZ": "w Grudziądzu, Polska"
+  },
+  "COUNTRY": {
+    "POLAND": "Polska"
+  },
+  "DATE": {
+    "YEAR": {
+      "ONE": "{{count}} rok",
+      "TWO": "{{count}} lata",
+      "OTHER": "{{count}} lat"
+    },
+    "MONTH": {
+      "ONE": "{{count}} miesiąc",
+      "TWO": "{{count}} miesiące",
+      "OTHER": "{{count}} miesięcy"
+    },
+    "AND": "i",
+    "PRESENT": "Obecnie"
+  },
+  "MONTH": {
+    "01": "Styczeń",
+    "02": "Luty",
+    "03": "Marzec",
+    "04": "Kwiecień",
+    "05": "Maj",
+    "06": "Czerwiec",
+    "07": "Lipiec",
+    "08": "Sierpień",
+    "09": "Wrzesień",
+    "10": "Październik",
+    "11": "Listopad",
+    "12": "Grudzień"
+  },
+  "BUTTON": {
+    "MORE": "Pokaż więcej",
+    "LESS": "Pokaż mniej"
+  },
+  "SKILLS": [
+    "Praca w Scrum/Agile",
+    "Zrozumienie celów biznesowych",
+    "Adaptacja do nowych technologii",
+    "Planowanie skalowalnej architektury",
+    "Dbałość o jakość i testowanie aplikacji",
+    "Empatia w relacjach zespołowych",
+    "Proaktywne poszukiwanie efektywności",
+    "Samodzielność i inicjatywa",
+    "Kreatywność w rozwiązywaniu wyzwań",
+    "Zdolność do szybkiego uczenia się",
+    "Projektowanie interfejsów UX/UI"
+  ]
+}

@@ -1,0 +1,86 @@
+@import '../../../scss/app';
+
+.resume-header {
+  font-family: $font-head;
+  @include font-size(1.75rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 3rem;
+  margin-top: 1.65rem;
+  margin-bottom: 1rem;
+}
+
+.resume-list {
+  display: block;
+  padding: 0;
+  margin: 0 0 3rem;
+  list-style: none;
+  line-height: 2.25rem;
+  font-size: 1rem;
+  margin-block-start: 1rem;
+  margin-block-end: 1.5rem;
+
+  &--courses {
+    line-height: 2rem;
+  }
+
+  small {
+    display: block;
+    font-size: 0.875rem;
+    font-style: italic;
+    font-family: $font-base;
+    margin-bottom: 1.5rem;
+  }
+
+  li {
+    padding: 0;
+    margin: 0;
+    font-size: 1.125rem;
+    font-style: italic;
+  }
+}
+
+.resume-bars {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 1rem;
+
+  &__name {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.125rem;
+    font-style: italic;
+  }
+
+  &__bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background: $color-1;
+
+    &__line {
+      height: 100%;
+      background: var(--brand-gradient);
+      border-radius: 0.25rem;
+    }
+
+    &__tooltip {
+      position: absolute;
+      top: 65%;
+      transform: translate(-150%, -50%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    &:hover &__tooltip {
+      opacity: 1;
+    }
+  }
+}

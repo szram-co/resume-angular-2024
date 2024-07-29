@@ -1,0 +1,310 @@
+[
+  {
+    "id": 1,
+    "name": "TypeScript",
+    "skillAssessment": false,
+    "type": "language",
+    "group": "frontend"
+  },
+  {
+    "id": 2,
+    "name": "JavaScript",
+    "skillAssessment": true,
+    "type": "language",
+    "group": "frontend"
+  },
+  {
+    "id": 3,
+    "name": "Stencil",
+    "skillAssessment": false,
+    "type": "frontend",
+    "group": "frontend"
+  },
+  {
+    "id": 4,
+    "name": "Storybook",
+    "skillAssessment": false,
+    "type": "frontend",
+    "group": "frontend"
+  },
+  {
+    "id": 5,
+    "name": "Angular",
+    "skillAssessment": true,
+    "type": "framework",
+    "group": "frontend"
+  },
+  {
+    "id": 6,
+    "name": "Web Components",
+    "skillAssessment": false,
+    "type": "frontend",
+    "group": "frontend"
+  },
+  {
+    "id": 7,
+    "name": "RxJS",
+    "skillAssessment": false,
+    "type": "library",
+    "group": "frontend"
+  },
+  {
+    "id": 8,
+    "name": "NGXS",
+    "skillAssessment": false,
+    "type": "library",
+    "group": "frontend"
+  },
+  {
+    "id": 9,
+    "name": "Karma",
+    "skillAssessment": false,
+    "type": "library",
+    "group": "frontend"
+  },
+  {
+    "id": 10,
+    "name": "Docker",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 11,
+    "name": "Nginx",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 12,
+    "name": "PHP",
+    "skillAssessment": true,
+    "type": "language",
+    "group": "backend"
+  },
+  {
+    "id": 13,
+    "name": "Vue",
+    "skillAssessment": false,
+    "type": "framework",
+    "group": "frontend"
+  },
+  {
+    "id": 14,
+    "name": "Webpack",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "frontend"
+  },
+  {
+    "id": 15,
+    "name": "Jasmine",
+    "skillAssessment": false,
+    "type": "library",
+    "group": "frontend"
+  },
+  {
+    "id": 16,
+    "name": "Electron",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "frontend"
+  },
+  {
+    "id": 17,
+    "name": "Laravel",
+    "skillAssessment": false,
+    "type": "framework",
+    "group": "backend"
+  },
+  {
+    "id": 18,
+    "name": "Wordpress",
+    "skillAssessment": false,
+    "type": "cms",
+    "group": "backend"
+  },
+  {
+    "id": 19,
+    "name": "Woocommerce",
+    "skillAssessment": false,
+    "type": "cms",
+    "group": "backend"
+  },
+  {
+    "id": 20,
+    "name": "Prestashop",
+    "skillAssessment": false,
+    "type": "framework",
+    "group": "backend"
+  },
+  {
+    "id": 21,
+    "name": "SCSS",
+    "skillAssessment": false,
+    "type": "preprocessor",
+    "group": "frontend"
+  },
+  {
+    "id": 22,
+    "name": "LESS",
+    "skillAssessment": false,
+    "type": "preprocessor",
+    "group": "frontend"
+  },
+  {
+    "id": 23,
+    "name": "SASS",
+    "skillAssessment": false,
+    "type": "preprocessor",
+    "group": "frontend"
+  },
+  {
+    "id": 24,
+    "name": "CSS",
+    "skillAssessment": false,
+    "type": "language",
+    "group": "frontend"
+  },
+  {
+    "id": 25,
+    "name": "SQL",
+    "skillAssessment": false,
+    "type": "language",
+    "group": "backend"
+  },
+  {
+    "id": 26,
+    "name": "Photoshop",
+    "skillAssessment": true,
+    "type": "design",
+    "group": "frontend"
+  },
+  {
+    "id": 27,
+    "name": "Illustrator",
+    "skillAssessment": false,
+    "type": "design",
+    "group": "frontend"
+  },
+  {
+    "id": 29,
+    "name": "Material UI",
+    "skillAssessment": false,
+    "type": "frontend",
+    "group": "frontend"
+  },
+  {
+    "id": 30,
+    "name": "Bootstrap",
+    "skillAssessment": false,
+    "type": "frontend",
+    "group": "frontend"
+  },
+  {
+    "id": 31,
+    "name": "CI/CD",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 32,
+    "name": "JIRA",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 33,
+    "name": "HTML5",
+    "skillAssessment": false,
+    "type": "language",
+    "group": "frontend"
+  },
+  {
+    "id": 34,
+    "name": "AJAX",
+    "skillAssessment": false,
+    "type": "web",
+    "group": "frontend"
+  },
+  {
+    "id": 35,
+    "name": "OS X",
+    "skillAssessment": false,
+    "type": "system",
+    "group": "backend"
+  },
+  {
+    "id": 36,
+    "name": "Unit testing",
+    "skillAssessment": true,
+    "type": "tool",
+    "group": "frontend"
+  },
+  {
+    "id": 37,
+    "name": "REST API",
+    "skillAssessment": false,
+    "type": "web",
+    "group": "frontend"
+  },
+  {
+    "id": 39,
+    "name": "Linux",
+    "skillAssessment": false,
+    "type": "system",
+    "group": "backend"
+  },
+  {
+    "id": 40,
+    "name": "jQuery",
+    "skillAssessment": false,
+    "type": "library",
+    "group": "frontend"
+  },
+  {
+    "id": 41,
+    "name": "PWA",
+    "skillAssessment": false,
+    "type": "web",
+    "group": "frontend"
+  },
+  {
+    "id": 43,
+    "name": "Firebase",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 44,
+    "name": "Vercel",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "backend"
+  },
+  {
+    "id": 45,
+    "name": "NPM",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "frontend"
+  },
+  {
+    "id": 46,
+    "name": "YARN",
+    "skillAssessment": false,
+    "type": "tool",
+    "group": "frontend"
+  },
+  {
+    "id": 47,
+    "name": "Windows",
+    "skillAssessment": false,
+    "type": "system",
+    "group": "backend"
+  }
+]

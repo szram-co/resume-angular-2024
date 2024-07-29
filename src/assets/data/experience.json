@@ -1,0 +1,130 @@
+[
+  {
+    "company": 1,
+    "name": {
+      "pl": "Specjalista IT",
+      "en": "IT Specialist"
+    },
+    "description": {
+      "pl": "We współpracy z agencją edukacyjną zajmowałem się obowiązkami dookoła biurowymi oraz przygotowywaniem sprzętu technologicznego do realizacji szkoleń. Zaprojektowałem stronę internetową agencji oraz odpowiadałem za zakup niezbędnego sprzętu do realizacji szkoleń. Początkowo asystując podczas realizacji planów szkoleniowych otrzymałem możliwość samodzielnego prowadzenia szkoleń edukacyjnych z zakresu projektowania stron internetowych.",
+      "en": "Collaborated with an educational agency, handling office duties and preparing technological equipment for training sessions. I designed the agency's website and managed the purchase of necessary equipment for training purposes. Initially assisting with training plans, I gained the opportunity to independently conduct educational sessions on website design."
+    },
+    "date": {
+      "from": "2009-06-01",
+      "to": "2011-11-30"
+    },
+    "technologies": [2, 12, 18, 24, 26, 27, 33, 34, 40]
+  },
+  {
+    "company": 2,
+    "name": {
+      "pl": "Web Developer",
+      "en": "Web Developer"
+    },
+    "description": {
+      "pl": "Miałem okazję projektować, tworzyć i utrzymywać wiele projektów internetowych. Moje umiejętności obejmowały PHP, HTML, CSS i JavaScript, a moje działania wykazały profesjonalizm i dbałość o jakość w każdym projekcie. Współpracując z narzędziami graficznymi, takimi jak Photoshop i Illustrator, opracowałem przyciągające uwagę i praktyczne rozwiązania. Praca w Flash-Media była ważnym etapem mojej kariery jako web developera, ponieważ umożliwiła mi zdobycie cennego doświadczenia w projektowaniu i tworzeniu różnych projektów internetowych oraz rozwijanie moich umiejętności w programowaniu i projektowaniu interfejsów użytkownika.",
+      "en": "Designing, creating, and maintaining numerous web projects using PHP, HTML, CSS, and JavaScript. Collaborating with graphic tools such as Photoshop and Illustrator to create attractive and functional solutions. Gaining valuable experience in designing and building various web projects, enhancing programming skills, and user interface design."
+    },
+    "date": {
+      "from": "2011-11-01",
+      "to": "2015-11-30"
+    },
+    "technologies": [1, 2, 12, 18, 24, 25, 33, 34, 40, 47]
+  },
+  {
+    "company": 3,
+    "name": {
+      "pl": "Fullstack Developer",
+      "en": "Fullstack Developer"
+    },
+    "description": {
+      "pl": "W roli Fullstack Developera na własnej działalności gospodarczej odpowiadałem za całość procesu organizacyjnego projektów. Zajmowałem się projektowaniem architektury, realizacją oraz deploymentem, a także bezpośrednią komunikacją z klientami. Moje zadania obejmowały zarówno aspekty techniczne, jak i relacyjne, zapewniając kompleksową obsługę projektów. Dbałem o efektywność działań, wysoką jakość kodu oraz satysfakcję klientów poprzez ścisłą współpracę i transparentność w procesie realizacji projektów.",
+      "en": "Responsible for the full project lifecycle, including architecture design, implementation, deployment, and direct client communication. Provided comprehensive project support by managing both technical aspects (coding, testing, deployment) and team relationships. Focus on work efficiency, maintaining high code quality, and ensuring client satisfaction through close collaboration and transparency in the project execution process."
+    },
+    "date": {
+      "from": "2015-11-01",
+      "to": "2017-03-31"
+    },
+    "technologies": [1, 2, 12, 13, 18, 19, 23, 24, 25, 33, 34, 35, 40, 43, 44, 45, 46]
+  },
+  {
+    "company": 5,
+    "name": {
+      "pl": "Lead Frontend Developer",
+      "en": "Lead Frontend Developer"
+    },
+    "description": {
+      "pl": "Odpowiadałem za całkowitą transformację technologiczną aplikacji internetowych. Nadzorowałem proces transformacji, aktywnie uczestnicząc przy wyborze technologii, planowaniu strategii oraz w procesach rekrutacyjnych. Przepisałem aplikacje z Polymer na framework Vue, zachowując przy tym całkowitą integralność. Zaprojektowałem aplikację do rysowania grafów, opierając się na standardach BPMN 2.0. Narzędzie umożliwiło tworzyć zoptymalizowane procesy, znacząco poprawiające wydajność hal produkcyjnych jednego z wiodących producentów z branży budowlanej i metalurgicznej w Polsce.",
+      "en": "Responsible for comprehensive technological transformation of web applications, from technology selection to strategic planning. Rewrote application from Polymer to Vue framework, maintaining full system integrity. Designed application for creating graphs compliant with BPMN 2.0 standards, significantly improving production efficiency."
+    },
+    "date": {
+      "from": "2018-11-01",
+      "to": "2020-05-31"
+    },
+    "technologies": [1, 2, 10, 12, 13, 14, 15, 16, 21, 23, 24, 33, 39, 45]
+  },
+  {
+    "company": 6,
+    "name": {
+      "pl": "Frontend Developer",
+      "en": "Frontend Developer"
+    },
+    "description": {
+      "pl": "Przed rozpoczęciem współpracy na stanowisku posiadałem wyłącznie teoretyczną wiedzę o technologii. Do pracy niezbędna była biegła znajomość frameworka Angular, NgXS oraz całkowite pojęcie zagadnień design systemu Material Design. To wszystko wraz z obsługą wszystkich narzędzi dookoła projektu stanowiło o wypełnieniu wszystkich wymagań i osiągnięcie stawianych przede mną celów biznesowych potrzebnych do uzyskania awansu na stanowisku.",
+      "en": "Advanced development of Angular framework, NgXS, and comprehensive understanding of Material Design system. Utilized key project tools to meet requirements and achieve business goals. Developed skills necessary for advancement to higher positions."
+    },
+    "date": {
+      "from": "2020-05-01",
+      "to": "2021-06-31"
+    },
+    "technologies": [1, 2, 5, 7, 8, 9, 11, 22, 24, 29, 31, 32, 33, 35, 36, 37, 41, 45]
+  },
+  {
+    "company": 6,
+    "name": {
+      "pl": "Senior Frontend Developer",
+      "en": "Senior Frontend Developer"
+    },
+    "description": {
+      "pl": "Do moich kluczowych obowiązków należało utrzymanie i rozwój wewnętrznej aplikacji internetowej CRM przeznaczonej dla wewnętrznych pracowników banku do obsługi klientów z całej europy. Zapewnienie najwyższej jakości kodu aplikacji, projektowanie i implementacja rozwiązań we współpracy z UX designerem. Bezustanna dbałość o pokrycie testami jednostkowymi na poziomie minimum 80% całego kodu źródłowego aplikacji.",
+      "en": "Maintained and developed internal CRM application for bank employees, ensuring support for clients across Europe. Ensured highest quality of application code, collaborated with UX designers on solution design and implementation. Focused on achieving at least 80% test coverage with unit tests."
+    },
+    "date": {
+      "from": "2021-07-01",
+      "to": "2023-12-31"
+    },
+    "technologies": [1, 2, 5, 7, 8, 9, 11, 22, 24, 29, 31, 32, 33, 35, 36, 37, 41, 45]
+  },
+  {
+    "company": 7,
+    "name": {
+      "pl": "Senior Frontend Developer",
+      "en": "Senior Frontend Developer"
+    },
+    "description": {
+      "pl": "Pod skrzydłami EagerDevs miałem okazję pracować w zespole odpowiedzialnym za projektowanie dedykowanego design systemu na zlecenie jednego z krajów arabskich. Design system projektowany był w oparciu o bibliotekę Stencil, która odpowiadała za kompilację napisanych przez nas komponentów do technologii Angular. Za pomocą Storybook prezentowaliśmy wszystkie sposoby konfiguracji komponentów dla klienta, który następnie implementował nasz design system w swoich aplikacjach.",
+      "en": "As part of EagerDevs, I had the opportunity to work with a team responsible for designing a dedicated design system for a client from an Arab country. The design system was based on the Stencil library, which allowed us to compile the components we developed into Angular technology. Using Storybook, we showcased all possible configurations of components to the client, who then implemented our design system in their applications."
+    },
+    "date": {
+      "from": "2024-06-01",
+      "to": "present"
+    },
+    "technologies": [1, 2, 3, 4, 5, 6, 21, 23, 24, 33, 46]
+  },
+  {
+    "company": 4,
+    "name": {
+      "pl": "Senior Fullstack Developer",
+      "en": "Senior Fullstack Developer"
+    },
+    "description": {
+      "pl": "Odpowiadałem za prace zespołów projektowych, priorytetem było zapewnienie wysokiej jakości dostarczanego kodu oraz efektywnej współpracy. Pełniąc funkcję koordynatora zespołu, dbałem o spójność w doborze technologii oraz efektywność działań. Aktywnie organizowałem szkolenia, mające na celu standaryzację podejścia developerów, eliminację błędów oraz rozwój umiejętności zespołu. Moje obowiązki obejmowały kompleksową koordynację przy realizacji projektów, począwszy od przygotowania środowiska dla zespołu, aż do deploymentu produkcyjnego.",
+      "en": "Supervision of project teams, ensuring high-quality code and effective collaboration. Technological coordination of projects, organizing training for developers. Comprehensive coordination of project implementation, from preparing the team's environment to production deployment."
+    },
+    "date": {
+      "from": "2017-03-01",
+      "to": "2018-11-30"
+    },
+    "technologies": [1, 2, 12, 13, 17, 18, 20, 21, 23, 24, 29, 30, 33, 34, 37, 39, 40, 45]
+  }
+]

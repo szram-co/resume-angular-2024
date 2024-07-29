@@ -1,0 +1,31 @@
+<h3 class="resume-header">{{ 'HEAD.SKILLS' | translate }}</h3>
+
+<ul class="resume-list">
+  <li *ngFor="let skill of 'SKILLS' | translate">
+    {{ skill }}
+  </li>
+</ul>
+
+<h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
+
+<div class="resume-bars">
+  <ng-container *ngFor="let technology of displayedTechnologies">
+    <div class="resume-bars__name">
+      {{ technology.name }}
+    </div>
+    <div class="resume-bars__bar">
+      <div class="resume-bars__bar__line" [ngStyle]="{ 'width.%': technology.experience }"></div>
+      <div class="resume-bars__bar__tooltip" [ngStyle]="{ 'left.%': technology.experience }">
+        {{ technology.experience }}%
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<button class="btn btn-sm btn-outline-light btn-show-more" (click)="toggleShowMore()">
+  {{
+    showMore
+      ? ('BUTTON.LESS' | translate)
+      : ('BUTTON.MORE' | translate) + ' (' + remainingTechnologiesCount + ')'
+  }}
+</button>
