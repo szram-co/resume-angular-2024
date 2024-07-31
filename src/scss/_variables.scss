@@ -30,6 +30,7 @@ $headings-font-family: $font-base;
 // Bootstrap icons
 $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 
+//$color-1: #131312;
 $color-1: #1a1a1a;
 $color-2: #02605c;
 $color-3: #2a9b91;
@@ -42,3 +43,6 @@ $body-bg: $color-1;
 
 $primary: lighten($color-3, 10%);
 $secondary: $color-2;
+
+$glow-left: #8d8c89;
+$glow-right: $color-3;

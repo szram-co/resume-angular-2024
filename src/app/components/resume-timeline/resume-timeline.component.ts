@@ -5,6 +5,8 @@ import { ResumeExperienceMapped } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { LanguageService } from '../../services/language.service'
 import { AppHoverClassDirective } from '../../directives/app-hover-class.directive'
+import { AppDestroy } from '../../abstract/AppDestroy.abstract'
+import { takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-resume-timeline',
@@ -22,7 +24,7 @@ import { AppHoverClassDirective } from '../../directives/app-hover-class.directi
   templateUrl: './resume-timeline.component.html',
   styleUrl: './resume-timeline.component.scss'
 })
-export class ResumeTimelineComponent implements OnInit {
+export class ResumeTimelineComponent extends AppDestroy implements OnInit {
   experiences: ResumeExperienceMapped[] = []
   showMore: boolean = false
 
@@ -32,11 +34,14 @@ export class ResumeTimelineComponent implements OnInit {
     private dataService: DataService,
     private translate: TranslateService,
     private language: LanguageService
-  ) {}
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.dataService
       .getCombinedExperience()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((experienceData: ResumeExperienceMapped[]) => {
         this.experiences = experienceData
       })

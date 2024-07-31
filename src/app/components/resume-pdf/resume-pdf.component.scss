@@ -1,0 +1,9 @@
+@import '../../../scss/app';
+
+$pdf-background: #fff;
+$pdf-color: #000;
+
+.resume-pdf {
+  color: $pdf-color;
+  background-color: $pdf-background;
+}

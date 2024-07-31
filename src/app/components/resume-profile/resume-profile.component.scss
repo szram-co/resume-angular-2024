@@ -1,17 +1,34 @@
 @import '../../../scss/app';
 
 .resume-profile {
-  padding-top: 3.5rem;
+  position: relative;
+
+  &:not(&--pdf) {
+    .resume-hello {
+      background: var(--brand-gradient);
+      color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &--pdf {
+    --bs-body-color: var(--color-1);
+
+    .resume-hello {
+      color: var(--color-3);
+    }
+
+    .resume-picture__overlay {
+      min-height: 24rem;
+    }
+  }
 }
 
 .resume-hello {
   font-family: $font-head;
   @include font-size(6rem);
   font-weight: 800;
-  background: var(--brand-gradient);
-  color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 
   @include media-breakpoint-down(xl) {
     @include font-size(5rem);
@@ -160,6 +177,7 @@
     }
 
     &.link-lg {
+      line-height: 3rem;
       font-family: $font-head;
       font-weight: 500;
 

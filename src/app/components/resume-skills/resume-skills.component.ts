@@ -3,6 +3,8 @@ import { TranslateModule } from '@ngx-translate/core'
 import { JsonPipe, NgForOf, NgStyle } from '@angular/common'
 import { ResumeTechnologyMapped } from '../../app.type'
 import { DataService } from '../../services/data.service'
+import { AppDestroy } from '../../abstract/AppDestroy.abstract'
+import { takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-resume-skills',
@@ -11,18 +13,23 @@ import { DataService } from '../../services/data.service'
   templateUrl: './resume-skills.component.html',
   styleUrl: './resume-skills.component.scss'
 })
-export class ResumeSkillsComponent implements OnInit {
+export class ResumeSkillsComponent extends AppDestroy implements OnInit {
   technologies: ResumeTechnologyMapped[] = []
   showMore: boolean = false
 
   private readonly TECHNOLOGIES_DISPLAYED = 15
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) {
+    super()
+  }
 
   ngOnInit() {
-    this.dataService.getCombinedTechnologies().subscribe((data) => {
-      this.technologies = data
-    })
+    this.dataService
+      .getCombinedTechnologies()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.technologies = data
+      })
   }
 
   get displayedTechnologies() {

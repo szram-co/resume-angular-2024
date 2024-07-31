@@ -1,0 +1,53 @@
+<button class="btn btn-primary btn-lg" (click)="downloadPDF()">Download PDF</button>
+
+<div #content class="resume-pdf" [ngStyle]="{ width: width + 'px' }">
+  <div class="row">
+    <div class="col col-lg-4 col-12">
+      <div class="resume-picture">
+        <div class="resume-picture__overlay">
+          <!--
+
+                <ul class="resume-contact" *ngIf="about">
+                  <li>
+                    <a class="link-lg" [href]="'mailto:' + about.email">
+                      {{ about.email }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="link-lg" [href]="'tel:' + about.phone">
+                      {{ about.phone }}
+                    </a>
+                  </li>
+                  <li class="resume-contact-space">
+                    {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+                  </li>
+                </ul>
+                <div class="resume-social" *ngIf="about?.links?.length">
+                  <ng-container *ngFor="let link of about.links">
+                    <a target="_blank" [href]="link.value" [title]="link.name">
+                      <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
+                    </a>
+                  </ng-container>
+                  <a href="#" target="_blank" [title]="'DOWNLOAD' | translate">
+                    <span class="bi bi-download fs-2"></span>
+                  </a>
+                </div>
+
+              -->
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
+      <div class="resume-positions">
+        <h5 class="resume-boxed d-inline-block">Senior Frontend Developer</h5>
+        <h5 class="resume-boxed d-inline-block">Fullstack Web Developer</h5>
+      </div>
+      <h1 class="resume-hello mb-5" [innerHTML]="'HELLO' | translate"></h1>
+      <div class="resume-description">
+        <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
+          {{ description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

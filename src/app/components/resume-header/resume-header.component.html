@@ -1,4 +1,50 @@
-<nav class="navbar navbar-expand fixed-top bg-body-gradient">
+<div [ngClass]="{ 'resume-header': true, 'resume-header--sticky': isScrolled }" #header>
+  <nav class="navbar navbar-expand navbar-background">
+    <div class="container">
+      <a class="navbar-brand mb-0 h1 text-light me-auto" href="/">resume.szram.co</a>
+      <ul class="navbar-nav align-items-center">
+        <ng-container *ngIf="links?.length">
+          <li class="nav-item" *ngFor="let link of links">
+            <a
+              target="_blank"
+              class="btn btn-link nav-link text-light"
+              [href]="link.value"
+              [title]="link.name"
+            >
+              <span [ngClass]="['bi', 'bi-' + link.key]"></span>
+            </a>
+          </li>
+        </ng-container>
+        <li class="nav-item d-block">
+          <div class="resume-vr"></div>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-link nav-link text-light text-decoration-none btn-lang"
+            role="button"
+            *ngIf="getCurrentLanguage() !== 'en'"
+            (click)="changeLanguage('en')"
+          >
+            EN
+          </button>
+          <button
+            class="btn btn-link nav-link text-light text-decoration-none btn-lang"
+            role="button"
+            *ngIf="getCurrentLanguage() !== 'pl'"
+            (click)="changeLanguage('pl')"
+          >
+            PL
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="resume-header-spacer" [ngStyle]="{ height: header.offsetHeight + 'px' }"></div>
+
+<!--
+<nav class="navbar navbar-expand fixed-top">
   <div class="container">
     <a class="navbar-brand mb-0 h1 text-light me-auto" href="/">resume.szram.co</a>
     <ul class="navbar-nav align-items-center">
@@ -38,3 +84,4 @@
     </ul>
   </div>
 </nav>
+-->

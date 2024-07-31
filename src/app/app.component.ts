@@ -1,11 +1,13 @@
-import { Component } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
+import { Router, RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common'
 import { ResumeHeaderComponent } from './components/resume-header/resume-header.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ResumeTimelineComponent } from './components/resume-timeline/resume-timeline.component'
 import { ResumeProfileComponent } from './components/resume-profile/resume-profile.component'
 import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.component'
+import { takeUntil } from 'rxjs'
+import { AppDestroy } from './abstract/AppDestroy.abstract'
 
 @Component({
   selector: 'app-root',
@@ -27,13 +29,35 @@ import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  constructor(private translate: TranslateService) {
-    // translate.setDefaultLang('en')
+export class AppComponent extends AppDestroy implements OnInit {
+  @ViewChild('pdfContainer', { read: ViewContainerRef }) pdfContainer!: ViewContainerRef
 
-    const browserLang = translate.getBrowserLang() ?? 'pl'
+  browserLang!: string
 
-    console.warn('@browserLang', browserLang)
-    translate.use(browserLang.match(/en|pl/) ? browserLang : 'en')
+  constructor(
+    private translate: TranslateService,
+    private router: Router
+  ) {
+    super()
+    this.browserLang = this.translate.getBrowserLang() ?? 'en'
+
+    translate.use(this.storageLang)
+  }
+
+  get storageLang() {
+    const lang = localStorage.getItem('LANG')
+    return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'en'
+  }
+
+  ngOnInit() {
+    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+      if (language.lang !== this.storageLang) {
+        localStorage.setItem('LANG', language.lang)
+      }
+    })
+  }
+
+  async loadPdfComponent() {
+    await this.router.navigate(['/resume-pdf'])
   }
 }
