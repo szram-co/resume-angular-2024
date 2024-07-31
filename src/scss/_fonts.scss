@@ -23,7 +23,6 @@
 }
 
 @font-face {
-  // ../assets/fonts/stolzl-500.woff2
   font-family: 'stolzl';
   src:
     url('../assets/fonts/stolzl-500.woff2') format('woff2'),
@@ -35,107 +34,74 @@
   font-stretch: normal;
 }
 
-// TODO: Expand others
+@font-face {
+  font-family: 'stolzl';
+  src:
+    url('../assets/fonts/stolzl-700.woff2') format('woff2'),
+    url('../assets/fonts/stolzl-700.woff') format('woff'),
+    url('../assets/fonts/stolzl-700.otf') format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
 
-//@font-face {
-//  font-family: 'stolzl';
-//  src:
-//    url('https://use.typekit.net/af/3a58ef/00000000000000007753c399/30/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/3a58ef/00000000000000007753c399/30/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/3a58ef/00000000000000007753c399/30/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: normal;
-//  font-weight: 700;
-//  font-stretch: normal;
-//}
-//
-//@font-face {
-//  font-family: 'poppins';
-//  src:
-//    url('https://use.typekit.net/af/bc20f3/00000000000000007735fdb1/30/l?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i4&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/bc20f3/00000000000000007735fdb1/30/d?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i4&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/bc20f3/00000000000000007735fdb1/30/a?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i4&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: italic;
-//  font-weight: 400;
-//  font-stretch: normal;
-//}
-//
-//@font-face {
-//  font-family: 'poppins';
-//  src:
-//    url('https://use.typekit.net/af/f2b266/00000000000000007735fdb4/30/l?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n4&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/f2b266/00000000000000007735fdb4/30/d?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n4&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/f2b266/00000000000000007735fdb4/30/a?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n4&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: normal;
-//  font-weight: 400;
-//  font-stretch: normal;
-//}
-//
-//@font-face {
-//  font-family: 'poppins';
-//  src:
-//    url('https://use.typekit.net/af/577dfc/00000000000000007735fdbc/30/l?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i5&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/577dfc/00000000000000007735fdbc/30/d?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i5&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/577dfc/00000000000000007735fdbc/30/a?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i5&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: italic;
-//  font-weight: 500;
-//  font-stretch: normal;
-//}
-//
-//@font-face {
-//  font-family: 'poppins';
-//  src:
-//    url('https://use.typekit.net/af/bf384f/00000000000000007735fdb7/30/l?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n5&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/bf384f/00000000000000007735fdb7/30/d?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n5&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/bf384f/00000000000000007735fdb7/30/a?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=n5&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: normal;
-//  font-weight: 500;
-//  font-stretch: normal;
-//}
-//
-//@font-face {
-//  font-family: 'elza';
-//  src:
-//    url('https://use.typekit.net/af/32d316/00000000000000007735f915/30/l?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i6&v=3')
-//      format('woff2'),
-//    url('https://use.typekit.net/af/32d316/00000000000000007735f915/30/d?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i6&v=3')
-//      format('woff'),
-//    url('https://use.typekit.net/af/32d316/00000000000000007735f915/30/a?primer=e6066692ab328d1a92bb155659ed6609b693e1e352f0e8982e4224719b13bdfb&fvd=i6&v=3')
-//      format('opentype');
-//  font-display: auto;
-//  font-style: italic;
-//  font-weight: 600;
-//  font-stretch: normal;
-//}
-//
-//.tk-futura-pt-condensed {
-//  font-family: 'futura-pt-condensed', sans-serif;
-//}
-//.tk-stolzl {
-//  font-family: 'stolzl', sans-serif;
-//}
-//.tk-poppins {
-//  font-family: 'poppins', sans-serif;
-//}
-//.tk-elza {
-//  font-family: 'elza', sans-serif;
-//}
+@font-face {
+  font-family: 'poppins';
+  src:
+    url('../assets/fonts/poppins-400-italic.woff2') format('woff2'),
+    url('../assets/fonts/poppins-400-italic.woff') format('woff'),
+    url('../assets/fonts/poppins-400-italic.otf') format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'poppins';
+  src:
+    url('../assets/fonts/poppins-400.woff2') format('woff2'),
+    url('../assets/fonts/poppins-400.woff') format('woff'),
+    url('../assets/fonts/poppins-400.otf') format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'poppins';
+  src:
+    url('../assets/fonts/poppins-500-italic.woff2') format('woff2'),
+    url('../assets/fonts/poppins-500-italic.woff') format('woff'),
+    url('../assets/fonts/poppins-500-italic.otf') format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 500;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'poppins';
+  src:
+    url('../assets/fonts/poppins-500.woff2') format('woff2'),
+    url('../assets/fonts/poppins-500.woff') format('woff'),
+    url('../assets/fonts/poppins-500.otf') format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'elza';
+  src:
+    url('../assets/fonts/elza-600-italic.woff2') format('woff2'),
+    url('../assets/fonts/elza-600-italic.woff') format('woff'),
+    url('../assets/fonts/elza-600-italic.otf') format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 600;
+  font-stretch: normal;
+}

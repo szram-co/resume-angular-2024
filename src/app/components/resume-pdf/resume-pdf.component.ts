@@ -4,6 +4,7 @@ import { jsPDF } from 'jspdf'
 import { ResumeProfileComponent } from '../resume-profile/resume-profile.component'
 import { NgForOf, NgIf, NgStyle } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
+import { font as futuraPtCondensed500Italic } from './fonts/futura-pt-condensed-500-italic'
 
 @Component({
   selector: 'app-resume-pdf',
@@ -50,6 +51,29 @@ export class ResumePdfComponent extends AppDestroy implements OnInit, AfterViewI
   async downloadPDF() {
     this.pdf = new jsPDF('portrait', 'px', [this.pageWidth, this.pageHeight], true)
     this.pdf.setFontSize(16)
+
+    // Set the font using the embedded Base64 data
+    this.pdf.addFileToVFS(futuraPtCondensed500Italic, 'futura-pt-condensed')
+
+    //adding the font to jspdf library
+    this.pdf.addFont(
+      '../../../assets/fonts/futura-pt-condensed-500-italic.woff2',
+      'futura-pt-condensed',
+      'italic',
+      500
+    )
+
+    console.warn('@fonts', this.pdf.getFontList())
+
+    // jsPDF.API.events.push([
+    //   'addFonts',
+    //   function () {
+    //     this.addFileToVFS('futura-pt-condensed-500-italic.ttf', font)
+    //     this.addFont('futura-pt-condensed-500-italic.ttf', 'futura-pt-condensed-500-italic', 'italic')
+    //   }
+    // ])
+
+    // this.pdf.setFont('futura-pt-condensed', 'italic', '500')
 
     this.pdf.html(this.contentElement, {
       callback: (doc) => {

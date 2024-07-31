@@ -28,7 +28,7 @@
 .resume-hello {
   font-family: $font-head;
   @include font-size(6rem);
-  font-weight: 800;
+  font-weight: 700;
 
   @include media-breakpoint-down(xl) {
     @include font-size(5rem);
