@@ -11,14 +11,24 @@
       <a class="navbar-brand mb-0 h1 text-light me-auto" href="/">resume.szram.co</a>
       <ul class="navbar-nav align-items-center">
         <ng-container *ngIf="links?.length">
-          <li class="nav-item" *ngFor="let link of links">
+          <li class="nav-item mx-1" *ngFor="let link of links">
             <a
               target="_blank"
-              class="btn btn-link nav-link text-light"
+              class="btn btn-link nav-link text-light link-scale"
               [href]="link.value"
               [title]="link.name"
             >
               <span [ngClass]="['bi', 'bi-' + link.key]"></span>
+            </a>
+          </li>
+          <li class="nav-item mx-1">
+            <a
+              class="btn btn-link nav-link text-light link-scale"
+              href="#"
+              [title]="'DOWNLOAD' | translate"
+              (click)="downloadPDF($event)"
+            >
+              <span class="bi bi-download"></span>
             </a>
           </li>
         </ng-container>
@@ -27,7 +37,7 @@
         </li>
         <li class="nav-item">
           <button
-            class="btn btn-link nav-link text-light text-decoration-none btn-lang"
+            class="btn btn-link nav-link text-light text-decoration-none btn-lang link-scale"
             role="button"
             *ngIf="getCurrentLanguage() !== 'en'"
             (click)="changeLanguage('en')"
@@ -35,7 +45,7 @@
             EN
           </button>
           <button
-            class="btn btn-link nav-link text-light text-decoration-none btn-lang"
+            class="btn btn-link nav-link text-light text-decoration-none btn-lang link-scale"
             role="button"
             *ngIf="getCurrentLanguage() !== 'pl'"
             (click)="changeLanguage('pl')"

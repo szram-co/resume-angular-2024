@@ -59,8 +59,4 @@ export class AppComponent extends AppDestroy implements OnInit {
       this.isReady = true
     })
   }
-
-  async loadPdfComponent() {
-    await this.router.navigate(['/resume-pdf'])
-  }
 }

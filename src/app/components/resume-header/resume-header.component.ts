@@ -1,15 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
 import { DataService } from '../../services/data.service'
 import { ResumeAboutLink } from '../../app.type'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { takeUntil } from 'rxjs'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-resume-header',
   standalone: true,
-  imports: [NgIf, NgClass, NgForOf, NgStyle],
+  imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule],
   templateUrl: './resume-header.component.html',
   styleUrl: './resume-header.component.scss'
 })
@@ -19,6 +20,7 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   isReady = false
 
   constructor(
+    private router: Router,
     private translate: TranslateService,
     private dataService: DataService
   ) {
@@ -38,6 +40,11 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
         this.links = data.links
         this.isReady = true
       })
+  }
+
+  async downloadPDF(event: MouseEvent) {
+    event.preventDefault()
+    await this.router.navigate(['/download-pdf'])
   }
 
   changeLanguage(language: string) {

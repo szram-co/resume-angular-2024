@@ -1,11 +1,12 @@
 import {
-  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild
 } from '@angular/core'
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
@@ -14,6 +15,7 @@ import { ResumeAbout } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { debounceTime, fromEvent, switchMap, takeUntil } from 'rxjs'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-resume-profile',
@@ -22,18 +24,17 @@ import { debounceTime, fromEvent, switchMap, takeUntil } from 'rxjs'
   templateUrl: './resume-profile.component.html',
   styleUrl: './resume-profile.component.scss'
 })
-export class ResumeProfileComponent
-  extends AppDestroy
-  implements OnInit, OnDestroy, AfterViewChecked
-{
+export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDestroy {
   @ViewChild('pictureContainer', { static: false }) pictureContainer!: ElementRef<HTMLDivElement>
   @Input() view: 'web' | 'pdf' = 'web'
+  @Output() isReady$ = new EventEmitter<boolean>()
 
   isReady = false
   about!: ResumeAbout
   profileImageSize!: { [key: string]: string }
 
   constructor(
+    private router: Router,
     private translate: TranslateService,
     private dataService: DataService,
     private cdr: ChangeDetectorRef
@@ -62,12 +63,13 @@ export class ResumeProfileComponent
       })
   }
 
-  ngAfterViewChecked() {
-    this.updateProfileImageSize()
-  }
-
   get isViewPDF() {
     return this.view === 'pdf'
+  }
+
+  async downloadPDF(event: MouseEvent) {
+    event.preventDefault()
+    await this.router.navigate(['/download-pdf'])
   }
 
   updateProfileImageSize() {

@@ -3,7 +3,7 @@ import { ResumePdfComponent } from './components/resume-pdf/resume-pdf.component
 
 export const routes: Routes = [
   {
-    path: 'resume-pdf',
+    path: 'download-pdf',
     component: ResumePdfComponent
   }
 ]

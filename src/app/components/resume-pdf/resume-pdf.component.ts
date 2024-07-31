@@ -1,12 +1,21 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  NgZone,
+  ViewChild
+} from '@angular/core'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { HTMLFontFace, jsPDF } from 'jspdf'
 import { ResumeProfileComponent } from '../resume-profile/resume-profile.component'
 import { NgForOf, NgIf, NgStyle } from '@angular/common'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ResumePDFFontFace } from '../../app.type'
 import { ResumeSkillsComponent } from '../resume-skills/resume-skills.component'
 import { ResumeTimelineComponent } from '../resume-timeline/resume-timeline.component'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-resume-pdf',
@@ -25,8 +34,6 @@ import { ResumeTimelineComponent } from '../resume-timeline/resume-timeline.comp
 })
 export class ResumePdfComponent extends AppDestroy implements AfterViewInit {
   @ViewChild('content', { static: false }) content!: ElementRef<HTMLDivElement>
-
-  @Input() filename: string = 'resume.pdf'
   @Input() width: number = 1420
 
   private readonly pageMargin: number = 80
@@ -38,12 +45,26 @@ export class ResumePdfComponent extends AppDestroy implements AfterViewInit {
   contentElement!: HTMLDivElement
   pdf!: jsPDF
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+    private cdRef: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {
     super()
+  }
+
+  get getCurrentLanguage() {
+    return this.translate.currentLang
   }
 
   ngAfterViewInit() {
     this.contentElement = this.content.nativeElement
+
+    this.ngZone.run(() => {
+      this.cdRef.detectChanges()
+      this.downloadPDF()
+    })
   }
 
   async downloadPDF() {
@@ -54,8 +75,10 @@ export class ResumePdfComponent extends AppDestroy implements AfterViewInit {
       fontFaces: this.fontFaces,
       x: this.pageMargin,
       y: 0,
-      callback: (doc) => {
-        doc.save(this.filename)
+      callback: async (doc) => {
+        const documentFilename: string = `resume-szram-${this.getCurrentLanguage}.pdf`
+        doc.save(documentFilename)
+        await this.router.navigate(['/'])
       }
     })
   }

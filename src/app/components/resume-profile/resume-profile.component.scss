@@ -175,7 +175,7 @@
     &.link-lg {
       line-height: 3rem;
       font-family: $font-head;
-      font-weight: 700;
+      font-weight: 800;
 
       @include media-breakpoint-up(xl) {
         @include font-size(2rem);
@@ -184,5 +184,18 @@
         @include font-size(1.75rem);
       }
     }
+  }
+}
+
+.resume-social {
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    --social-color: var(--secondary);
+    color: var(--color-5);
+    margin: 0 0.25rem;
   }
 }

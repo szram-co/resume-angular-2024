@@ -2,7 +2,7 @@
   <div [ngClass]="{ container: !isViewPDF, 'container-fluid': isViewPDF }">
     <div class="row">
       <div class="col col-lg-4 col-12">
-        <div class="resume-picture" #pictureContainer *ngIf="isReady">
+        <div class="resume-picture" #pictureContainer>
           <ng-container *ngIf="!isViewPDF">
             <div class="resume-picture__overlay">
               <ul class="resume-contact" *ngIf="about">
@@ -22,11 +22,16 @@
               </ul>
               <div class="resume-social" *ngIf="about?.links?.length">
                 <ng-container *ngFor="let link of about.links">
-                  <a target="_blank" [href]="link.value" [title]="link.name">
+                  <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
                     <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
                   </a>
                 </ng-container>
-                <a href="#" target="_blank" [title]="'DOWNLOAD' | translate">
+                <a
+                  [title]="'DOWNLOAD' | translate"
+                  class="link-scale"
+                  href="/download-pdf"
+                  (click)="downloadPDF($event)"
+                >
                   <span class="bi bi-download fs-2"></span>
                 </a>
               </div>
