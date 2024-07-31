@@ -16,6 +16,7 @@ import { takeUntil } from 'rxjs'
 export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   links!: ResumeAboutLink[]
   isScrolled: boolean = false
+  isReady = false
 
   constructor(
     private translate: TranslateService,
@@ -35,6 +36,7 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.links = data.links
+        this.isReady = true
       })
   }
 

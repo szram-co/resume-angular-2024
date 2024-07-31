@@ -1,7 +1,6 @@
 @use 'sass:math';
 
 @import 'scss/app';
-
 @import 'scss/fonts';
 
 // Layout & components
@@ -157,11 +156,12 @@ body {
 
 .resume-soft {
   font-family: $font-head;
-  @include font-size(3.25rem);
-  font-weight: 700;
+  @include font-size(3.75rem);
+  font-weight: 900;
   line-height: 3rem;
   margin-block-start: 1rem;
   margin-block-end: 2.5rem;
+  letter-spacing: 2px;
 }
 
 .nav-item--lang {

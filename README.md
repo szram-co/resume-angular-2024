@@ -1,4 +1,3 @@
-
 # ResumeAngular2024
 
 This project is an Angular application designed to manage and display professional experience and skills using data from JSON files.
@@ -10,6 +9,7 @@ This project is an Angular application designed to manage and display profession
 - [Installation](#installation)
 - [Development Server](#development-server)
 - [Build](#build)
+- [Fonts](#fonts)
 - [License](#license)
 
 ## About
@@ -141,6 +141,107 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Fonts
+
+### Adding Fonts to the Project
+
+To include custom fonts in your project, follow these steps:
+
+1. **Place Font Files**: Put your font files in the appropriate directory within your project, maintaining the structure as shown below:
+
+```
+assets
+└── fonts
+    ├── Mulish
+    │   ├── Mulish-Black.ttf
+    │   ├── Mulish-BlackItalic.ttf
+    │   ├── Mulish-Bold.ttf
+    │   ├── ...
+    ├── Poppins
+    │   ├── Poppins-Black.ttf
+    │   ├── Poppins-BlackItalic.ttf
+    │   ├── Poppins-Bold.ttf
+    │   ├── ...
+    └── SairaSemiCondensed
+        ├── SairaSemiCondensed-Bold.ttf
+        ├── SairaSemiCondensed-Medium.ttf
+        ├── ...
+```
+
+2. **SCSS Setup**: Use the `addFontFace` mixin to generate the `@font-face` rules for your fonts. Here's an example:
+
+```scss
+@include addFontFace(
+    (
+      family: 'Poppins',
+      url: '/assets/fonts/Poppins/',
+      src: (
+        (font: 'Poppins-Black.ttf', weight: 900, style: normal),
+        (font: 'Poppins-BlackItalic.ttf', weight: 900, style: italic),
+        (font: 'Poppins-ExtraBold.ttf', weight: 800, style: normal),
+        (font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: italic), // Add other font styles as needed
+      )
+    )
+);
+```
+
+3. **Angular Component Configuration**: Ensure you add the fonts in the `resume-pdf.component.ts` to enable seamless PDF generation:
+
+```typescript
+get fontFaces(): HTMLFontFace[] {
+  const addFontFace = (font: ResumePDFFontFace) => {
+    return font.src.map((src) => {
+      return {
+        src: [
+          {
+            url: `${font.url}${src.font}`,
+            format: src?.format ?? 'truetype'
+          }
+        ],
+        family: font.family,
+        style: src?.style ?? 'normal',
+        weight: src.weight
+      } as HTMLFontFace;
+    });
+  };
+
+  return [
+    ...addFontFace({
+      family: 'Mulish',
+      url: '/assets/fonts/Mulish/static/',
+      src: [
+        { font: 'Mulish-Black.ttf', weight: 900 },
+        { font: 'Mulish-ExtraBold.ttf', weight: 800 },
+        { font: 'Mulish-Bold.ttf', weight: 700 },
+        // Add other font styles as needed
+      ]
+    }),
+    ...addFontFace({
+      family: 'Poppins',
+      url: '/assets/fonts/Poppins/',
+      src: [
+        { font: 'Poppins-Black.ttf', weight: 900 },
+        { font: 'Poppins-BlackItalic.ttf', weight: 900, style: 'italic' },
+        { font: 'Poppins-ExtraBold.ttf', weight: 800 },
+        // Add other font styles as needed
+      ]
+    })
+  ];
+}
+
+// Setup fonts in jsPDF
+async downloadPDF() {
+  this.pdf = new jsPDF()
+
+  this.pdf.html(contentHTML, {
+    fontFaces: this.fontFaces,
+    callback: (doc) => {
+      doc.save(this.filename)
+    }
+  })
+}
+```
 
 ## License
 

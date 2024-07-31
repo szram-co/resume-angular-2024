@@ -1,107 +1,89 @@
-@font-face {
-  font-family: 'futura-pt-condensed';
-  src:
-    url('../assets/fonts/futura-pt-condensed-500-italic.woff2') format('woff2'),
-    url('../assets/fonts/futura-pt-condensed-500-italic.woff') format('woff'),
-    url('../assets/fonts/futura-pt-condensed-500-italic.otf') format('opentype');
-  font-display: auto;
-  font-style: italic;
-  font-weight: 500;
-  font-stretch: normal;
+// Mixin to generate a single @font-face
+// $font-family: Name of the font family
+// $font-url: URL to the directory containing the font files
+// $font-name: Name of the font file
+// $font-weight: Weight of the font
+// $font-style: Style of the font (default is normal)
+
+@mixin font-src($font-family, $font-url, $font-name, $font-weight, $font-style: normal) {
+  @font-face {
+    font-family: $font-family;
+    // Combines $font-url and $font-name to form the full path
+    src: url('#{$font-url}#{$font-name}') format('truetype');
+    font-display: auto;
+    font-style: $font-style;
+    font-weight: $font-weight;
+    font-stretch: normal;
+  }
 }
 
-@font-face {
-  font-family: 'futura-pt-condensed';
-  src:
-    url('../assets/fonts/futura-pt-condensed-700-italic.woff2') format('woff2'),
-    url('../assets/fonts/futura-pt-condensed-700-italic.woff') format('woff'),
-    url('../assets/fonts/futura-pt-condensed-700-italic.otf') format('opentype');
-  font-display: auto;
-  font-style: italic;
-  font-weight: 700;
-  font-stretch: normal;
+// Mixin to generate a collection of @font-face rules
+// $font: Map containing font family details and an array of font sources
+
+@mixin addFontFace($font) {
+  @each $src in map-get($font, src) {
+    $font-style: if(map-has-key($src, style), map-get($src, style), normal);
+    @include font-src(
+      map-get($font, family),
+      map-get($font, url),
+      map-get($src, font),
+      map-get($src, weight),
+      $font-style
+    );
+  }
 }
 
-@font-face {
-  font-family: 'stolzl';
-  src:
-    url('../assets/fonts/stolzl-500.woff2') format('woff2'),
-    url('../assets/fonts/stolzl-500.woff') format('woff'),
-    url('../assets/fonts/stolzl-500.otf') format('opentype');
-  font-display: auto;
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: normal;
-}
+// Directory structure for fonts:
+// Place your font files in the appropriate directory, e.g., /assets/fonts/{FontFamily}/
+// Example usage of the addFontFace mixin to create @font-face collections
 
-@font-face {
-  font-family: 'stolzl';
-  src:
-    url('../assets/fonts/stolzl-700.woff2') format('woff2'),
-    url('../assets/fonts/stolzl-700.woff') format('woff'),
-    url('../assets/fonts/stolzl-700.otf') format('opentype');
-  font-display: auto;
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: normal;
-}
+@include addFontFace(
+  (
+    family: 'Mulish',
+    url: '/assets/fonts/Mulish/static/',
+    src: (
+      (font: 'Mulish-Black.ttf', weight: 900, style: normal),
+      //(font: 'Mulish-BlackItalic.ttf', weight: 900, style: italic),
+      (font: 'Mulish-ExtraBold.ttf', weight: 800, style: normal),
+      //(font: 'Mulish-ExtraBoldItalic.ttf', weight: 800, style: italic),
+      (font: 'Mulish-Bold.ttf', weight: 700, style: normal),
+      //(font: 'Mulish-BoldItalic.ttf', weight: 700, style: italic),
+      (font: 'Mulish-SemiBold.ttf', weight: 600, style: normal),
+      //(font: 'Mulish-SemiBoldItalic.ttf', weight: 600, style: italic),
+      (font: 'Mulish-Medium.ttf', weight: 500, style: normal),
+      //(font: 'Mulish-MediumItalic.ttf', weight: 500, style: italic),
+      (font: 'Mulish-Regular.ttf', weight: 400, style: normal),
+      //(font: 'Mulish-RegularItalic.ttf', weight: 400, style: italic)
+    )
+  )
+);
 
-@font-face {
-  font-family: 'poppins';
-  src:
-    url('../assets/fonts/poppins-400-italic.woff2') format('woff2'),
-    url('../assets/fonts/poppins-400-italic.woff') format('woff'),
-    url('../assets/fonts/poppins-400-italic.otf') format('opentype');
-  font-display: auto;
-  font-style: italic;
-  font-weight: 400;
-  font-stretch: normal;
-}
+@include addFontFace(
+  (
+    family: 'Poppins',
+    url: '/assets/fonts/Poppins/',
+    src: (
+      (font: 'Poppins-Black.ttf', weight: 900, style: normal),
+      (font: 'Poppins-BlackItalic.ttf', weight: 900, style: italic),
+      (font: 'Poppins-ExtraBold.ttf', weight: 800, style: normal),
+      (font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: italic),
+      (font: 'Poppins-Bold.ttf', weight: 700, style: normal),
+      (font: 'Poppins-BoldItalic.ttf', weight: 700, style: italic),
+      (font: 'Poppins-Medium.ttf', weight: 500, style: normal),
+      (font: 'Poppins-MediumItalic.ttf', weight: 500, style: italic),
+      (font: 'Poppins-Regular.ttf', weight: 400, style: normal),
+      (font: 'Poppins-Italic.ttf', weight: 400, style: italic)
+    )
+  )
+);
 
-@font-face {
-  font-family: 'poppins';
-  src:
-    url('../assets/fonts/poppins-400.woff2') format('woff2'),
-    url('../assets/fonts/poppins-400.woff') format('woff'),
-    url('../assets/fonts/poppins-400.otf') format('opentype');
-  font-display: auto;
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: normal;
-}
-
-@font-face {
-  font-family: 'poppins';
-  src:
-    url('../assets/fonts/poppins-500-italic.woff2') format('woff2'),
-    url('../assets/fonts/poppins-500-italic.woff') format('woff'),
-    url('../assets/fonts/poppins-500-italic.otf') format('opentype');
-  font-display: auto;
-  font-style: italic;
-  font-weight: 500;
-  font-stretch: normal;
-}
-
-@font-face {
-  font-family: 'poppins';
-  src:
-    url('../assets/fonts/poppins-500.woff2') format('woff2'),
-    url('../assets/fonts/poppins-500.woff') format('woff'),
-    url('../assets/fonts/poppins-500.otf') format('opentype');
-  font-display: auto;
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: normal;
-}
-
-@font-face {
-  font-family: 'elza';
-  src:
-    url('../assets/fonts/elza-600-italic.woff2') format('woff2'),
-    url('../assets/fonts/elza-600-italic.woff') format('woff'),
-    url('../assets/fonts/elza-600-italic.otf') format('opentype');
-  font-display: auto;
-  font-style: italic;
-  font-weight: 600;
-  font-stretch: normal;
-}
+@include addFontFace(
+  (
+    family: 'Saira Semi Condensed',
+    url: '/assets/fonts/SairaSemiCondensed/',
+    src: (
+      (font: 'SairaSemiCondensed-Bold.ttf', weight: 700, style: normal),
+      (font: 'SairaSemiCondensed-Medium.ttf', weight: 500, style: normal)
+    )
+  )
+);

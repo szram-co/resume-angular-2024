@@ -2,7 +2,11 @@
 
 <div class="resume-timeline">
   <ng-container *ngFor="let experience of displayedExperiences; let experienceIndex = index">
-    <div class="resume-timeline__company" [ngStyle]="experience.company.style">
+    <div
+      class="resume-timeline__company"
+      *ngIf="experience?.company"
+      [ngStyle]="experience.company.style"
+    >
       <div class="resume-timeline__logo">
         <div class="company-color">
           <img [src]="'assets/images/' + experience.company.companyLogo" />

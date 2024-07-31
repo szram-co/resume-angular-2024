@@ -5,9 +5,10 @@
 
   &:not(&--pdf) {
     .resume-hello {
+      letter-spacing: 2px;
       background: var(--brand-gradient);
       color: transparent;
-      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }
@@ -18,17 +19,13 @@
     .resume-hello {
       color: var(--color-3);
     }
-
-    .resume-picture__overlay {
-      min-height: 24rem;
-    }
   }
 }
 
 .resume-hello {
   font-family: $font-head;
+  font-weight: 900;
   @include font-size(6rem);
-  font-weight: 700;
 
   @include media-breakpoint-down(xl) {
     @include font-size(5rem);
@@ -50,50 +47,54 @@
 
 .resume-boxed {
   font-family: $font-condensed;
-  @include font-size(1.25rem);
-  font-weight: 700;
-  font-style: italic;
+  @include font-size(1.125rem);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border: solid var(--bs-body-color);
+  border: 2px solid var(--bs-body-color);
   color: var(--bs-body-color);
   margin: 0 0.5rem 0.5rem 0;
+  border-radius: 0.35rem;
 
   @include media-breakpoint-up(xl) {
-    @include padding(0.45rem 2.25rem);
-    border-width: 3px;
+    @include padding(0.65rem 2.25rem);
   }
 
   @include media-breakpoint-down(xl) {
-    @include padding(0.25rem 1.5rem);
-    border-width: 2px;
+    @include padding(0.55rem 1.5rem);
   }
 
   @include media-breakpoint-down(lg) {
-    @include font-size(1.125rem);
-    @include padding(0.25rem 1.25rem);
+    @include font-size(1rem);
   }
 }
 
 .resume-description {
-  font-style: italic;
   @include font-size(1.125rem);
   font-weight: 400;
-  line-height: 2.25rem;
   text-align: justify;
 
   p {
+    line-height: 2.5rem;
     text-indent: 2rem;
+    color: var(--bs-body-color);
   }
 }
 
 .resume-picture {
   height: 100%;
   width: 100%;
-  background: url('../../../assets/images/profile-image.jpg') 45%;
-  background-size: cover;
   position: relative;
-  min-height: 35rem;
+  overflow: hidden;
+
+  img {
+    z-index: 0;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    transition: height 0.3s ease-in-out;
+  }
 
   @include media-breakpoint-down(lg) {
     background-position: 50% 10%;
@@ -104,27 +105,31 @@
   }
 
   &__overlay {
+    z-index: 1;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     padding: 8rem 0 3rem 0;
     text-align: center;
-    background: linear-gradient(
+    background-color: transparent;
+    background-image: linear-gradient(
       15deg,
       rgba($color-3, 1) 0%,
       rgba($color-2, 0.75) 55%,
       rgba($color-2, 0) 80%
     );
+
     @include media-breakpoint-down(lg) {
       padding: 4rem 0 1rem 0;
-      background: linear-gradient(
+      background-image: linear-gradient(
         5deg,
         rgba($color-3, 1) 0%,
         rgba($color-2, 0.75) 55%,
         rgba($color-2, 0) 80%
       );
     }
+
     @include media-breakpoint-down(md) {
       padding-top: 3rem;
     }
@@ -148,7 +153,7 @@
     margin: 0;
 
     @include media-breakpoint-down(xl) {
-      @include font-size(1.25rem);
+      @include font-size(1.125rem);
     }
   }
 
@@ -167,25 +172,16 @@
       color: var(--primary);
     }
 
-    &:not(&.link-lg) {
-      @include media-breakpoint-up(lg) {
-        @include font-size(1.5rem);
-      }
-      @include media-breakpoint-down(lg) {
-        @include font-size(1.25rem);
-      }
-    }
-
     &.link-lg {
       line-height: 3rem;
       font-family: $font-head;
-      font-weight: 500;
+      font-weight: 700;
 
       @include media-breakpoint-up(xl) {
-        @include font-size(1.75rem);
+        @include font-size(2rem);
       }
       @include media-breakpoint-down(xl) {
-        @include font-size(1.5rem);
+        @include font-size(1.75rem);
       }
     }
   }

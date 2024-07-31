@@ -6,7 +6,7 @@
   z-index: 99;
   position: fixed;
   left: 0;
-  top: 0;
+  top: -5rem;
   right: 0;
   width: 100%;
   backdrop-filter: var(--header-backdrop);
@@ -15,7 +15,7 @@
   transform: translateZ(0);
   background: rgba($body-bg, 0.5);
   contain: layout;
-  transition: 0.3s all ease;
+  transition: 1s all ease;
 
   &:before {
     content: '';
@@ -40,6 +40,10 @@
     &::before {
       opacity: 0.25;
     }
+  }
+
+  &--ready {
+    top: 0;
   }
 }
 

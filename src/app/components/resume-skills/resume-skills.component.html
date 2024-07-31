@@ -8,7 +8,7 @@
 
 <h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
 
-<div class="resume-bars">
+<div [ngClass]="{ 'resume-bars': true, 'resume-bars--pdf': isViewPDF }">
   <ng-container *ngFor="let technology of displayedTechnologies">
     <div class="resume-bars__name">
       {{ technology.name }}

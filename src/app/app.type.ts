@@ -84,3 +84,18 @@ export interface ResumeAbout {
   phone: string
   links: ResumeAboutLink[]
 }
+
+export type ResumePDFFontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000
+
+export interface ResumePDFFontSrc {
+  font: string
+  weight: ResumePDFFontWeight
+  style?: 'normal' | 'italic'
+  format?: 'truetype' | string
+}
+
+export interface ResumePDFFontFace {
+  family: string
+  url: string
+  src: ResumePDFFontSrc[]
+}

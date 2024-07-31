@@ -1,107 +1,122 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { jsPDF } from 'jspdf'
+import { HTMLFontFace, jsPDF } from 'jspdf'
 import { ResumeProfileComponent } from '../resume-profile/resume-profile.component'
 import { NgForOf, NgIf, NgStyle } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
-import { font as futuraPtCondensed500Italic } from './fonts/futura-pt-condensed-500-italic'
+import { ResumePDFFontFace } from '../../app.type'
+import { ResumeSkillsComponent } from '../resume-skills/resume-skills.component'
+import { ResumeTimelineComponent } from '../resume-timeline/resume-timeline.component'
 
 @Component({
   selector: 'app-resume-pdf',
   standalone: true,
-  imports: [ResumeProfileComponent, NgStyle, NgForOf, NgIf, TranslateModule],
+  imports: [
+    ResumeProfileComponent,
+    NgStyle,
+    NgForOf,
+    NgIf,
+    TranslateModule,
+    ResumeSkillsComponent,
+    ResumeTimelineComponent
+  ],
   templateUrl: './resume-pdf.component.html',
-  styleUrls: ['./resume-pdf.component.scss', '../resume-profile/resume-profile.component.scss']
+  styleUrl: './resume-pdf.component.scss'
 })
-export class ResumePdfComponent extends AppDestroy implements OnInit, AfterViewInit {
+export class ResumePdfComponent extends AppDestroy implements AfterViewInit {
   @ViewChild('content', { static: false }) content!: ElementRef<HTMLDivElement>
 
   @Input() filename: string = 'resume.pdf'
-  @Input() width: number = 1440
+  @Input() width: number = 1420
 
-  private readonly pageMargin: number = 100
+  private readonly pageMargin: number = 80
   private readonly pageAspectRatio: number = 1.414
 
   readonly pageWidth = this.width + this.pageMargin * 2
   readonly pageHeight = this.pageWidth * this.pageAspectRatio
 
-  private readonly imageFormat: string = 'PNG'
-  private readonly imageType: string = 'image/png'
-
   contentElement!: HTMLDivElement
-  contentRect!: DOMRect
-  contentWidth!: number
-
   pdf!: jsPDF
 
   constructor() {
     super()
   }
 
-  ngOnInit() {}
-
   ngAfterViewInit() {
     this.contentElement = this.content.nativeElement
-    this.contentRect = this.contentElement.getBoundingClientRect()
-    this.contentWidth = this.contentRect.width
-
-    // this.downloadPDF()
   }
 
   async downloadPDF() {
     this.pdf = new jsPDF('portrait', 'px', [this.pageWidth, this.pageHeight], true)
     this.pdf.setFontSize(16)
 
-    // Set the font using the embedded Base64 data
-    this.pdf.addFileToVFS(futuraPtCondensed500Italic, 'futura-pt-condensed')
-
-    //adding the font to jspdf library
-    this.pdf.addFont(
-      '../../../assets/fonts/futura-pt-condensed-500-italic.woff2',
-      'futura-pt-condensed',
-      'italic',
-      500
-    )
-
-    console.warn('@fonts', this.pdf.getFontList())
-
-    // jsPDF.API.events.push([
-    //   'addFonts',
-    //   function () {
-    //     this.addFileToVFS('futura-pt-condensed-500-italic.ttf', font)
-    //     this.addFont('futura-pt-condensed-500-italic.ttf', 'futura-pt-condensed-500-italic', 'italic')
-    //   }
-    // ])
-
-    // this.pdf.setFont('futura-pt-condensed', 'italic', '500')
-
     this.pdf.html(this.contentElement, {
+      fontFaces: this.fontFaces,
+      x: this.pageMargin,
+      y: 0,
       callback: (doc) => {
         doc.save(this.filename)
       }
     })
   }
 
-  // downloadPDF() {
-  //   // Generate PDF
-  //   html2canvas(this.contentElement, { scale: 1 }).then((canvas) => {
-  //     this.pdf = new jsPDF('portrait', 'px', [this.pageWidth, this.pageHeight], true)
-  //     this.pdf.setDisplayMode('fullwidth')
-  //     this.pdf.setFontSize(16)
-  //
-  //     const canvasData = canvas.toDataURL(this.imageType)
-  //     const canvasHeight = (canvas.height * this.contentWidth) / canvas.width
-  //
-  //     this.pdf.addImage(
-  //       canvasData,
-  //       this.imageFormat,
-  //       this.pageMargin,
-  //       0,
-  //       this.contentWidth,
-  //       canvasHeight
-  //     )
-  //
-  //     this.pdf.save(this.filename)
-  //   })
-  // }
+  get fontFaces(): HTMLFontFace[] {
+    const addFontFace = (font: ResumePDFFontFace) => {
+      return font.src.map((src) => {
+        return {
+          src: [
+            {
+              url: `${font.url}${src.font}`,
+              format: src?.format ?? 'truetype'
+            }
+          ],
+          family: font.family,
+          style: src?.style ?? 'normal',
+          weight: src.weight
+        } as HTMLFontFace
+      })
+    }
+
+    return [
+      // Mulish
+      ...addFontFace({
+        family: 'Mulish',
+        url: '/assets/fonts/Mulish/static/',
+        src: [
+          { font: 'Mulish-Black.ttf', weight: 900 },
+          { font: 'Mulish-ExtraBold.ttf', weight: 800 },
+          { font: 'Mulish-Bold.ttf', weight: 700 },
+          { font: 'Mulish-SemiBold.ttf', weight: 600 },
+          { font: 'Mulish-Medium.ttf', weight: 500 },
+          { font: 'Mulish-Regular.ttf', weight: 400 }
+        ]
+      }),
+      // Saira Semi Condensed
+      ...addFontFace({
+        family: 'Saira Semi Condensed',
+        url: '/assets/fonts/SairaSemiCondensed/',
+        src: [
+          { font: 'SairaSemiCondensed-Bold.ttf', weight: 700 },
+          { font: 'SairaSemiCondensed-Medium.ttf', weight: 500 }
+        ]
+      }),
+      // Poppins
+      ...addFontFace({
+        family: 'Poppins',
+        url: '/assets/fonts/Poppins/',
+        src: [
+          { font: 'Poppins-Black.ttf', weight: 900 },
+          { font: 'Poppins-BlackItalic.ttf', weight: 900, style: 'italic' },
+          { font: 'Poppins-ExtraBold.ttf', weight: 800 },
+          { font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
+          { font: 'Poppins-Bold.ttf', weight: 700 },
+          { font: 'Poppins-BoldItalic.ttf', weight: 700, style: 'italic' },
+          { font: 'Poppins-Medium.ttf', weight: 500 },
+          { font: 'Poppins-MediumItalic.ttf', weight: 500, style: 'italic' },
+          { font: 'Poppins-Regular.ttf', weight: 400 },
+          { font: 'Poppins-Italic.ttf', weight: 400, style: 'italic' }
+        ]
+      })
+    ]
+  }
 }

@@ -1,10 +1,7 @@
-/**
-  Fonts
- */
-$font-base: 'poppins', sans-serif;
-$font-condensed: 'futura-pt-condensed', sans-serif;
-$font-head: 'stolzl', sans-serif;
-$font-sans: 'elza', sans-serif;
+// Fonts
+$font-base: 'Poppins', sans-serif;
+$font-condensed: 'Saira Semi Condensed', sans-serif;
+$font-head: 'Mulish', sans-serif;
 
 $grid-breakpoints: (
   xs: 0,
@@ -38,8 +35,19 @@ $color-4: #9ac5c3;
 $color-5: #cbd4d9;
 $color-6: #e8e8e8;
 
-$body-color: $color-5;
-$body-bg: $color-1;
+// Dark
+$body-dark-color: $color-6;
+$body-dark-bg: $color-1;
+$body-dark-bg-gray: lighten($body-dark-bg, 10%);
+
+// Light
+$body-light-color: $color-1;
+$body-light-bg: $color-6;
+$body-light-bg-gray: $body-light-bg;
+
+// Override
+$body-bg: $body-dark-bg;
+$body-color: $body-dark-color;
 
 $primary: lighten($color-3, 10%);
 $secondary: $color-2;

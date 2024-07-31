@@ -1,10 +1,10 @@
 <section [ngClass]="{ 'resume-profile': true, 'resume-profile--pdf': isViewPDF }">
-  <div class="container">
+  <div [ngClass]="{ container: !isViewPDF, 'container-fluid': isViewPDF }">
     <div class="row">
       <div class="col col-lg-4 col-12">
-        <div class="resume-picture">
-          <div class="resume-picture__overlay">
-            <ng-container *ngIf="!isViewPDF">
+        <div class="resume-picture" #pictureContainer *ngIf="isReady">
+          <ng-container *ngIf="!isViewPDF">
+            <div class="resume-picture__overlay">
               <ul class="resume-contact" *ngIf="about">
                 <li>
                   <a class="link-lg" [href]="'mailto:' + about.email">
@@ -13,7 +13,7 @@
                 </li>
                 <li>
                   <a class="link-lg" [href]="'tel:' + about.phone">
-                    {{ about.phone }}
+                    {{ formatPhoneNumber(about.phone) }}
                   </a>
                 </li>
                 <li class="resume-contact-space">
@@ -30,8 +30,9 @@
                   <span class="bi bi-download fs-2"></span>
                 </a>
               </div>
-            </ng-container>
-          </div>
+            </div>
+          </ng-container>
+          <img src="/assets/images/profile-image.jpg" [ngStyle]="profileImageSize" />
         </div>
       </div>
       <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">

@@ -4,6 +4,8 @@ $pdf-background: #fff;
 $pdf-color: #000;
 
 .resume-pdf {
+  --bs-body-color: var(--color-1);
+
   color: $pdf-color;
   background-color: $pdf-background;
 }

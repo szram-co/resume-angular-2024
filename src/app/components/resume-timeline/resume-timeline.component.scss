@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import '../../../scss/app';
+@import 'app';
 
 .resume-timeline {
   $logo-size: 75px;
@@ -152,13 +152,13 @@
   }
 
   &__name {
-    font-family: $font-sans;
+    font-family: $font-head;
+    font-weight: 700;
     @include font-size(1.75rem);
     font-style: italic;
     align-self: center;
     line-height: 2rem;
     position: relative;
-    font-weight: 600;
 
     @include media-breakpoint-down(lg) {
       @include font-size(1.5rem);
@@ -188,7 +188,6 @@
 
   &__date {
     font-family: $font-condensed;
-    font-style: italic;
     justify-self: center;
     text-transform: uppercase;
     text-align: center;
@@ -196,10 +195,10 @@
     color: var(--bs-body-color);
     line-height: 1;
 
-    @include font-size(1.125rem);
+    @include font-size(1rem);
 
     @include media-breakpoint-down(lg) {
-      @include font-size(1rem);
+      @include font-size(0.875rem);
     }
 
     .date-formatted {
@@ -246,10 +245,10 @@
 
   .date-current {
     opacity: 1;
-    @include font-size(1.25rem);
+    @include font-size(1.126rem);
 
     @include media-breakpoint-down(lg) {
-      @include font-size(1.125rem);
+      @include font-size(1rem);
     }
   }
 
@@ -258,7 +257,7 @@
       color: var(--company-position-color);
       font-family: $font-head;
       line-height: 1;
-      font-weight: 400;
+      font-weight: 700;
       @include font-size($position-size);
 
       @include media-breakpoint-down(lg) {

@@ -32,6 +32,7 @@ import { AppDestroy } from './abstract/AppDestroy.abstract'
 export class AppComponent extends AppDestroy implements OnInit {
   @ViewChild('pdfContainer', { read: ViewContainerRef }) pdfContainer!: ViewContainerRef
 
+  isReady = false
   browserLang!: string
 
   constructor(
@@ -54,6 +55,8 @@ export class AppComponent extends AppDestroy implements OnInit {
       if (language.lang !== this.storageLang) {
         localStorage.setItem('LANG', language.lang)
       }
+
+      this.isReady = true
     })
   }
 
