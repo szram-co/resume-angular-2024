@@ -35,15 +35,15 @@ $color-4: #9ac5c3;
 $color-5: #cbd4d9;
 $color-6: #e8e8e8;
 
-// Dark
+// Dark: Default
 $body-dark-color: $color-6;
 $body-dark-bg: $color-1;
-$body-dark-bg-gray: lighten($body-dark-bg, 10%);
+$body-dark-bg-lighten: lighten($body-dark-bg, 10%);
 
 // Light
 $body-light-color: $color-1;
-$body-light-bg: $color-6;
-$body-light-bg-gray: $body-light-bg;
+$body-light-bg: #fff;
+$body-light-bg-darken: darken($body-light-bg, 10%);
 
 // Override
 $body-bg: $body-dark-bg;

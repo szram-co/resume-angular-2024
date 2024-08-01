@@ -8,6 +8,7 @@ import { ResumeProfileComponent } from './components/resume-profile/resume-profi
 import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.component'
 import { takeUntil } from 'rxjs'
 import { AppDestroy } from './abstract/AppDestroy.abstract'
+import { ResumePdfComponent } from './components/resume-pdf/resume-pdf.component'
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ import { AppDestroy } from './abstract/AppDestroy.abstract'
     TranslateModule,
     ResumeProfileComponent,
     ResumeTimelineComponent,
-    ResumeSkillsComponent
+    ResumeSkillsComponent,
+    ResumePdfComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

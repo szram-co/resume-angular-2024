@@ -43,6 +43,7 @@
   --font-size: 16px;
 
   --background: #{$body-bg};
+  --background-lighten: #{$body-dark-bg-lighten};
   --background-opacity: #{rgba($body-bg, 0.75)};
   --border: #{lighten($body-bg, 10%)};
   --color: #{$body-color};
@@ -52,6 +53,22 @@
 
   --brand-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
   --brand-gradient-radial: radial-gradient(ellipse at top, var(--border) 0%, var(--background) 90%);
+
+  --color-line-size: 3px;
+
+  // Logo background & color
+  --company-logo-b: var(--background);
+  --company-logo-c: var(--color);
+
+  // Timeline color and next company color line
+  --company-line-c: #{$body-light-bg-darken};
+
+  // Text highlight color & background
+  --company-text-b: var(--color);
+  --company-text-c: var(--background);
+
+  --resume-bar-color: var(--brand-gradient);
+  --resume-bar-background: #{$body-dark-bg-lighten};
 }
 
 ::selection {

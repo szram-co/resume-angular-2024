@@ -44,7 +44,7 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
 
   async downloadPDF(event: MouseEvent) {
     event.preventDefault()
-    await this.router.navigate(['/download-pdf'])
+    this.dataService.downloadResume$.emit(true)
   }
 
   changeLanguage(language: string) {

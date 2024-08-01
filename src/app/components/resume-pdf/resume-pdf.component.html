@@ -1,16 +1,160 @@
 <div #content class="resume-pdf" [ngStyle]="{ width: width + 'px' }">
-  <app-resume-profile view="pdf" />
+  <section class="resume-profile resume-profile--pdf">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-lg-4 col-12">
+          <div class="resume-picture">
+            <img src="/assets/images/profile-image.jpg" />
+          </div>
+        </div>
+        <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
+          <pre>{{ profileImageSize | json }}</pre>
+          <div class="resume-positions">
+            <h5 class="resume-boxed d-inline-block">Senior Frontend Developer</h5>
+            <h5 class="resume-boxed d-inline-block">Fullstack Web Developer</h5>
+          </div>
+          <h1 class="resume-hello mb-5" [innerHTML]="'HELLO' | translate"></h1>
+          <div class="resume-description">
+            <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
+              {{ description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="resume-line-x"></div>
+  <div class="container-fluid">
+    <div class="resume-line-x"></div>
+  </div>
 
   <section class="resume-experience">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row align-items-start">
         <div class="col col-lg-4 col-12 text-lg-end text-center order-lg-0 order-1">
-          <app-resume-skills view="pdf" />
+          <!-- SKILLS -->
+          <h3 class="resume-header">{{ 'HEAD.SKILLS' | translate }}</h3>
+          <ul class="resume-list">
+            <li *ngFor="let skill of 'SKILLS' | translate">
+              {{ skill }}
+            </li>
+          </ul>
+          <!-- TECHNOLOGIES -->
+          <h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
+          <div class="resume-bars">
+            <ng-container *ngFor="let technology of technologies">
+              <div class="resume-bars__name">
+                {{ technology.name }}
+              </div>
+              <div class="resume-bars__bar">
+                <div
+                  class="resume-bars__bar__line"
+                  [ngStyle]="{ 'width.%': technology.experience }"
+                ></div>
+                <div
+                  class="resume-bars__bar__tooltip"
+                  [ngStyle]="{ 'left.%': technology.experience }"
+                >
+                  {{ technology.experience }}%
+                </div>
+              </div>
+            </ng-container>
+          </div>
         </div>
         <div class="col col-lg-8 ps-lg-5 col-12 order-lg-1 order-0">
-          <!-- <app-resume-timeline /> -->
+          <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
+
+          <div class="resume-timeline">
+            <ng-container *ngFor="let experience of experiences; let experienceIndex = index">
+              <div
+                *ngIf="experience?.company"
+                class="resume-timeline__company"
+                [ngStyle]="{
+                  '--company-logo-b': experience.company.style?.['--company-logo-b'],
+                  '--company-logo-c': experience.company.style?.['--company-logo-c']
+                }"
+              >
+                <div class="resume-timeline__logo">
+                  <div class="company-color" #experienceLogo>
+                    <img
+                      *ngIf="experienceLogosMap?.[experienceIndex]"
+                      [src]="experienceLogosMap[experienceIndex]"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div
+                  [ngClass]="{
+                    'resume-timeline__dot': true,
+                    'resume-timeline__dot--first': experienceIndex === 0
+                  }"
+                >
+                  <i></i>
+                </div>
+                <div class="resume-timeline__name">
+                  <span>
+                    {{ experience.company.name }}
+                    <span class="resume-timeline__name__location">
+                      {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+                    </span>
+                  </span>
+                  <em>{{ calculateDatePeriod(experience) }}</em>
+                </div>
+
+                <ng-container
+                  *ngFor="let position of experience.positions; let positionIndex = index"
+                >
+                  <div class="resume-timeline__date">
+                    <div
+                      [ngClass]="{
+                        'date-end': true,
+                        'date-current': position.date.to === 'present'
+                      }"
+                    >
+                      <span class="date-translated">{{ translatedDate(position.date.to) }}</span>
+                      <span class="date-formatted">
+                        <ng-container *ngIf="position.date.to === 'present'">
+                          {{ 'DATE.PRESENT' | translate }}
+                        </ng-container>
+                        <ng-container *ngIf="position.date.to !== 'present'">
+                          {{ position.date.to }}
+                        </ng-container>
+                      </span>
+                    </div>
+                    <div class="date-start">
+                      <span class="date-translated">{{ translatedDate(position.date.from) }}</span>
+                      <span class="date-formatted">{{ position.date.from }}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="resume-timeline__dot"
+                    [ngStyle]="{
+                      '--company-line-b': 'var(--company-line-c)'
+                    }"
+                  >
+                    <i></i>
+                  </div>
+                  <div class="resume-timeline__position">
+                    <h4>{{ position.name[getCurrentLanguage] }}</h4>
+                    <p>{{ position.description[getCurrentLanguage] }}</p>
+                    <ul class="resume-timeline__position__stack">
+                      <li
+                        *ngFor="
+                          let tech of calculateTechnologies(position.technologies);
+                          let techIndex = index
+                        "
+                      >
+                        {{ tech.name }}
+                      </li>
+                      <li *ngIf="position.technologies.length > TECHNOLOGIES_DISPLAYED">
+                        + {{ position.technologies.length - TECHNOLOGIES_DISPLAYED }}
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

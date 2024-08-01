@@ -1,20 +1,10 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateModule } from '@ngx-translate/core'
 import { ResumeAbout } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { debounceTime, fromEvent, switchMap, takeUntil } from 'rxjs'
+import { takeUntil } from 'rxjs'
 import { Router } from '@angular/router'
 
 @Component({
@@ -25,19 +15,12 @@ import { Router } from '@angular/router'
   styleUrl: './resume-profile.component.scss'
 })
 export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDestroy {
-  @ViewChild('pictureContainer', { static: false }) pictureContainer!: ElementRef<HTMLDivElement>
-  @Input() view: 'web' | 'pdf' = 'web'
-  @Output() isReady$ = new EventEmitter<boolean>()
-
   isReady = false
   about!: ResumeAbout
-  profileImageSize!: { [key: string]: string }
 
   constructor(
     private router: Router,
-    private translate: TranslateService,
-    private dataService: DataService,
-    private cdr: ChangeDetectorRef
+    private dataService: DataService
   ) {
     super()
   }
@@ -45,43 +28,16 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDest
   ngOnInit() {
     this.dataService
       .getAbout()
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap((data) => {
-          this.about = data
-          this.isReady = true
-          this.updateProfileImageSize()
-          return this.translate.onLangChange.pipe(takeUntil(this.destroy$))
-        }),
-        switchMap(() => {
-          this.updateProfileImageSize()
-          return fromEvent(window, 'resize').pipe(debounceTime(50), takeUntil(this.destroy$))
-        })
-      )
-      .subscribe(() => {
-        this.updateProfileImageSize()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.about = data
+        this.isReady = true
       })
-  }
-
-  get isViewPDF() {
-    return this.view === 'pdf'
   }
 
   async downloadPDF(event: MouseEvent) {
     event.preventDefault()
-    await this.router.navigate(['/download-pdf'])
-  }
-
-  updateProfileImageSize() {
-    if (!this.isReady) return
-
-    if (this.pictureContainer) {
-      const containerRect = this.pictureContainer.nativeElement.getBoundingClientRect()
-      this.profileImageSize = {
-        height: containerRect.height + 'px'
-      }
-      this.cdr.detectChanges() // Trigger change detection manually
-    }
+    this.dataService.downloadResume$.emit(true)
   }
 
   formatPhoneNumber(phone: string): string {

@@ -1,3 +1,10 @@
 .bg-body-gradient {
   background: var(--gradient);
 }
+
+.resume-pdf-container {
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core'
+import { EventEmitter, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable } from 'rxjs'
+import { forkJoin, map, Observable, switchMap } from 'rxjs'
 import {
   ResumeAbout,
   ResumeCompany,
@@ -10,6 +10,7 @@ import {
   ResumeTechnologyMapped,
   ResumeTechnologyType
 } from '../app.type'
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ import {
 export class DataService {
   static technologiesMap = new Map<number, ResumeTechnology>()
   static companiesMap = new Map<number, ResumeCompany>()
+
+  downloadResume$ = new EventEmitter<boolean>()
 
   private priorityTechnologies = [
     ResumeTechnologyType.language,
@@ -32,16 +35,21 @@ export class DataService {
     ResumeTechnologyType.methodology
   ]
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
+  ) {
     this.getTechnologies().subscribe((technologies) => {
       technologies.forEach((technology) =>
         DataService.technologiesMap.set(technology.id, technology)
       )
     })
 
-    this.getCompanies().subscribe((companies) => {
-      companies.forEach((company) => DataService.companiesMap.set(company.id, company))
-    })
+    this.loadCompanies().subscribe()
+  }
+
+  getSvgContent(url: string): Observable<string> {
+    return this.http.get(url, { responseType: 'text' })
   }
 
   getAbout() {
@@ -49,7 +57,22 @@ export class DataService {
   }
 
   getCompanies() {
-    return this.http.get<ResumeCompany[]>('/assets/data/companies.json')
+    return this.http.get<ResumeCompany[]>('/assets/data/companies.json').pipe(
+      switchMap((companies) => {
+        // Load SVGs for each company
+        const svgLoaders = companies.map((company) =>
+          this.getSvgContent(`assets/images/${company.companyLogo}`).pipe(
+            map((svgContent) => {
+              company.companyLogo = svgContent
+              company.companyLogoContent = this.sanitizer.bypassSecurityTrustHtml(svgContent)
+              return company
+            })
+          )
+        )
+
+        return forkJoin(svgLoaders)
+      })
+    )
   }
 
   getTechnologies() {
@@ -60,13 +83,22 @@ export class DataService {
     return this.http.get<ResumeExperience[]>('/assets/data/experience.json')
   }
 
+  loadCompanies(): Observable<ResumeCompany[]> {
+    return this.getCompanies().pipe(
+      map((companies) => {
+        companies.forEach((company) => {
+          DataService.companiesMap.set(company.id, company)
+        })
+        return companies
+      })
+    )
+  }
+
   getCombinedTechnologies(): Observable<ResumeTechnologyMapped[]> {
     return this.getTechnologies().pipe(
       map((technologies) => {
-        // TODO: Count experience of technology
         return technologies.map<ResumeTechnologyMapped>((technology, index) => {
           let totalExperience = 90 - index * 2
-
           return {
             ...technology,
             experience: totalExperience
@@ -77,8 +109,8 @@ export class DataService {
   }
 
   getCombinedExperience(): Observable<ResumeExperienceMapped[]> {
-    return this.getExperiences().pipe(
-      map((experiences) => {
+    return forkJoin([this.getExperiences(), this.loadCompanies()]).pipe(
+      map(([experiences]) => {
         const experiencesByCompany = experiences
           .sort((a, b) => {
             const dateA = a.date.to === 'present' ? new Date() : new Date(a.date.to)
@@ -114,12 +146,5 @@ export class DataService {
         return Object.values(experiencesByCompany).reverse()
       })
     )
-  }
-
-  public calculateMonths(from: string, to: string | 'present'): number {
-    const startDate = new Date(from)
-    const endDate = to.toLowerCase() === 'present' ? new Date() : new Date(to)
-    const diff = endDate.getTime() - startDate.getTime()
-    return diff / ((1000 * 3600 * 24 * 365.25) / 12) // divide by milliseconds in a year
   }
 }

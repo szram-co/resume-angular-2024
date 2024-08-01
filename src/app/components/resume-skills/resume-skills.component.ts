@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { JsonPipe, NgClass, NgForOf, NgStyle } from '@angular/common'
 import { ResumeTechnologyMapped } from '../../app.type'
@@ -14,8 +14,6 @@ import { takeUntil } from 'rxjs'
   styleUrl: './resume-skills.component.scss'
 })
 export class ResumeSkillsComponent extends AppDestroy implements OnInit {
-  @Input() view: 'web' | 'pdf' = 'web'
-
   technologies: ResumeTechnologyMapped[] = []
   showMore: boolean = false
 
@@ -32,10 +30,6 @@ export class ResumeSkillsComponent extends AppDestroy implements OnInit {
       .subscribe((data) => {
         this.technologies = data
       })
-  }
-
-  get isViewPDF() {
-    return this.view === 'pdf'
   }
 
   get displayedTechnologies() {

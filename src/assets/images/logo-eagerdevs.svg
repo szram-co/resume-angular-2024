@@ -1,9 +1,9 @@
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-     width="862.000000pt" height="863.000000pt" viewBox="0 0 862.000000 863.000000"
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+     width="100%" height="100%" viewBox="0 0 862.000000 863.000000"
      preserveAspectRatio="xMidYMid meet">
 
   <g transform="translate(0.000000,863.000000) scale(0.100000,-0.100000)"
-     fill="#1a1a1a" stroke="none">
+     style="fill: var(--company-logo-c, #061049)" stroke="none">
     <path d="M1829 8178 c-9 -7 -89 -121 -179 -253 -324 -474 -400 -586 -422 -615
 l-22 -30 24 -57 c13 -32 96 -227 185 -433 89 -206 172 -400 184 -431 l23 -55
 -95 -135 c-53 -74 -121 -168 -151 -210 -32 -43 -56 -87 -56 -100 1 -19 26 -43

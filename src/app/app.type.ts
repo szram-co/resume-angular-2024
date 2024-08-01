@@ -1,3 +1,5 @@
+import { SafeHtml } from '@angular/platform-browser'
+
 export interface TranslatedValue<T = string> {
   pl: T
   en: T
@@ -43,6 +45,7 @@ export interface ResumeCompany {
   id: number
   name: string
   companyLogo: string
+  companyLogoContent: SafeHtml
   location: {
     city: string
     country: string

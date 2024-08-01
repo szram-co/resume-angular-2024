@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle, UpperCasePipe } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { ResumeExperienceMapped } from '../../app.type'
+import { ResumeExperienceMapped, ResumeTechnology } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { LanguageService } from '../../services/language.service'
 import { AppHoverClassDirective } from '../../directives/app-hover-class.directive'
@@ -28,7 +28,8 @@ export class ResumeTimelineComponent extends AppDestroy implements OnInit {
   experiences: ResumeExperienceMapped[] = []
   showMore: boolean = false
 
-  private readonly EXPERIENCES_DISPLAYED = 3
+  readonly EXPERIENCES_DISPLAYED: number = 3
+  readonly TECHNOLOGIES_DISPLAYED: number = 5
 
   constructor(
     private dataService: DataService,
@@ -57,6 +58,30 @@ export class ResumeTimelineComponent extends AppDestroy implements OnInit {
 
   toggleShowMore() {
     this.showMore = !this.showMore
+  }
+
+  computeNextPositionStyle(
+    currentExperienceIndex: number,
+    currentPositionIndex: number
+  ): { [key: string]: string } {
+    const nextExperienceIndex = currentExperienceIndex + 1
+
+    const hasNextExperience = nextExperienceIndex < this.experiences.length
+    const isLastExperiencePosition =
+      currentPositionIndex === this.experiences[currentExperienceIndex].positions.length - 1
+
+    const nextCompanyStyle =
+      hasNextExperience && isLastExperiencePosition
+        ? this.experiences[nextExperienceIndex].company.style
+        : this.experiences[currentExperienceIndex].company.style
+
+    return {
+      '--company-line-c-next': nextCompanyStyle?.['--company-line-c']
+    }
+  }
+
+  calculateTechnologies(technologies: ResumeTechnology[]) {
+    return technologies.slice(0, this.TECHNOLOGIES_DISPLAYED)
   }
 
   calculateDatePeriod(experience: ResumeExperienceMapped) {

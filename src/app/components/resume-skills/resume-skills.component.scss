@@ -42,20 +42,10 @@
 
 .resume-bars {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   align-items: center;
   gap: 1rem;
-
-  --bar-background: var(--brand-gradient);
-
-  &--pdf {
-    --bar-background: var(--color-3);
-  }
-
-  &--pdf &__bar {
-    background: $body-light-bg-gray;
-  }
 
   &__name {
     display: flex;
@@ -73,11 +63,11 @@
     position: relative;
     height: 0.5rem;
     border-radius: 0.25rem;
-    background: $color-1;
+    background: var(--resume-bar-background);
 
     &__line {
       height: 100%;
-      background: var(--bar-background);
+      background: var(--resume-bar-color);
       border-radius: 0.25rem;
     }
 

@@ -8,10 +8,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#fff",
-      "--company-logo-color": "#2e74ff",
-      "--company-dot": "#2e74ff",
-      "--company-highlight": "#061049"
+      "--company-logo-b": "#ffffff",
+      "--company-logo-c": "#061049",
+      "--company-line-c": "#2e74ff",
+      "--company-text-b": "var(--company-line-c)",
+      "--company-text-c": "var(--company-logo-b)"
     }
   },
   {
@@ -23,9 +24,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#fee600",
-      "--company-logo-color": "#000",
-      "--company-dot": "#fee600"
+      "--company-logo-b": "#fee600",
+      "--company-logo-c": "#1a1a1a",
+      "--company-line-c": "#fee600",
+      "--company-text-b": "var(--company-line-c)",
+      "--company-text-c": "var(--company-logo-c)"
     }
   },
   {
@@ -37,9 +40,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#241B3F",
-      "--company-logo-color": "#60ffff",
-      "--company-dot": "#60ffff"
+      "--company-logo-b": "#241B3F",
+      "--company-logo-c": "#60ffff",
+      "--company-line-c": "#60ffff",
+      "--company-text-b": "var(--company-line-c)",
+      "--company-text-c": "var(--company-logo-b)"
     }
   },
   {
@@ -51,9 +56,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#254cca",
-      "--company-logo-color": "#fff",
-      "--company-dot": "#254cca"
+      "--company-logo-b": "#254cca",
+      "--company-logo-c": "#ffffff",
+      "--company-line-c": "#254cca",
+      "--company-text-b": "var(--company-logo-b)",
+      "--company-text-c": "var(--company-logo-c)"
     }
   },
   {
@@ -65,9 +72,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#23476b",
-      "--company-logo-color": "#bad135",
-      "--company-dot": "#bad135"
+      "--company-logo-b": "#23476b",
+      "--company-logo-c": "#bad135",
+      "--company-line-c": "#bad135",
+      "--company-text-b": "var(--company-logo-b)",
+      "--company-text-c": "var(--company-logo-c)"
     }
   },
   {
@@ -79,9 +88,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#ffd200",
-      "--company-logo-color": "#000",
-      "--company-dot": "#ffd200"
+      "--company-logo-b": "#ffd200",
+      "--company-logo-c": "#000000",
+      "--company-line-c": "#ffd200",
+      "--company-text-b": "var(--company-logo-b)",
+      "--company-text-c": "var(--company-logo-c)"
     }
   },
   {
@@ -93,9 +104,11 @@
       "country": "poland"
     },
     "style": {
-      "--company-logo-bg": "#e73f12",
-      "--company-logo-color": "#fff",
-      "--company-dot": "#e73f12"
+      "--company-logo-b": "#e73f12",
+      "--company-logo-c": "#ffffff",
+      "--company-line-c": "#e73f12",
+      "--company-text-b": "var(--company-logo-b)",
+      "--company-text-c": "var(--company-logo-c)"
     }
   }
 ]

@@ -8,9 +8,7 @@
       [ngStyle]="experience.company.style"
     >
       <div class="resume-timeline__logo">
-        <div class="company-color">
-          <img [src]="'assets/images/' + experience.company.companyLogo" />
-        </div>
+        <div class="company-color" [innerHTML]="experience.company.companyLogoContent"></div>
       </div>
       <div
         [ngClass]="{
@@ -23,7 +21,9 @@
       <div class="resume-timeline__name">
         <span>
           {{ experience.company.name }}
-          {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+          <span class="resume-timeline__name__location">
+            {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+          </span>
         </span>
         <em>{{ calculateDatePeriod(experience) }}</em>
       </div>
@@ -48,13 +48,7 @@
         </div>
         <div
           class="resume-timeline__dot"
-          [ngStyle]="{
-            '--company-dot-next':
-              positionIndex === experience.positions.length - 1 &&
-              experiences.length > experienceIndex + 1
-                ? experiences[experienceIndex + 1].company.style['--company-dot']
-                : null
-          }"
+          [ngStyle]="computeNextPositionStyle(experienceIndex, positionIndex)"
         >
           <i></i>
         </div>
@@ -62,7 +56,17 @@
           <h4>{{ position.name[currentLanguage] }}</h4>
           <p>{{ position.description[currentLanguage] }}</p>
           <ul class="resume-timeline__position__stack">
-            <li>stack</li>
+            <li
+              *ngFor="
+                let tech of calculateTechnologies(position.technologies);
+                let techIndex = index
+              "
+            >
+              {{ tech.name }}
+            </li>
+            <li *ngIf="position.technologies.length > TECHNOLOGIES_DISPLAYED">
+              + {{ position.technologies.length - TECHNOLOGIES_DISPLAYED }}
+            </li>
           </ul>
         </div>
       </ng-container>

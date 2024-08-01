@@ -1,43 +1,40 @@
-<section [ngClass]="{ 'resume-profile': true, 'resume-profile--pdf': isViewPDF }">
-  <div [ngClass]="{ container: !isViewPDF, 'container-fluid': isViewPDF }">
+<section class="resume-profile">
+  <div class="container">
     <div class="row">
       <div class="col col-lg-4 col-12">
-        <div class="resume-picture" #pictureContainer>
-          <ng-container *ngIf="!isViewPDF">
-            <div class="resume-picture__overlay">
-              <ul class="resume-contact" *ngIf="about">
-                <li>
-                  <a class="link-lg" [href]="'mailto:' + about.email">
-                    {{ about.email }}
-                  </a>
-                </li>
-                <li>
-                  <a class="link-lg" [href]="'tel:' + about.phone">
-                    {{ formatPhoneNumber(about.phone) }}
-                  </a>
-                </li>
-                <li class="resume-contact-space">
-                  {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
-                </li>
-              </ul>
-              <div class="resume-social" *ngIf="about?.links?.length">
-                <ng-container *ngFor="let link of about.links">
-                  <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
-                    <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
-                  </a>
-                </ng-container>
-                <a
-                  [title]="'DOWNLOAD' | translate"
-                  class="link-scale"
-                  href="/download-pdf"
-                  (click)="downloadPDF($event)"
-                >
-                  <span class="bi bi-download fs-2"></span>
+        <div class="resume-picture resume-picture--viewer">
+          <div class="resume-picture__overlay">
+            <ul class="resume-contact" *ngIf="about">
+              <li>
+                <a class="link-lg" [href]="'mailto:' + about.email">
+                  {{ about.email }}
                 </a>
-              </div>
+              </li>
+              <li>
+                <a class="link-lg" [href]="'tel:' + about.phone">
+                  {{ formatPhoneNumber(about.phone) }}
+                </a>
+              </li>
+              <li class="resume-contact-space">
+                {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+              </li>
+            </ul>
+            <div class="resume-social" *ngIf="about?.links?.length">
+              <ng-container *ngFor="let link of about.links">
+                <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
+                  <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
+                </a>
+              </ng-container>
+              <a
+                [title]="'DOWNLOAD' | translate"
+                class="link-scale"
+                href="/download-pdf"
+                (click)="downloadPDF($event)"
+              >
+                <span class="bi bi-download fs-2"></span>
+              </a>
             </div>
-          </ng-container>
-          <img src="/assets/images/profile-image.jpg" [ngStyle]="profileImageSize" />
+          </div>
         </div>
       </div>
       <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
