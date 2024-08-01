@@ -6,7 +6,7 @@
   $logo-size: 75px;
   $position-size: 1.5rem;
   $line-gap-col: 1.5rem;
-  $line-gap-row: 3rem;
+  $line-gap-row: 2rem;
 
   display: grid;
   row-gap: $line-gap-row;
@@ -130,22 +130,22 @@
       transform: translate(-50%, -50%);
 
       --company-dot-animation-delay: 0.3s;
+    }
+  }
 
-      &::after {
-        animation: dot-pulse 3s ease-in-out;
-        animation-iteration-count: infinite;
-        animation-delay: var(--company-dot-animation-delay);
+  &:not(&--pdf) &__logo + &__dot i::after {
+    animation: dot-pulse 3s ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: var(--company-dot-animation-delay);
 
-        @keyframes dot-pulse {
-          25%,
-          75% {
-            opacity: 0.1;
-          }
-          to {
-            transform: translate(-50%, -50%) scale(3);
-            opacity: 0;
-          }
-        }
+    @keyframes dot-pulse {
+      25%,
+      75% {
+        opacity: 0.1;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
       }
     }
   }
@@ -258,11 +258,13 @@
 
   &__position {
     h4 {
-      font-family: $font-head;
-      line-height: 1;
-      font-weight: 700;
-      position: relative;
       @include font-size($position-size);
+      font-family: $font-head;
+      display: block;
+      line-height: 1;
+      font-weight: 800;
+      position: relative;
+      margin-bottom: 1rem;
 
       @include media-breakpoint-down(lg) {
         @include font-size($position-size - 0.25rem);
@@ -270,11 +272,13 @@
     }
 
     p {
-      @include font-size(1.125rem);
-      line-height: 2;
+      @include font-size($font-text-size);
+      @include rfs($font-text-line, line-height);
+      font-weight: 400;
       font-style: italic;
       text-align: justify;
-      margin-bottom: 0;
+      margin-bottom: 1rem;
+
       @include media-breakpoint-down(lg) {
         @include font-size(1rem);
       }
@@ -282,8 +286,9 @@
 
     &__stack {
       display: flex;
+      flex-wrap: wrap;
       padding: 0;
-      margin: 1rem 0 0;
+      margin: 0;
       list-style: none;
       gap: 0.5rem;
       line-height: 0.75rem;
@@ -308,5 +313,6 @@
 }
 
 .btn-show-more {
-  margin: 2rem 0 2rem 7rem;
+  margin-left: 9rem;
+  margin-bottom: 2rem;
 }

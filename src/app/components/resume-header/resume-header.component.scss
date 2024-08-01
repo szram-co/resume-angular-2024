@@ -1,25 +1,32 @@
 @import '../../../scss/app';
 
+$header-height: 54px;
+
+.resume-header-spacer {
+  width: 100%;
+  height: $header-height;
+}
+
 .resume-header {
   --header-backdrop: #{blur(0.75rem)};
 
   z-index: 99;
   position: fixed;
   left: 0;
-  top: -5rem;
+  top: -#{$header-height};
   right: 0;
   width: 100%;
+  height: $header-height;
   backdrop-filter: var(--header-backdrop);
   -webkit-backdrop-filter: var(--header-backdrop);
   will-change: backdrop-filter;
   transform: translateZ(0);
-  background: rgba($body-bg, 0.5);
   contain: layout;
-  transition: 1s all ease;
 
   &:before {
     content: '';
     position: absolute;
+    z-index: 0;
     left: 0;
     top: 0;
     right: 0;
@@ -34,16 +41,34 @@
     transition: 0.3s all ease;
   }
 
-  &--sticky {
-    background: rgba($body-bg, 0.75);
-
-    &::before {
-      opacity: 0.25;
-    }
+  &__background {
+    transition: opacity 0.3s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
   }
 
   &--ready {
-    top: 0;
+    animation: show-header 1s ease-in-out forwards;
+
+    @keyframes show-header {
+      from {
+        top: -#{$header-height};
+      }
+      to {
+        top: 0;
+      }
+    }
+  }
+
+  .navbar-background {
+    position: relative;
+    z-index: 1;
   }
 }
 

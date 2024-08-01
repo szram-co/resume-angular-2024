@@ -57,8 +57,8 @@
 
 .resume-boxed {
   font-family: $font-condensed;
-  @include font-size(1.125rem);
-  font-weight: 600;
+  @include font-size(1.25rem);
+  font-weight: 700;
   text-transform: uppercase;
   border: 2px solid var(--bs-body-color);
   color: var(--bs-body-color);
@@ -66,11 +66,11 @@
   border-radius: 0.35rem;
 
   @include media-breakpoint-up(xl) {
-    @include padding(0.65rem 2.25rem);
+    @include padding(0.34rem 1.5rem);
   }
 
   @include media-breakpoint-down(xl) {
-    @include padding(0.55rem 1.5rem);
+    @include padding(0.25rem 1.35rem);
   }
 
   @include media-breakpoint-down(lg) {
@@ -79,12 +79,12 @@
 }
 
 .resume-description {
-  @include font-size(1.125rem);
+  @include font-size($font-text-size);
   font-weight: 400;
   text-align: justify;
 
   p {
-    line-height: 2.5rem;
+    @include rfs($font-text-line, line-height);
     text-indent: 2rem;
     color: var(--bs-body-color);
   }

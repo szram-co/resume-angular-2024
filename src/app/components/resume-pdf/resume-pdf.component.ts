@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnInit,
   QueryList,
   ViewChild,
@@ -18,7 +17,6 @@ import {
   ResumeAbout,
   ResumeExperienceMapped,
   ResumePDFFontFace,
-  ResumeTechnology,
   ResumeTechnologyMapped
 } from '../../app.type'
 import { ResumeSkillsComponent } from '../resume-skills/resume-skills.component'
@@ -72,21 +70,16 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
   experiences: ResumeExperienceMapped[] = []
   experienceLogosMap: string[] = []
 
-  profileImageSize!: { [key: string]: string }
   pdf!: jsPDF
 
   isViewReady$ = new EventEmitter<boolean>()
   isInitDone$ = new EventEmitter<boolean>()
 
-  readonly EXPERIENCES_DISPLAYED: number = 3
-  readonly TECHNOLOGIES_DISPLAYED: number = 5
-
   constructor(
     private dataService: DataService,
     private router: Router,
     private translate: TranslateService,
-    private language: LanguageService,
-    private ngZone: NgZone
+    private language: LanguageService
   ) {
     super()
   }
@@ -105,7 +98,7 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
         takeUntil(this.destroy$),
         map(([aboutData, technologiesData, experienceData]) => {
           this.about = aboutData
-          this.technologies = technologiesData.slice(0, this.TECHNOLOGIES_DISPLAYED)
+          this.technologies = technologiesData
           this.experiences = experienceData
         }),
         switchMap(() => {
@@ -151,6 +144,10 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
     this.pdf.setFontSize(16)
 
     this.pdf.html(this.content.nativeElement, {
+      image: {
+        type: 'jpeg',
+        quality: 0.5
+      },
       autoPaging: 'text',
       fontFaces: this.fontFaces,
       x: this.pageMargin,
@@ -162,10 +159,6 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
         await this.router.navigate(['/'])
       }
     })
-  }
-
-  calculateTechnologies(technologies: ResumeTechnology[]) {
-    return technologies.slice(0, this.TECHNOLOGIES_DISPLAYED)
   }
 
   calculateDatePeriod(experience: ResumeExperienceMapped) {
@@ -229,17 +222,17 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
         url: '/assets/fonts/Mulish/static/',
         src: [
           { font: 'Mulish-Black.ttf', weight: 900 },
-          { font: 'Mulish-BlackItalic.ttf', weight: 900, style: 'italic' },
+          // { font: 'Mulish-BlackItalic.ttf', weight: 900, style: 'italic' },
           { font: 'Mulish-ExtraBold.ttf', weight: 800 },
-          { font: 'Mulish-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
-          { font: 'Mulish-Bold.ttf', weight: 700 },
-          { font: 'Mulish-BoldItalic.ttf', weight: 700, style: 'italic' },
-          { font: 'Mulish-SemiBold.ttf', weight: 600 },
-          { font: 'Mulish-SemiBoldItalic.ttf', weight: 600, style: 'italic' },
-          { font: 'Mulish-Medium.ttf', weight: 500 },
-          { font: 'Mulish-MediumItalic.ttf', weight: 500, style: 'italic' },
-          { font: 'Mulish-Regular.ttf', weight: 400 },
-          { font: 'Mulish-Italic.ttf', weight: 400, style: 'italic' }
+          // { font: 'Mulish-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
+          // { font: 'Mulish-Bold.ttf', weight: 700 },
+          // { font: 'Mulish-BoldItalic.ttf', weight: 700, style: 'italic' },
+          // { font: 'Mulish-SemiBold.ttf', weight: 600 },
+          // { font: 'Mulish-SemiBoldItalic.ttf', weight: 600, style: 'italic' },
+          // { font: 'Mulish-Medium.ttf', weight: 500 },
+          // { font: 'Mulish-MediumItalic.ttf', weight: 500, style: 'italic' },
+          { font: 'Mulish-Regular.ttf', weight: 400 }
+          // { font: 'Mulish-Italic.ttf', weight: 400, style: 'italic' }
         ]
       }),
       // Saira Semi Condensed
@@ -248,7 +241,7 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
         url: '/assets/fonts/SairaSemiCondensed/',
         src: [
           { font: 'SairaSemiCondensed-Bold.ttf', weight: 700 },
-          { font: 'SairaSemiCondensed-Medium.ttf', weight: 500 }
+          { font: 'SairaSemiCondensed-SemiBold.ttf', weight: 600 }
         ]
       }),
       // Poppins

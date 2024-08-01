@@ -5,7 +5,6 @@ import { DataService } from '../../services/data.service'
 import { ResumeAboutLink } from '../../app.type'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { takeUntil } from 'rxjs'
-import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-resume-header',
@@ -19,8 +18,9 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   isScrolled: boolean = false
   isReady = false
 
+  backgroundOpacity: number = 0.15 // Default opacity
+
   constructor(
-    private router: Router,
     private translate: TranslateService,
     private dataService: DataService
   ) {
@@ -30,6 +30,23 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 1
+
+    const scrollOpacityMin = 0.15
+    const scrollOpacityMax = 0.75
+
+    const scrollMin = 0
+    const scrollMax = window.innerHeight * 0.75
+
+    const scrollY = window.scrollY
+    const opacityRange = scrollOpacityMax - scrollOpacityMin
+
+    if (scrollY >= scrollMax) {
+      this.backgroundOpacity = scrollOpacityMax
+    } else if (scrollY <= scrollMin) {
+      this.backgroundOpacity = scrollOpacityMin
+    } else {
+      this.backgroundOpacity = scrollOpacityMin + (scrollY / scrollMax) * opacityRange
+    }
   }
 
   ngOnInit() {

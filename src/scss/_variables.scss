@@ -3,6 +3,19 @@ $font-base: 'Poppins', sans-serif;
 $font-condensed: 'Saira Semi Condensed', sans-serif;
 $font-head: 'Mulish', sans-serif;
 
+// Font sizes
+$font-h1-size: 5.5rem;
+$font-h1-line: $font-h1-size * 1.2;
+
+$font-h2-size: 3.75rem;
+$font-h2-line: $font-h2-size * 1.2;
+
+$font-h3-size: 1.875rem;
+$font-h3-line: $font-h3-size * 1.2;
+
+$font-text-size: 1.125rem;
+$font-text-line: $font-text-size * 2;
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,

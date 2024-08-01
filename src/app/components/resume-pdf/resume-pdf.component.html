@@ -8,10 +8,9 @@
           </div>
         </div>
         <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
-          <pre>{{ profileImageSize | json }}</pre>
           <div class="resume-positions">
-            <h5 class="resume-boxed d-inline-block">Senior Frontend Developer</h5>
-            <h5 class="resume-boxed d-inline-block">Fullstack Web Developer</h5>
+            <div class="resume-boxed d-inline-block">Senior Frontend Developer</div>
+            <div class="resume-boxed d-inline-block">Fullstack Web Developer</div>
           </div>
           <h1 class="resume-hello mb-5" [innerHTML]="'HELLO' | translate"></h1>
           <div class="resume-description">
@@ -33,7 +32,7 @@
       <div class="row align-items-start">
         <div class="col col-lg-4 col-12 text-lg-end text-center order-lg-0 order-1">
           <!-- SKILLS -->
-          <h3 class="resume-header">{{ 'HEAD.SKILLS' | translate }}</h3>
+          <h3 class="resume-header resume-header--first">{{ 'HEAD.SKILLS' | translate }}</h3>
           <ul class="resume-list">
             <li *ngFor="let skill of 'SKILLS' | translate">
               {{ skill }}
@@ -64,7 +63,7 @@
         <div class="col col-lg-8 ps-lg-5 col-12 order-lg-1 order-0">
           <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
 
-          <div class="resume-timeline">
+          <div class="resume-timeline resume-timeline--pdf">
             <ng-container *ngFor="let experience of experiences; let experienceIndex = index">
               <div
                 *ngIf="experience?.company"
@@ -138,16 +137,8 @@
                     <h4>{{ position.name[getCurrentLanguage] }}</h4>
                     <p>{{ position.description[getCurrentLanguage] }}</p>
                     <ul class="resume-timeline__position__stack">
-                      <li
-                        *ngFor="
-                          let tech of calculateTechnologies(position.technologies);
-                          let techIndex = index
-                        "
-                      >
+                      <li *ngFor="let tech of position.technologies; let techIndex = index">
                         {{ tech.name }}
-                      </li>
-                      <li *ngIf="position.technologies.length > TECHNOLOGIES_DISPLAYED">
-                        + {{ position.technologies.length - TECHNOLOGIES_DISPLAYED }}
                       </li>
                     </ul>
                   </div>

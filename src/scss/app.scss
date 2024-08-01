@@ -7,3 +7,20 @@
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/utilities';
+
+@mixin animation-fade($order: 1, $delay: 200ms) {
+  opacity: 0;
+  animation: fade-in 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: $order * $delay;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

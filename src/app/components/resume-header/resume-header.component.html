@@ -1,9 +1,8 @@
 <div
-  #header
+  *ngIf="isReady"
   [ngClass]="{
     'resume-header': true,
-    'resume-header--ready': isReady,
-    'resume-header--sticky': isScrolled
+    'resume-header--ready': isReady
   }"
 >
   <nav class="navbar navbar-expand navbar-background">
@@ -56,6 +55,8 @@
       </ul>
     </div>
   </nav>
+
+  <div class="resume-header__background" [ngStyle]="{ opacity: backgroundOpacity }"></div>
 </div>
 
-<div class="resume-header-spacer" [ngStyle]="{ height: header.offsetHeight + 'px' }"></div>
+<div class="resume-header-spacer"></div>

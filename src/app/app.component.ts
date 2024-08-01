@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
-import { Router, RouterOutlet } from '@angular/router'
+import { RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common'
 import { ResumeHeaderComponent } from './components/resume-header/resume-header.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -37,10 +37,7 @@ export class AppComponent extends AppDestroy implements OnInit {
   isReady = false
   browserLang!: string
 
-  constructor(
-    private translate: TranslateService,
-    private router: Router
-  ) {
+  constructor(private translate: TranslateService) {
     super()
     this.browserLang = this.translate.getBrowserLang() ?? 'en'
 

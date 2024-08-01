@@ -31,7 +31,10 @@ $pdf-color: #000;
       top: 0;
       left: 50%;
       height: 100%;
-      transition: height 0.3s ease-in-out;
     }
+  }
+
+  .resume-description {
+    font-weight: 500;
   }
 }
