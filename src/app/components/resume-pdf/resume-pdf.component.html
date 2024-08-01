@@ -70,8 +70,8 @@
                 *ngIf="experience?.company"
                 class="resume-timeline__company"
                 [ngStyle]="{
-                  '--company-logo-b': experience.company.style?.['--company-logo-b'],
-                  '--company-logo-c': experience.company.style?.['--company-logo-c']
+                  '--company-logo-b': experience?.company?.style?.['--company-logo-b'],
+                  '--company-logo-c': experience?.company?.style?.['--company-logo-c']
                 }"
               >
                 <div class="resume-timeline__logo">
