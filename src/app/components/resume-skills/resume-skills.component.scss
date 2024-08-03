@@ -55,6 +55,11 @@
   align-items: center;
   gap: 1rem;
 
+  @include media-breakpoint-down(sm) {
+    margin: 0 3rem;
+    grid-template-columns: auto 1fr;
+  }
+
   &__name {
     display: flex;
     justify-content: flex-end;

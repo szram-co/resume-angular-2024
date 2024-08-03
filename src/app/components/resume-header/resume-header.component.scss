@@ -78,6 +78,12 @@ $header-height: 54px;
   button {
     @include transitions(color);
   }
+
+  .navbar-nav {
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+  }
 }
 
 .btn-lang {

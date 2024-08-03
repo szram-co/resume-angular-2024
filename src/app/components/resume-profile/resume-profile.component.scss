@@ -75,11 +75,8 @@
   width: 100%;
   position: relative;
   min-height: 35rem;
-
-  &--viewer {
-    background: url('../../../assets/images/profile-image.jpg') 45%;
-    background-size: cover;
-  }
+  background: url('../../../assets/images/profile-image.jpg') 45%;
+  background-size: cover;
 
   @include media-breakpoint-down(lg) {
     background-position: 50% 10%;
@@ -124,7 +121,12 @@
     }
 
     @include media-breakpoint-down(md) {
+      top: 20%;
       padding-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
     }
   }
 }

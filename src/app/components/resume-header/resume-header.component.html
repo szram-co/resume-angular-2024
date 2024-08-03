@@ -7,7 +7,9 @@
 >
   <nav class="navbar navbar-expand navbar-background">
     <div class="container">
-      <a class="navbar-brand mb-0 h1 me-auto" [routerLink]="'/'">resume.szram.co</a>
+      <a class="navbar-brand mb-0 h1 me-auto d-none d-sm-inline-block" [routerLink]="'/'">
+        resume.szram.co
+      </a>
       <ul class="navbar-nav align-items-center">
         <ng-container *ngIf="links?.length">
           <li class="nav-item mx-1 link-scale" *ngFor="let link of links">
@@ -31,10 +33,10 @@
             </a>
           </li>
         </ng-container>
-        <li class="nav-item d-block">
+        <li class="nav-item d-none d-sm-block">
           <div class="resume-vr"></div>
         </li>
-        <li class="nav-item link-scale">
+        <li class="nav-item link-scale ms-auto ms-sm-0">
           <button
             class="btn btn-link nav-link text-decoration-none btn-lang"
             (click)="themeToggle()"

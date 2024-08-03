@@ -18,6 +18,10 @@
     column-gap: math.div($line-gap-col, 1.5);
   }
 
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: auto 1fr;
+  }
+
   &__company {
     // Timeline dot size
     --dot-size: 10px;
@@ -36,6 +40,10 @@
     width: rfs-value($logo-size);
     height: rfs-value($logo-size);
     box-sizing: border-box;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
 
     .company-color {
       width: 100%;
@@ -124,11 +132,19 @@
     &:after {
       top: 50%;
       height: calc(100% + math.div($line-gap-row, 2));
+
+      @include media-breakpoint-down(sm) {
+        top: 25%;
+      }
     }
 
     i {
       top: 50%;
       transform: translate(-50%, -50%);
+
+      @include media-breakpoint-down(sm) {
+        top: 25%;
+      }
 
       --company-dot-animation-delay: 0.3s;
     }
@@ -163,6 +179,10 @@
       @include font-size(1.5rem);
     }
 
+    @include media-breakpoint-down(sm) {
+      line-height: 1.4rem;
+    }
+
     > span {
       display: block;
       position: relative;
@@ -183,6 +203,12 @@
       @include media-breakpoint-down(lg) {
         @include font-size(0.875rem);
       }
+
+      @include media-breakpoint-down(sm) {
+        padding-top: 0.5rem;
+        position: relative;
+        top: 0;
+      }
     }
 
     &__location {
@@ -190,6 +216,10 @@
       @include font-size($position-size - 0.125rem);
       color: var(--color-gray);
       @include transitions(color);
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
     }
   }
 
@@ -207,6 +237,10 @@
 
     @include media-breakpoint-down(lg) {
       @include font-size(0.875rem);
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
     }
 
     .date-formatted {
@@ -321,9 +355,18 @@
   @include rfs($font-h2-line, line-height);
   margin-block-start: 0.6875rem;
   margin-block-end: 2.5rem;
+
+  @include media-breakpoint-down(sm) {
+    text-align: center;
+  }
 }
 
 .btn-show-more {
   margin-left: 9rem;
   margin-bottom: 2rem;
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
 }
