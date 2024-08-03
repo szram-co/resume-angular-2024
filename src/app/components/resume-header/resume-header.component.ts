@@ -2,14 +2,16 @@ import { Component, HostListener, OnInit } from '@angular/core'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
 import { DataService } from '../../services/data.service'
-import { ResumeAboutLink } from '../../app.type'
+import { ResumeAboutLink, ResumeThemeMode } from '../../app.type'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { takeUntil } from 'rxjs'
+import { RouterLink } from '@angular/router'
+import { ThemeService } from '../../services/theme.service'
 
 @Component({
   selector: 'app-resume-header',
   standalone: true,
-  imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule],
+  imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule, RouterLink],
   templateUrl: './resume-header.component.html',
   styleUrl: './resume-header.component.scss'
 })
@@ -21,6 +23,7 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   backgroundOpacity: number = 0.15 // Default opacity
 
   constructor(
+    private theme: ThemeService,
     private translate: TranslateService,
     private dataService: DataService
   ) {
@@ -59,16 +62,23 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
       })
   }
 
-  async downloadPDF(event: MouseEvent) {
-    event.preventDefault()
-    this.dataService.downloadResume$.emit(true)
-  }
-
   changeLanguage(language: string) {
     this.translate.use(language)
   }
 
   getCurrentLanguage() {
     return this.translate.currentLang
+  }
+
+  get isThemeDark() {
+    return this.theme.themeAttribute === ResumeThemeMode.DARK
+  }
+
+  get isThemeLight() {
+    return this.theme.themeAttribute === ResumeThemeMode.LIGHT
+  }
+
+  themeToggle() {
+    this.theme.themeToggle()
   }
 }

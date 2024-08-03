@@ -22,6 +22,7 @@
     // Timeline dot size
     --dot-size: 10px;
     --company-line-c-next: var(--company-line-c);
+    @include transitions(color);
 
     display: contents;
 
@@ -73,7 +74,7 @@
       left: 50%;
       top: math.div($position-size, 2);
       transform: translateX(-50%);
-      width: var(--color-line-size);
+      width: var(--company-line-s);
       height: calc(100% + $logo-size);
       background: var(--company-line-b);
     }
@@ -176,7 +177,8 @@
       top: 100%;
       display: block;
       @include font-size(1rem);
-      opacity: 0.5;
+      color: var(--color-gray);
+      @include transitions(color);
 
       @include media-breakpoint-down(lg) {
         @include font-size(0.875rem);
@@ -186,7 +188,8 @@
     &__location {
       font-weight: 400;
       @include font-size($position-size - 0.125rem);
-      opacity: 0.75;
+      color: var(--color-gray);
+      @include transitions(color);
     }
   }
 
@@ -196,7 +199,8 @@
     text-transform: uppercase;
     text-align: center;
     letter-spacing: 0.025rem;
-    color: var(--bs-body-color);
+    color: var(--color-gray);
+    @include transitions(color);
     line-height: 1;
 
     @include font-size(1rem);
@@ -213,14 +217,14 @@
       left: 50%;
       transform: translateX(-50%);
       opacity: 0;
-      transition: 0.3s all ease;
+      @include transitions(opacity);
       white-space: nowrap;
     }
 
     .date-translated {
       display: block;
       opacity: 1;
-      transition: 0.3s all ease;
+      @include transitions(opacity);
       white-space: nowrap;
     }
 
@@ -237,11 +241,9 @@
 
   .date-start {
     position: relative;
-    opacity: 0.5;
   }
 
   .date-end {
-    opacity: 0.5;
     font-weight: 600;
     margin-bottom: 0.75rem;
     position: relative;
@@ -292,12 +294,12 @@
       list-style: none;
       gap: 0.5rem;
       line-height: 0.75rem;
-      color: var(--color);
-      transition: 0.2s color ease;
 
       li {
         display: inline-flex;
-        border: 1px solid lighten($body-dark-bg, 30%);
+        @include transitions(border-color, color);
+        border: 1px solid var(--bs-secondary-bg);
+        color: var(--color-gray);
         min-width: 3rem;
         text-align: center;
         padding: 0.25rem 0.5rem;
@@ -306,10 +308,19 @@
         line-height: 1;
         align-items: center;
         justify-content: center;
-        transition: 0.2s border-color ease;
       }
     }
   }
+}
+
+.resume-soft {
+  @include transitions(color);
+  font-family: $font-head;
+  font-weight: 900;
+  @include font-size($font-h2-size);
+  @include rfs($font-h2-line, line-height);
+  margin-block-start: 0.6875rem;
+  margin-block-end: 2.5rem;
 }
 
 .btn-show-more {

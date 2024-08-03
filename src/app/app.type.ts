@@ -1,5 +1,10 @@
 import { SafeHtml } from '@angular/platform-browser'
 
+export enum ResumeThemeMode {
+  LIGHT = 'light',
+  DARK = 'dark'
+}
+
 export interface TranslatedValue<T = string> {
   pl: T
   en: T

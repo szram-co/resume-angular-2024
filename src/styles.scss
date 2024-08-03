@@ -1,9 +1,9 @@
-@use 'sass:math';
+@import 'app';
 
-@import 'scss/app';
+// Fonts
 @import 'scss/fonts';
 
-// Layout & components
+//Layout & components
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/type';
@@ -30,54 +30,41 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 :root {
-  --color-1: #{$color-1};
-  --color-2: #{$color-2};
-  --color-3: #{$color-3};
-  --color-4: #{$color-4};
-  --color-5: #{$color-5};
-  --color-6: #{$color-6};
+  --color-black: #{$color-black};
+  --color-gray: #{$color-gray};
+  --color-white: #{$color-white};
 
-  --color-gray: #{mix($body-bg, $body-color)};
+  --color-dark: #{$color-dark};
+  --color-brand-dark: #{$color-brand-dark};
+  --color-brand: #{$color-brand};
+  --color-brand-light: #{$color-brand-light};
+  --color-light: #{$color-light};
 
-  --font-family: #{$font-base};
-  --font-size: 16px;
+  --resume-transition-speed: 0.3s;
+  --resume-transition-type: ease;
 
-  --background: #{$body-bg};
-  --background-lighten: #{$body-dark-bg-lighten};
-  --background-opacity: #{rgba($body-bg, 0.75)};
-  --border: #{lighten($body-bg, 10%)};
-  --color: #{$body-color};
+  --bs-gradient: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
 
-  --primary: #{$primary};
-  --secondary: #{$secondary};
+  --company-line-s: 3px;
+  --company-logo-b: var(--bs-body-bg);
+  --company-logo-c: var(--bs-body-color);
+  --company-text-b: var(--bs-body-color);
+  --company-text-c: var(--bs-body-bg);
+}
 
-  --brand-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-  --brand-gradient-radial: radial-gradient(ellipse at top, var(--border) 0%, var(--background) 90%);
+@include color-mode(dark, true) {
+  --resume-bar-color: var(--bs-gradient);
+  --resume-bar-background: var(--bs-secondary-bg);
+}
 
-  --color-line-size: 3px;
-
-  // Logo background & color
-  --company-logo-b: var(--background);
-  --company-logo-c: var(--color);
-
-  // Timeline color and next company color line
-  --company-line-c: #{$body-light-bg-darken};
-
-  // Text highlight color & background
-  --company-text-b: var(--color);
-  --company-text-c: var(--background);
-
-  --resume-bar-color: var(--brand-gradient);
-  --resume-bar-background: #{$body-dark-bg-lighten};
+@include color-mode(light, true) {
+  --resume-bar-color: var(--bs-gradient);
+  --resume-bar-background: var(--bs-secondary-bg);
 }
 
 ::selection {
-  color: var(--color-5);
-  background: var(--color-4);
-}
-
-html {
-  font-size: var(--font-size);
+  color: var(--color-white);
+  background: var(--color-brand-dark);
 }
 
 html,
@@ -86,7 +73,7 @@ body {
 }
 
 body {
-  font-smooth: always;
+  @include transitions(background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -96,58 +83,20 @@ body {
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--background);
-    border: var(--border) 1px solid;
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-highlight-color);
     border-top: 0;
     border-bottom: 0;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, var(--primary), var(--secondary) 85%);
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary) 85%);
     outline: none;
   }
 }
 
-// Custom
-.resume-container {
-  margin: 0 auto;
-}
-
-.resume-line-x {
-  height: 3px;
-  width: 100%;
-  border-radius: 5px;
-  margin-bottom: 3rem;
-  background: var(--brand-gradient);
-  transition: 1s background-color ease;
-  position: relative;
-}
-
-.resume-contact-space {
-  padding: 3rem 0 2rem 0;
-  @include media-breakpoint-down(lg) {
-    padding: 1rem 0;
-  }
-  @include media-breakpoint-down(md) {
-    padding-bottom: 0.5rem;
-  }
-}
-
-.resume-soft {
-  font-family: $font-head;
-  font-weight: 900;
-  @include font-size($font-h2-size);
-  @include rfs($font-h2-line, line-height);
-  margin-block-start: 0.6875rem;
-  margin-block-end: 2.5rem;
-}
-
-.nav-item--lang {
-  width: 2.2rem;
-}
-
 .link-scale {
-  transition: 0.2s transform ease;
+  @include transitions(transform);
 
   &:hover {
     transform: rotate(5deg) scale(1.2);

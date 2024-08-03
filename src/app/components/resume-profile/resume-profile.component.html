@@ -28,8 +28,8 @@
               <a
                 [title]="'DOWNLOAD' | translate"
                 class="link-scale"
-                href="/download-pdf"
-                (click)="downloadPDF($event)"
+                target="_blank"
+                [href]="'/assets/resume-szram-' + currentLanguage + '.pdf'"
               >
                 <span class="bi bi-download fs-2"></span>
               </a>

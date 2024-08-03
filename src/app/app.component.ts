@@ -1,44 +1,39 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
-import { JsonPipe, NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common'
+import { AppDestroy } from './abstract/AppDestroy.abstract'
+import { TranslateService } from '@ngx-translate/core'
+import { takeUntil } from 'rxjs'
+import { NgClass, NgIf } from '@angular/common'
 import { ResumeHeaderComponent } from './components/resume-header/resume-header.component'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { ResumeTimelineComponent } from './components/resume-timeline/resume-timeline.component'
 import { ResumeProfileComponent } from './components/resume-profile/resume-profile.component'
 import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.component'
-import { takeUntil } from 'rxjs'
-import { AppDestroy } from './abstract/AppDestroy.abstract'
-import { ResumePdfComponent } from './components/resume-pdf/resume-pdf.component'
+import { ResumeTimelineComponent } from './components/resume-timeline/resume-timeline.component'
+import { ThemeService } from './services/theme.service'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    NgForOf,
-    NgIf,
-    JsonPipe,
-    ResumeHeaderComponent,
-    NgOptimizedImage,
-    NgStyle,
     NgClass,
-    TranslateModule,
+    NgIf,
+    ResumeHeaderComponent,
     ResumeProfileComponent,
-    ResumeTimelineComponent,
     ResumeSkillsComponent,
-    ResumePdfComponent
+    ResumeTimelineComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent extends AppDestroy implements OnInit {
-  @ViewChild('pdfContainer', { read: ViewContainerRef }) pdfContainer!: ViewContainerRef
-
-  isReady = false
   browserLang!: string
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private theme: ThemeService
+  ) {
     super()
+    this.theme.themeInitialize()
     this.browserLang = this.translate.getBrowserLang() ?? 'en'
 
     translate.use(this.storageLang)
@@ -54,8 +49,6 @@ export class AppComponent extends AppDestroy implements OnInit {
       if (language.lang !== this.storageLang) {
         localStorage.setItem('LANG', language.lang)
       }
-
-      this.isReady = true
     })
   }
 }

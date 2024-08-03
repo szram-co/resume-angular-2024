@@ -1,0 +1,153 @@
+<div #content class="resume-pdf" [ngStyle]="{ width: width + 'px' }" data-bs-theme="light">
+  <!-- profile -->
+  <div class="resume-row">
+    <div class="resume-col-left">
+      <div class="resume-picture-wrapper">
+        <div class="resume-picture">
+          <div class="resume-contact">
+            <ul class="resume-links" *ngIf="about">
+              <li>
+                <a class="link-lg" [href]="'mailto:' + about.email">
+                  {{ about.email }}
+                </a>
+              </li>
+              <li>
+                <a class="link-lg" [href]="'tel:' + about.phone">
+                  {{ formatPhoneNumber(about.phone) }}
+                </a>
+              </li>
+              <li class="resume-contact-space">
+                {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+              </li>
+            </ul>
+          </div>
+          <img class="resume-gradient" src="/assets/images/gradient_img.png" />
+          <img class="resume-image" src="/assets/images/profile-image.jpg" />
+        </div>
+      </div>
+    </div>
+    <div class="resume-col-right">
+      <div class="resume-boxes">
+        <div class="resume-box">Senior Frontend Developer</div>
+        <div class="resume-box">Fullstack Web Developer</div>
+      </div>
+      <div class="resume-hello">
+        <h1 [innerHTML]="'HELLO' | translate"></h1>
+      </div>
+      <div class="resume-desc">
+        <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
+          {{ description }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="resume-line-x"></div>
+
+  <div class="resume-row">
+    <div class="resume-col-left">
+      <!-- skills -->
+      <h3 class="resume-header resume-header--first">{{ 'HEAD.SKILLS' | translate }}</h3>
+      <ul class="resume-list">
+        <li *ngFor="let skill of 'SKILLS' | translate">
+          {{ skill }}
+        </li>
+      </ul>
+
+      <h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
+      <ng-container *ngFor="let technology of technologies; let technologyIndex = index">
+        <div [ngClass]="['break-skill-' + getCurrentLanguage + '-' + technologyIndex]"></div>
+        <div class="resume-bar">
+          <div class="resume-bar__name">
+            {{ technology.name }}
+          </div>
+          <div class="resume-bar__bar">
+            <div
+              class="resume-bar__bar__line"
+              [ngStyle]="{ 'width.%': technology.experience }"
+            ></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="resume-col-right">
+      <!-- experience -->
+      <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
+      <div class="resume-timeline">
+        <div class="company-timeline"></div>
+        <ng-container *ngFor="let experience of experiences; let experienceIndex = index">
+          <div
+            class="company"
+            [ngStyle]="{
+              '--company-logo-b': experience?.company?.style?.['--company-logo-b'],
+              '--company-logo-c': experience?.company?.style?.['--company-logo-c']
+            }"
+          >
+            <div [ngClass]="['break-company-' + getCurrentLanguage + '-' + experienceIndex]"></div>
+            <div class="company-row company-row--center">
+              <div class="company-col-box">
+                <div class="company-logo" #experienceLogo>
+                  <img
+                    *ngIf="experienceLogosMap?.[experienceIndex]"
+                    [src]="experienceLogosMap[experienceIndex]"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div class="company-col-dot">
+                <div class="dot"></div>
+              </div>
+              <div class="company-col-content">
+                <div class="company-name">
+                  <div class="company-dot"></div>
+                  {{ experience.company.name }}
+                  <span class="company-location">
+                    {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+                  </span>
+                  <div class="company-period">{{ calculateDatePeriod(experience) }}</div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngFor="let position of experience.positions; let positionIndex = index">
+              <div
+                [ngClass]="[
+                  'break-position-' +
+                    getCurrentLanguage +
+                    '-' +
+                    experienceIndex +
+                    '-' +
+                    positionIndex
+                ]"
+              ></div>
+              <div class="company-row">
+                <div class="company-col-box">
+                  <div class="company-date">
+                    <div class="date-to">{{ translatedDate(position.date.to) }}</div>
+                    <div class="date-from">{{ translatedDate(position.date.from) }}</div>
+                  </div>
+                </div>
+                <div class="company-col-dot">
+                  <div class="dot dot--sm"></div>
+                </div>
+                <div class="company-col-content">
+                  <div class="company-position">
+                    <div class="company-dot"></div>
+                    <h4>
+                      {{ position.name[getCurrentLanguage] }}
+                    </h4>
+                    <p>{{ position.description[getCurrentLanguage] }}</p>
+                    <ul class="company-stack">
+                      <li *ngFor="let tech of position.technologies">
+                        {{ tech.name }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

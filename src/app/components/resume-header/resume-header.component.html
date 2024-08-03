@@ -7,25 +7,25 @@
 >
   <nav class="navbar navbar-expand navbar-background">
     <div class="container">
-      <a class="navbar-brand mb-0 h1 text-light me-auto" href="/">resume.szram.co</a>
+      <a class="navbar-brand mb-0 h1 me-auto" [routerLink]="'/'">resume.szram.co</a>
       <ul class="navbar-nav align-items-center">
         <ng-container *ngIf="links?.length">
-          <li class="nav-item mx-1" *ngFor="let link of links">
+          <li class="nav-item mx-1 link-scale" *ngFor="let link of links">
             <a
               target="_blank"
-              class="btn btn-link nav-link text-light link-scale"
+              class="btn btn-link nav-link"
               [href]="link.value"
               [title]="link.name"
             >
               <span [ngClass]="['bi', 'bi-' + link.key]"></span>
             </a>
           </li>
-          <li class="nav-item mx-1">
+          <li class="nav-item mx-1 link-scale">
             <a
-              class="btn btn-link nav-link text-light link-scale"
-              href="#"
+              class="btn btn-link nav-link"
+              target="_blank"
+              [href]="'/assets/resume-szram-' + getCurrentLanguage() + '.pdf'"
               [title]="'DOWNLOAD' | translate"
-              (click)="downloadPDF($event)"
             >
               <span class="bi bi-download"></span>
             </a>
@@ -34,9 +34,18 @@
         <li class="nav-item d-block">
           <div class="resume-vr"></div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item link-scale">
           <button
-            class="btn btn-link nav-link text-light text-decoration-none btn-lang link-scale"
+            class="btn btn-link nav-link text-decoration-none btn-lang"
+            (click)="themeToggle()"
+          >
+            <i class="bi bi-moon-stars-fill" *ngIf="isThemeLight"></i>
+            <i class="bi bi-sun-fill" *ngIf="isThemeDark"></i>
+          </button>
+        </li>
+        <li class="nav-item link-scale">
+          <button
+            class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'en'"
             (click)="changeLanguage('en')"
@@ -44,7 +53,7 @@
             EN
           </button>
           <button
-            class="btn btn-link nav-link text-light text-decoration-none btn-lang link-scale"
+            class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'pl'"
             (click)="changeLanguage('pl')"

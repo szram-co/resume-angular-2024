@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ResumeAbout } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { takeUntil } from 'rxjs'
-import { Router } from '@angular/router'
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-resume-profile',
   standalone: true,
-  imports: [NgForOf, TranslateModule, NgIf, NgClass, NgStyle],
+  imports: [NgForOf, TranslateModule, NgIf, NgClass, NgStyle, RouterLink],
   templateUrl: './resume-profile.component.html',
   styleUrl: './resume-profile.component.scss'
 })
@@ -19,10 +19,14 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDest
   about!: ResumeAbout
 
   constructor(
-    private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private translate: TranslateService
   ) {
     super()
+  }
+
+  get currentLanguage() {
+    return this.translate.currentLang as 'pl' | 'en'
   }
 
   ngOnInit() {
@@ -33,11 +37,6 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDest
         this.about = data
         this.isReady = true
       })
-  }
-
-  async downloadPDF(event: MouseEvent) {
-    event.preventDefault()
-    this.dataService.downloadResume$.emit(true)
   }
 
   formatPhoneNumber(phone: string): string {

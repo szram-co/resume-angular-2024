@@ -2,37 +2,14 @@
 
 .resume-profile {
   position: relative;
-
-  &:not(&--pdf) {
-    .resume-hello {
-      letter-spacing: 2px;
-      background: var(--brand-gradient);
-      color: transparent;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
-
-  &--pdf {
-    --bs-body-color: var(--color-1);
-
-    .resume-hello {
-      color: var(--color-3);
-    }
-
-    .resume-picture img {
-      z-index: 0;
-      transform: translateX(-50%);
-      position: absolute;
-      top: 0;
-      left: 50%;
-      height: 100%;
-      transition: height 0.3s ease-in-out;
-    }
-  }
 }
 
 .resume-hello {
+  letter-spacing: 2px;
+  background-image: var(--bs-gradient);
+  color: transparent;
+  background-clip: text;
+  display: inline-block;
   font-family: $font-head;
   font-weight: 900;
   @include font-size(6rem);
@@ -65,6 +42,8 @@
   margin: 0 0.5rem 0.5rem 0;
   border-radius: 0.35rem;
 
+  transition: 0.3s all ease-in-out;
+
   @include media-breakpoint-up(xl) {
     @include padding(0.34rem 1.5rem);
   }
@@ -84,6 +63,7 @@
   text-align: justify;
 
   p {
+    @include transitions(color);
     @include rfs($font-text-line, line-height);
     text-indent: 2rem;
     color: var(--bs-body-color);
@@ -128,18 +108,18 @@
     background-color: transparent;
     background-image: linear-gradient(
       15deg,
-      rgba($color-3, 1) 0%,
-      rgba($color-2, 0.75) 55%,
-      rgba($color-2, 0) 80%
+      rgba($color-brand, 1) 0%,
+      rgba($color-brand-dark, 0.75) 55%,
+      rgba($color-brand-dark, 0) 80%
     );
 
     @include media-breakpoint-down(lg) {
       padding: 4rem 0 1rem 0;
       background-image: linear-gradient(
         5deg,
-        rgba($color-3, 1) 0%,
-        rgba($color-2, 0.75) 55%,
-        rgba($color-2, 0) 80%
+        rgba($color-brand, 1) 0%,
+        rgba($color-brand-dark, 0.75) 55%,
+        rgba($color-brand-dark, 0) 80%
       );
     }
 
@@ -157,7 +137,7 @@
   align-items: center;
   list-style: none;
   padding: 0;
-  color: var(--color-5);
+  color: var(--color-white);
 
   li {
     @include font-size(1.25rem);
@@ -171,18 +151,14 @@
   }
 
   a {
+    color: var(--color-white);
+    @include transitions(color);
     text-decoration: none;
     display: inline-block;
-    transition: 0.2s color ease-in-out;
     line-height: 2.5rem;
-    color: var(--color-5);
 
     @include media-breakpoint-down(xl) {
       line-height: 1.75rem;
-    }
-
-    &:hover {
-      color: var(--primary);
     }
 
     &.link-lg {
@@ -197,6 +173,10 @@
         @include font-size(1.75rem);
       }
     }
+
+    &:hover {
+      color: var(--bs-primary);
+    }
   }
 }
 
@@ -207,8 +187,18 @@
   align-items: center;
 
   a {
-    --social-color: var(--secondary);
-    color: var(--color-5);
+    color: var(--color-white);
     margin: 0 0.25rem;
+    @include transitions(transform);
+  }
+}
+
+.resume-contact-space {
+  padding: 3rem 0 2rem 0;
+  @include media-breakpoint-down(lg) {
+    padding: 1rem 0;
+  }
+  @include media-breakpoint-down(md) {
+    padding-bottom: 0.5rem;
   }
 }

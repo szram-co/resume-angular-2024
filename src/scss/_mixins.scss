@@ -1,0 +1,25 @@
+/**
+ * Mixin for setting transition properties based on provided arguments.
+ * Uses variables for transition speed and type.
+ *
+ * @param {String} $properties - List of properties to apply transitions to.
+ *
+ * Example: @include setTransition(max-height, padding);
+ */
+@mixin transitions($properties...) {
+  $transition-speed: var(--resume-transition-speed);
+  $transition-type: var(--resume-transition-type);
+
+  $transition-values: ();
+
+  // Iterate through each property and append transition values with commas
+  @each $property in $properties {
+    $transition-values: append(
+      $transition-values,
+      #{$property} $transition-speed $transition-type,
+      comma
+    );
+  }
+
+  transition: $transition-values;
+}

@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router'
-import { ResumePdfComponent } from './components/resume-pdf/resume-pdf.component'
+import { WebComponent } from './pages/web/web.component'
 
 export const routes: Routes = [
   {
-    path: 'download-pdf',
-    component: ResumePdfComponent
+    path: '',
+    component: WebComponent
   }
+  // {
+  //   path: 'download-pdf',
+  //   component: PdfComponent
+  // }
 ]

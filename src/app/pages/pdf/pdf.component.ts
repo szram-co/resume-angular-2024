@@ -1,17 +1,18 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnInit,
   QueryList,
   ViewChild,
   ViewChildren
 } from '@angular/core'
+import { ResumeHeaderComponent } from '../../components/resume-header/resume-header.component'
+import { NgClass, NgForOf, NgIf, NgStyle, UpperCasePipe } from '@angular/common'
+import { ResumeProfileComponent } from '../../components/resume-profile/resume-profile.component'
+import { ResumeSkillsComponent } from '../../components/resume-skills/resume-skills.component'
+import { ResumeTimelineComponent } from '../../components/resume-timeline/resume-timeline.component'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { HTMLFontFace, jsPDF } from 'jspdf'
-import { ResumeProfileComponent } from '../resume-profile/resume-profile.component'
-import { JsonPipe, NgClass, NgForOf, NgIf, NgStyle, UpperCasePipe } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import {
   ResumeAbout,
@@ -19,46 +20,38 @@ import {
   ResumePDFFontFace,
   ResumeTechnologyMapped
 } from '../../app.type'
-import { ResumeSkillsComponent } from '../resume-skills/resume-skills.component'
-import { ResumeTimelineComponent } from '../resume-timeline/resume-timeline.component'
-import { Router } from '@angular/router'
-import { forkJoin, map, switchMap, takeUntil } from 'rxjs'
+import { HTMLFontFace, jsPDF } from 'jspdf'
 import { DataService } from '../../services/data.service'
-import { AppHoverClassDirective } from '../../directives/app-hover-class.directive'
+import { Router } from '@angular/router'
 import { LanguageService } from '../../services/language.service'
+import { forkJoin, map, takeUntil } from 'rxjs'
 
 @Component({
-  selector: 'app-resume-pdf',
+  selector: 'app-pdf',
   standalone: true,
   imports: [
-    ResumeProfileComponent,
-    NgStyle,
-    NgForOf,
+    ResumeHeaderComponent,
     NgIf,
-    TranslateModule,
+    ResumeProfileComponent,
     ResumeSkillsComponent,
     ResumeTimelineComponent,
-    JsonPipe,
-    AppHoverClassDirective,
-    UpperCasePipe,
-    NgClass
+    NgClass,
+    NgStyle,
+    NgForOf,
+    TranslateModule,
+    UpperCasePipe
   ],
-  templateUrl: './resume-pdf.component.html',
-  styleUrls: [
-    './resume-pdf.component.scss',
-    '../resume-profile/resume-profile.component.scss',
-    '../resume-skills/resume-skills.component.scss',
-    '../resume-timeline/resume-timeline.component.scss'
-  ]
+  templateUrl: './pdf.component.html',
+  styleUrl: './pdf.component.scss'
 })
-export class ResumePdfComponent extends AppDestroy implements OnInit {
+export class PdfComponent extends AppDestroy implements OnInit {
   @ViewChild('pictureContainer', { static: false }) pictureContainer!: ElementRef<HTMLDivElement>
   @ViewChild('content', { static: false }) content!: ElementRef<HTMLDivElement>
   @ViewChildren('experienceLogo') experienceLogos!: QueryList<ElementRef<HTMLDivElement>>
 
-  @Input() width: number = 1420
+  @Input() width: number = 1360
 
-  private readonly pageMargin: number = 80
+  private readonly pageMargin: number = 100
   private readonly pageAspectRatio: number = 1.414
 
   readonly pageWidth = this.width + this.pageMargin * 2
@@ -71,9 +64,6 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
   experienceLogosMap: string[] = []
 
   pdf!: jsPDF
-
-  isViewReady$ = new EventEmitter<boolean>()
-  isInitDone$ = new EventEmitter<boolean>()
 
   constructor(
     private dataService: DataService,
@@ -100,15 +90,14 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
           this.about = aboutData
           this.technologies = technologiesData
           this.experiences = experienceData
-        }),
-        switchMap(() => {
-          this.addSvgAsImage()
-
-          return this.dataService.downloadResume$.asObservable()
         })
       )
       .subscribe(() => {
-        this.downloadPDF()
+        this.addSvgAsImage()
+
+        setTimeout(() => {
+          this.downloadPDF()
+        }, 1000)
       })
   }
 
@@ -144,18 +133,15 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
     this.pdf.setFontSize(16)
 
     this.pdf.html(this.content.nativeElement, {
-      image: {
-        type: 'jpeg',
-        quality: 0.5
-      },
-      autoPaging: 'text',
+      margin: [this.pageMargin / 4, this.pageMargin, this.pageMargin / 2, this.pageMargin],
       fontFaces: this.fontFaces,
-      x: this.pageMargin,
+      x: 0,
       y: 0,
       callback: async (doc) => {
         const documentFilename: string = `resume-szram-${this.getCurrentLanguage}.pdf`
 
         doc.save(documentFilename)
+
         await this.router.navigate(['/'])
       }
     })
@@ -262,5 +248,14 @@ export class ResumePdfComponent extends AppDestroy implements OnInit {
         ]
       })
     ]
+  }
+
+  formatPhoneNumber(phone: string): string {
+    const cleaned = ('' + phone).replace(/\D/g, '')
+    const match = cleaned.match(/^(\d{2})(\d{3})(\d{3})(\d{3})$/)
+    if (match) {
+      return `+${match[1]} ${match[2]} ${match[3]} ${match[4]}`
+    }
+    return phone
   }
 }

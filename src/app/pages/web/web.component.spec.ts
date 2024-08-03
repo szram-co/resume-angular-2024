@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ResumePdfComponent } from './resume-pdf.component'
+import { WebComponent } from './web.component'
 
-describe('ResumePdfComponent', () => {
-  let component: ResumePdfComponent
-  let fixture: ComponentFixture<ResumePdfComponent>
+describe('WebComponent', () => {
+  let component: WebComponent
+  let fixture: ComponentFixture<WebComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResumePdfComponent]
+      imports: [WebComponent]
     }).compileComponents()
 
-    fixture = TestBed.createComponent(ResumePdfComponent)
+    fixture = TestBed.createComponent(WebComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
