@@ -4,14 +4,16 @@
     "name": "TypeScript",
     "skillAssessment": false,
     "type": "language",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 2,
     "name": "JavaScript",
     "skillAssessment": true,
     "type": "language",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 3,
@@ -32,7 +34,8 @@
     "name": "Angular",
     "skillAssessment": true,
     "type": "framework",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 6,
@@ -81,14 +84,16 @@
     "name": "PHP",
     "skillAssessment": true,
     "type": "language",
-    "group": "backend"
+    "group": "backend",
+    "leading": true
   },
   {
     "id": 13,
     "name": "Vue",
     "skillAssessment": false,
     "type": "framework",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 14,
@@ -123,28 +128,24 @@
     "name": "Wordpress",
     "skillAssessment": false,
     "type": "cms",
-    "group": "backend"
+    "group": "backend",
+    "leading": true
   },
   {
     "id": 19,
     "name": "Woocommerce",
     "skillAssessment": false,
     "type": "cms",
-    "group": "backend"
-  },
-  {
-    "id": 20,
-    "name": "Prestashop",
-    "skillAssessment": false,
-    "type": "framework",
-    "group": "backend"
+    "group": "backend",
+    "leading": true
   },
   {
     "id": 21,
     "name": "SCSS",
     "skillAssessment": false,
     "type": "preprocessor",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 22,
@@ -165,7 +166,8 @@
     "name": "CSS",
     "skillAssessment": false,
     "type": "language",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 25,
@@ -179,7 +181,8 @@
     "name": "Photoshop",
     "skillAssessment": true,
     "type": "design",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 27,
@@ -193,14 +196,16 @@
     "name": "Material UI",
     "skillAssessment": false,
     "type": "frontend",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 30,
     "name": "Bootstrap",
     "skillAssessment": false,
     "type": "frontend",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 31,
@@ -221,7 +226,8 @@
     "name": "HTML5",
     "skillAssessment": false,
     "type": "language",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 34,
@@ -242,14 +248,16 @@
     "name": "Unit testing",
     "skillAssessment": true,
     "type": "tool",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 37,
     "name": "REST API",
     "skillAssessment": false,
     "type": "web",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 39,
@@ -291,7 +299,8 @@
     "name": "NPM",
     "skillAssessment": false,
     "type": "tool",
-    "group": "frontend"
+    "group": "frontend",
+    "leading": true
   },
   {
     "id": 46,

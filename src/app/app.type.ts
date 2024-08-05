@@ -16,22 +16,22 @@ export interface DatePeriod<T = string> {
 }
 
 export enum ResumeTechnologyType {
-  'language',
-  'framework',
-  'preprocessor',
-  'frontend',
-  'web',
-  'library',
-  'cms',
-  'tool',
-  'design',
-  'system',
-  'methodology'
+  language = 'language',
+  framework = 'framework',
+  preprocessor = 'preprocessor',
+  frontend = 'frontend',
+  web = 'web',
+  library = 'library',
+  cms = 'cms',
+  tool = 'tool',
+  design = 'design',
+  system = 'system',
+  methodology = 'methodology'
 }
 
 export enum ResumeTechnologyGroup {
-  'frontend',
-  'backend'
+  frontend = 'frontend',
+  backend = 'backend'
 }
 
 export interface ResumeTechnology {
@@ -40,10 +40,23 @@ export interface ResumeTechnology {
   skillAssessment: boolean
   type: ResumeTechnologyType
   group: ResumeTechnologyGroup
+  leading?: boolean
+}
+
+export interface ResumeMappedCompany {
+  company: ResumeCompany
+  months: number
 }
 
 export interface ResumeTechnologyMapped extends ResumeTechnology {
-  experience: number
+  experience: {
+    months: number
+    score: number
+    data: {
+      [key: string]: any
+    }
+  }
+  companies: ResumeMappedCompany[]
 }
 
 export interface ResumeCompany {

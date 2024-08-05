@@ -6,24 +6,53 @@
 </ul>
 
 <h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
-<div class="resume-bars">
-  <ng-container *ngFor="let technology of displayedTechnologies">
-    <div class="resume-bars__name">
-      {{ technology.name }}
-    </div>
-    <div class="resume-bars__bar">
-      <div class="resume-bars__bar__line" [ngStyle]="{ 'width.%': technology.experience }"></div>
-      <div class="resume-bars__bar__tooltip" [ngStyle]="{ 'left.%': technology.experience }">
-        {{ technology.experience }}%
-      </div>
-    </div>
-  </ng-container>
-</div>
+<ul class="resume-list">
+  <li>JavaScript/TypeScript</li>
+  <li>Angular/Vue</li>
+  <li>PHP/SQL</li>
+  <li>SASS/LESS</li>
+  <li>Material UI/Bootstrap</li>
+  <li>PWA/SPA</li>
+  <li>LINUX/OS X</li>
+  <li>Docker/GIT</li>
+</ul>
 
-<button class="btn btn-sm btn-outline-light btn-show-more" (click)="toggleShowMore()">
-  {{
-    showMore
-      ? ('BUTTON.LESS' | translate)
-      : ('BUTTON.MORE' | translate) + ' (' + remainingTechnologiesCount + ')'
-  }}
-</button>
+<!-- skills -->
+<h3 class="resume-header">{{ 'HEAD.TOOLS' | translate }}</h3>
+<ul class="resume-list">
+  <li>Google Cloud Platform</li>
+  <li>Firebase/Vercel</li>
+  <li>Photoshop/Illustrator</li>
+  <li>Webpack/Babel</li>
+  <li>CI/CD</li>
+  <li>NODE/NPM</li>
+</ul>
+
+<!-- skills -->
+<h3 class="resume-header">{{ 'HEAD.COURSES' | translate }}</h3>
+<ul class="resume-list resume-list--courses">
+  <li>
+    „{{ 'COURSE.1' | translate }}”
+    <small>12.2023 <strong>&#64;LinkedIn Courses</strong></small>
+  </li>
+  <li>
+    „{{ 'COURSE.2' | translate }}”
+    <small>11.2023 <strong>&#64;LinkedIn Courses</strong></small>
+  </li>
+  <li>
+    „{{ 'COURSE.3' | translate }}”
+    <small>11.2023 <strong>&#64;LinkedIn Courses</strong></small>
+  </li>
+</ul>
+
+<!-- skills -->
+<h3 class="resume-header">{{ 'HEAD.LINKS' | translate }}</h3>
+<ul class="resume-list resume-list--links">
+  <ng-container *ngIf="about?.links?.length">
+    <li class="nav-item" *ngFor="let link of about.links">
+      <a target="_blank" [href]="link.value">
+        {{ link.name }}
+      </a>
+    </li>
+  </ng-container>
+</ul>

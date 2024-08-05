@@ -1,48 +1,32 @@
 import { Component, OnInit } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
-import { JsonPipe, NgClass, NgForOf, NgStyle } from '@angular/common'
-import { ResumeTechnologyMapped } from '../../app.type'
+import { JsonPipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
+import { ResumeAbout, ResumeTechnologyMapped } from '../../app.type'
 import { DataService } from '../../services/data.service'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { takeUntil } from 'rxjs'
+import { forkJoin, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-resume-skills',
   standalone: true,
-  imports: [TranslateModule, NgForOf, JsonPipe, NgStyle, NgClass],
+  imports: [TranslateModule, NgForOf, JsonPipe, NgStyle, NgClass, NgIf],
   templateUrl: './resume-skills.component.html',
   styleUrl: './resume-skills.component.scss'
 })
 export class ResumeSkillsComponent extends AppDestroy implements OnInit {
+  about!: ResumeAbout
   technologies: ResumeTechnologyMapped[] = []
-  showMore: boolean = false
-
-  private readonly TECHNOLOGIES_DISPLAYED = 15
 
   constructor(private dataService: DataService) {
     super()
   }
 
   ngOnInit() {
-    this.dataService
-      .getCombinedTechnologies()
+    forkJoin([this.dataService.getAbout(), this.dataService.getCombinedTechnologies()])
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        this.technologies = data
+      .subscribe(([aboutData, technologiesData]) => {
+        this.about = aboutData
+        this.technologies = technologiesData
       })
-  }
-
-  get displayedTechnologies() {
-    return this.showMore
-      ? this.technologies
-      : this.technologies.slice(0, this.TECHNOLOGIES_DISPLAYED)
-  }
-
-  get remainingTechnologiesCount(): number {
-    return this.technologies.length - this.TECHNOLOGIES_DISPLAYED
-  }
-
-  toggleShowMore() {
-    this.showMore = !this.showMore
   }
 }

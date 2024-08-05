@@ -18,7 +18,10 @@ import {
   ResumeAbout,
   ResumeExperienceMapped,
   ResumePDFFontFace,
-  ResumeTechnologyMapped
+  ResumeTechnology,
+  ResumeTechnologyGroup,
+  ResumeTechnologyMapped,
+  ResumeTechnologyType
 } from '../../app.type'
 import { HTMLFontFace, jsPDF } from 'jspdf'
 import { DataService } from '../../services/data.service'
@@ -64,6 +67,9 @@ export class PdfComponent extends AppDestroy implements OnInit {
   experienceLogosMap: string[] = []
 
   pdf!: jsPDF
+
+  readonly TECH_TYPE = ResumeTechnologyType
+  readonly TECH_GROUP = ResumeTechnologyGroup
 
   constructor(
     private dataService: DataService,
@@ -142,7 +148,7 @@ export class PdfComponent extends AppDestroy implements OnInit {
 
         doc.save(documentFilename)
 
-        await this.router.navigate(['/'])
+        // await this.router.navigate(['/'])
       }
     })
   }
@@ -182,6 +188,22 @@ export class PdfComponent extends AppDestroy implements OnInit {
     const monthShort = monthTranslation.substring(0, 3).toUpperCase()
 
     return `${monthShort} ${year}`
+  }
+
+  sortTechnologies(technologies: ResumeTechnology[]) {
+    return technologies.sort((a, b) => {
+      const aPriority = this.dataService.priorityTechnologies.indexOf(
+        a.type as ResumeTechnologyType
+      )
+      const bPriority = this.dataService.priorityTechnologies.indexOf(
+        b.type as ResumeTechnologyType
+      )
+
+      const aEffectivePriority = aPriority === -1 ? 999 : aPriority
+      const bEffectivePriority = bPriority === -1 ? 999 : bPriority
+
+      return aEffectivePriority - bEffectivePriority // sort by priority
+    })
   }
 
   get fontFaces(): HTMLFontFace[] {

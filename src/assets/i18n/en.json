@@ -8,7 +8,15 @@
   "HEAD": {
     "EXPERIENCE": "Experience",
     "SKILLS": "Skills",
-    "TECHNOLOGIES": "Technologies"
+    "TECHNOLOGIES": "Technologies",
+    "TOOLS": "Tools",
+    "COURSES": "Courses",
+    "LINKS": "Links"
+  },
+  "COURSE": {
+    "1": "Be an Effective Hybrid or Remote Worker",
+    "2": "Scrum: Advanced",
+    "3": "Fundamentals of Software Architecture"
   },
   "CITY": {
     "WARSAW": "Warsaw"

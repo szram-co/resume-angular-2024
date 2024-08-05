@@ -30,6 +30,15 @@
   margin-block-end: 1.5rem;
   @include transitions(color);
 
+  &--links {
+    font-size: 1rem;
+    line-height: 2rem;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
   &--courses {
     line-height: 2rem;
   }

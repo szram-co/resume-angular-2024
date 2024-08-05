@@ -8,7 +8,15 @@
   "HEAD": {
     "EXPERIENCE": "Doświadczenie",
     "SKILLS": "Umiejętności",
-    "TECHNOLOGIES": "Technologie"
+    "TECHNOLOGIES": "Technologie",
+    "TOOLS": "Narzędzia",
+    "COURSES": "Kursy",
+    "LINKS": "Linki"
+  },
+  "COURSE": {
+    "1": "Bądź efektywnym hybrydowym lub wirtualnym pracownikiem",
+    "2": "Scrum: Zaawansowany",
+    "3": "Podstawy architektury oprogramowania"
   },
   "CITY": {
     "WARSAW": "Warszawa"
