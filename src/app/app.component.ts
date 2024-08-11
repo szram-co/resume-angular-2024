@@ -65,16 +65,16 @@ export class AppComponent extends AppDestroy implements OnInit {
   private updateSiteIndex() {
     this.translate.get('PAGE_TITLE').subscribe((title: string) => {
       this.titleService.setTitle(title)
-      this.metaService.updateTag({ name: 'og:title', content: title })
+      this.metaService.updateTag({ property: 'og:title', content: title })
     })
 
     this.translate.get('PAGE_DESCRIPTION').subscribe((description: string) => {
       this.metaService.updateTag({ name: 'description', content: description })
-      this.metaService.updateTag({ name: 'og:description', content: description })
+      this.metaService.updateTag({ property: 'og:description', content: description })
     })
 
     this.metaService.updateTag({
-      name: 'og:image',
+      property: 'og:image',
       content: `/assets/images/szram-share-image-${this.currentLanguage}.png`
     })
   }
