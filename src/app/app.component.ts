@@ -10,6 +10,7 @@ import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.
 import { ResumeTimelineComponent } from './components/resume-timeline/resume-timeline.component'
 import { ThemeService } from './services/theme.service'
 import { Meta, Title } from '@angular/platform-browser'
+import { environment } from './../environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,11 @@ export class AppComponent extends AppDestroy implements OnInit {
     })
 
     this.updateSiteIndex()
+
+    this.metaService.updateTag({
+      property: 'og:url',
+      content: environment.url
+    })
   }
 
   private updateSiteIndex() {
@@ -75,7 +81,7 @@ export class AppComponent extends AppDestroy implements OnInit {
 
     this.metaService.updateTag({
       property: 'og:image',
-      content: `/assets/images/szram-share-image-${this.currentLanguage}.png`
+      content: `${environment.url}assets/images/szram-share-image-${this.currentLanguage}.png`
     })
   }
 }
