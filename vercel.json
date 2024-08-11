@@ -1,21 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "dist/resume-angular-2024/browser/**",
-          "dist/resume-angular-2024/server/**"
-        ]
-      }
-    },
-    {
-      "src": "dist/resume-angular-2024/**/*",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/(pl|en)",
@@ -32,7 +16,10 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/resume-angular-2024/server/**"
+      "runtime": "nodejs20.x",
+      "includeFiles": "dist/resume-angular-2024/**/*",
+      "memory": 512,
+      "maxDuration": 10
     }
   }
 }
