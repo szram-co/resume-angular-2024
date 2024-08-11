@@ -30,7 +30,7 @@
               "includePaths": ["src/scss"]
             },
             "server": "src/main.server.ts",
-            "prerender": false,
+            "prerender": true,
             "ssr": {
               "entry": "server.ts"
             }

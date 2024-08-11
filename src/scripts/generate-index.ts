@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 // Ścieżki do plików
-const distPath = path.join(__dirname, `../../dist/resume-angular-2024/server`)
+const distPath = path.join(__dirname, `../../../dist/resume-angular-2024/server`)
 const indexFilePath = path.join(distPath, 'index.server.html')
 
 const PAGE_URL = 'https://resume.szram.co/'
