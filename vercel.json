@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "public": true,
-  "name": "resume-angular-2024",
   "builds": [
     {
       "src": "server.ts",
