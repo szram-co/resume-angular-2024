@@ -6,9 +6,9 @@
     "start": "npm run serve:ssr",
     "build": "ng build --configuration production && npm run build:i18n",
     "build:i18n": "npx tsc src/scripts/generate-index.ts --outDir dist/scripts && node dist/scripts/generate-index.js",
+    "serve:ssr": "node dist/resume-angular-2024/server/server.mjs",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr": "node dist/resume-angular-2024/server/server.mjs"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {

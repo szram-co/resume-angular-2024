@@ -2,16 +2,16 @@
   "version": 2,
   "public": true,
   "name": "resume-angular-2024",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api"
-    }
-  ],
   "builds": [
     {
-      "src": "src/scripts/generate-index.ts",
-      "use": "@vercel/node"
+      "src": "server.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "dist/resume-angular-2024/browser/**",
+          "dist/resume-angular-2024/server/**"
+        ]
+      }
     },
     {
       "src": "dist/resume-angular-2024/**/*",
@@ -34,7 +34,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/resume-angular-2024/browser/**"
+      "includeFiles": "dist/resume-angular-2024/server/**"
     }
   }
 }
