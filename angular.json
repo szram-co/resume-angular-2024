@@ -28,6 +28,11 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["src/scss"]
+            },
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
             }
           },
           "configurations": {
