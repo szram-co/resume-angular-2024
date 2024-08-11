@@ -9,6 +9,7 @@ import { ResumeProfileComponent } from './components/resume-profile/resume-profi
 import { ResumeSkillsComponent } from './components/resume-skills/resume-skills.component'
 import { ResumeTimelineComponent } from './components/resume-timeline/resume-timeline.component'
 import { ThemeService } from './services/theme.service'
+import { Meta, Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,9 @@ export class AppComponent extends AppDestroy implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private theme: ThemeService
+    private theme: ThemeService,
+    private titleService: Title,
+    private metaService: Meta
   ) {
     super()
     this.theme.themeInitialize()
@@ -44,11 +47,35 @@ export class AppComponent extends AppDestroy implements OnInit {
     return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'en'
   }
 
+  get currentLanguage() {
+    return this.translate.currentLang as 'pl' | 'en'
+  }
+
   ngOnInit() {
     this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe((language) => {
       if (language.lang !== this.storageLang) {
         localStorage.setItem('LANG', language.lang)
+        this.updateSiteIndex()
       }
+    })
+
+    this.updateSiteIndex()
+  }
+
+  private updateSiteIndex() {
+    this.translate.get('PAGE_TITLE').subscribe((title: string) => {
+      this.titleService.setTitle(title)
+      this.metaService.updateTag({ name: 'og:title', content: title })
+    })
+
+    this.translate.get('PAGE_DESCRIPTION').subscribe((description: string) => {
+      this.metaService.updateTag({ name: 'description', content: description })
+      this.metaService.updateTag({ name: 'og:description', content: description })
+    })
+
+    this.metaService.updateTag({
+      name: 'og:image',
+      content: `/assets/images/szram-share-image-${this.currentLanguage}.png`
     })
   }
 }
