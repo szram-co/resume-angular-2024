@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "public": true,
+  "name": "resume-angular-2024",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ],
   "builds": [
     {
       "src": "src/scripts/generate-index.ts",
@@ -23,5 +31,10 @@
       "src": "/",
       "dest": "/index.pl.server.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/resume-angular-2024/browser/**"
+    }
+  }
 }
