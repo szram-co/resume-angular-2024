@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "npm run serve:ssr",
     "build": "ng build --configuration production && npm run build:i18n",
-    "build:i18n": "npx tsc src/scripts/generate-index.ts --outDir dist/scripts && node dist/scripts/generate-index.js",
-    "serve:ssr": "node dist/resume-angular-2024/server/server.mjs",
+    "build:i18n": "npx tsc src/scripts/generate-index.ts --outDir dist/resume-angular-2024/scripts && node dist/resume-angular-2024/scripts/generate-index.js",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve:ssr:resume-angular-2024": "node dist/resume-angular-2024/server/server.mjs"
   },
   "private": true,
   "dependencies": {

@@ -1,24 +1,15 @@
 {
   "version": 2,
-  "routes": [
+  "public": true,
+  "rewrites": [
     {
-      "src": "/(pl|en)",
-      "dest": "/index.$1.server.html"
-    },
-    {
-      "src": "/(pl|en)/(.*)",
-      "dest": "/$1/$2"
-    },
-    {
-      "src": "/",
-      "dest": "/index.pl.server.html"
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/resume-angular-2024/**/*",
-      "memory": 512,
-      "maxDuration": 10
+      "includeFiles": "dist/resume-angular-2024/**"
     }
   }
 }

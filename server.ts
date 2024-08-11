@@ -10,6 +10,8 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url))
   const browserDistFolder = resolve(serverDistFolder, '../browser')
 
+  let indexHtml = join(serverDistFolder, 'index.server.html')
+
   const commonEngine = new CommonEngine()
 
   server.set('view engine', 'html')
@@ -57,4 +59,4 @@ function run(): void {
   })
 }
 
-run()
+// run()
