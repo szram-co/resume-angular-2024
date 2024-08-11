@@ -29,46 +29,10 @@
       </div>
 
       <ng-container *ngFor="let position of experience.positions; let positionIndex = index">
-        <div class="resume-timeline__date" appHoverClass="resume-timeline__date--active">
-          <div [ngClass]="{ 'date-end': true, 'date-current': position.date.to === 'present' }">
-            <span class="date-translated">{{ translatedDate(position.date.to) }}</span>
-            <span class="date-formatted">
-              <ng-container *ngIf="position.date.to === 'present'">
-                {{ 'DATE.PRESENT' | translate }}
-              </ng-container>
-              <ng-container *ngIf="position.date.to !== 'present'">
-                {{ position.date.to }}
-              </ng-container>
-            </span>
-          </div>
-          <div class="date-start">
-            <span class="date-translated">{{ translatedDate(position.date.from) }}</span>
-            <span class="date-formatted">{{ position.date.from }}</span>
-          </div>
-        </div>
-        <div
-          class="resume-timeline__dot"
-          [ngStyle]="computeNextPositionStyle(experienceIndex, positionIndex)"
-        >
-          <i></i>
-        </div>
-        <div class="resume-timeline__position">
-          <h4>{{ position.name[currentLanguage] }}</h4>
-          <p>{{ position.description[currentLanguage] }}</p>
-          <ul class="resume-timeline__position__stack">
-            <li
-              *ngFor="
-                let tech of calculateTechnologies(position.technologies);
-                let techIndex = index
-              "
-            >
-              {{ tech.name }}
-            </li>
-            <li *ngIf="position.technologies.length > TECHNOLOGIES_DISPLAYED">
-              + {{ position.technologies.length - TECHNOLOGIES_DISPLAYED }}
-            </li>
-          </ul>
-        </div>
+        <app-resume-timeline-position
+          [position]="position"
+          [nextPositionStyle]="computeNextPositionStyle(experienceIndex, positionIndex)"
+        />
       </ng-container>
     </div>
   </ng-container>

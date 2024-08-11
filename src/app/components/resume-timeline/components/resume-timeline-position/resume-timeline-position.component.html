@@ -1,0 +1,50 @@
+<div class="resume-position">
+  <div class="resume-position__date" appHoverClass="resume-position__date--active" *ngIf="position">
+    <div [ngClass]="{ 'date-end': true, 'date-current': position.date.to === 'present' }">
+      <span class="date-translated">{{ translatedDate(position.date.to) }}</span>
+      <span class="date-formatted">
+        <ng-container *ngIf="position.date.to === 'present'">
+          {{ 'DATE.PRESENT' | translate }}
+        </ng-container>
+        <ng-container *ngIf="position.date.to !== 'present'">
+          {{ position.date.to }}
+        </ng-container>
+      </span>
+    </div>
+    <div class="date-start">
+      <span class="date-translated">{{ translatedDate(position.date.from) }}</span>
+      <span class="date-formatted">{{ position.date.from }}</span>
+    </div>
+  </div>
+  <div class="resume-position__dot" [ngStyle]="nextPositionStyle">
+    <i></i>
+  </div>
+  <div class="resume-position__title">
+    <h4>{{ position.name[currentLanguage] }}</h4>
+    <p>{{ position.description[currentLanguage] }}</p>
+    <ul class="resume-position__title__stack">
+      <li
+        *ngFor="let tech of position.technologies; let techIndex = index"
+        [ngClass]="{
+          visible: shouldShowAllTechnologies || techIndex + 1 <= TECHNOLOGIES_DISPLAYED,
+          hidden: !shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
+        }"
+        [ngStyle]="{
+          'animation-delay':
+            shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
+              ? (techIndex + 1 - TECHNOLOGIES_DISPLAYED) * 50 + 'ms'
+              : null
+        }"
+      >
+        {{ tech.name }}
+      </li>
+      <li
+        class="show-more"
+        *ngIf="!shouldShowAllTechnologies && position.technologies.length > TECHNOLOGIES_DISPLAYED"
+        (click)="showAllTechnologies()"
+      >
+        + {{ position.technologies.length - TECHNOLOGIES_DISPLAYED }}
+      </li>
+    </ul>
+  </div>
+</div>

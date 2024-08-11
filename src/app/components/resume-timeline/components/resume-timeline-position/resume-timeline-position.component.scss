@@ -1,0 +1,235 @@
+@use 'sass:math';
+
+@import 'app';
+
+:host {
+  display: contents;
+}
+
+.resume-position {
+  $logo-size: 75px;
+  $position-size: 1.5rem;
+  $line-gap-col: 1.5rem;
+  $line-gap-row: 2rem;
+  display: contents;
+
+  &__dot {
+    --company-line-b: linear-gradient(
+      to bottom,
+      var(--company-line-c) 40%,
+      var(--company-line-c-next)
+    );
+
+    display: flex;
+    align-items: flex-start;
+    justify-self: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    width: calc(var(--dot-size) * 1.5);
+
+    // Line
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: math.div($position-size, 2);
+      transform: translateX(-50%);
+      width: var(--company-line-s);
+      height: calc(100% + $logo-size);
+      background: var(--company-line-b);
+    }
+
+    // Dot
+    i {
+      box-sizing: border-box;
+      display: block;
+      width: var(--dot-size);
+      height: var(--dot-size);
+      position: absolute;
+      left: 50%;
+      top: math.div($position-size, 2);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+
+      &::before {
+        content: '';
+        display: block;
+        width: var(--dot-size);
+        height: var(--dot-size);
+        border-radius: 50%;
+        background: var(--company-line-c);
+        border: 1px solid var(--company-line-c);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        width: var(--dot-size);
+        height: var(--dot-size);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        background: var(--company-line-c);
+        z-index: -1;
+        border-radius: 50%;
+        opacity: 0;
+      }
+    }
+  }
+
+  &__date {
+    font-family: $font-condensed;
+    justify-self: center;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.025rem;
+    color: var(--color-gray);
+    @include transitions(color);
+    line-height: 1;
+
+    @include font-size(1rem);
+
+    @include media-breakpoint-down(lg) {
+      @include font-size(0.875rem);
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+
+    .date-formatted {
+      display: block;
+      width: 150%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      @include transitions(opacity);
+      white-space: nowrap;
+    }
+
+    .date-translated {
+      display: block;
+      opacity: 1;
+      @include transitions(opacity);
+      white-space: nowrap;
+    }
+
+    &--active {
+      .date-formatted {
+        opacity: 1;
+      }
+
+      .date-translated {
+        opacity: 0;
+      }
+    }
+  }
+
+  .date-start {
+    position: relative;
+  }
+
+  .date-end {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .date-current {
+    opacity: 1;
+    @include font-size(1.126rem);
+
+    @include media-breakpoint-down(lg) {
+      @include font-size(1rem);
+    }
+  }
+
+  &__title {
+    h4 {
+      @include font-size($position-size);
+      font-family: $font-head;
+      display: block;
+      line-height: 1;
+      font-weight: 800;
+      position: relative;
+      margin-bottom: 1rem;
+
+      @include media-breakpoint-down(lg) {
+        @include font-size($position-size - 0.25rem);
+      }
+    }
+
+    p {
+      @include font-size($font-text-size);
+      @include rfs($font-text-line, line-height);
+      font-weight: 400;
+      font-style: italic;
+      text-align: justify;
+      margin-bottom: 1rem;
+
+      @include media-breakpoint-down(lg) {
+        @include font-size(1rem);
+      }
+    }
+
+    &__stack {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      gap: 0.5rem;
+      line-height: 0.75rem;
+
+      li {
+        display: inline-flex;
+        @include transitions(border-color, color, opacity);
+        border: 1px solid var(--bs-secondary-bg);
+        color: var(--color-gray);
+        min-width: 3rem;
+        text-align: center;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        border-radius: 0.25rem;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+
+        &.hidden {
+          display: none;
+        }
+
+        &.visible {
+          animation: show-tech 0.3s ease-in-out forwards;
+
+          @keyframes show-tech {
+            from {
+              opacity: 0;
+              transform: translateX(-1rem);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+        }
+
+        &.show-more {
+          opacity: 1;
+          cursor: pointer;
+
+          &:hover {
+            border-color: var(--bs-body-color);
+            color: var(--bs-body-color);
+          }
+        }
+      }
+    }
+  }
+}
