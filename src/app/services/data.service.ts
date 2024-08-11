@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { forkJoin, map, Observable, switchMap } from 'rxjs'
 import {
@@ -12,6 +12,7 @@ import {
   ResumeTechnologyType
 } from '../app.type'
 import { DomSanitizer } from '@angular/platform-browser'
+import { LanguageService } from './language.service'
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,6 @@ export class DataService {
   static companiesMap = new Map<number, ResumeCompany>()
 
   totalExperience: number = 0
-
-  downloadResume$ = new EventEmitter<boolean>()
 
   priorityTechnologies = [
     ResumeTechnologyType.language,
@@ -40,6 +39,7 @@ export class DataService {
 
   constructor(
     private http: HttpClient,
+    private language: LanguageService,
     private sanitizer: DomSanitizer
   ) {
     this.getTechnologies().subscribe((technologies) => {
@@ -64,12 +64,12 @@ export class DataService {
     this.loadCompanies().subscribe()
   }
 
-  getSvgContent(url: string): Observable<string> {
-    return this.http.get(url, { responseType: 'text' })
-  }
-
   getAbout() {
     return this.http.get<ResumeAbout>('/assets/data/about.json')
+  }
+
+  getSvgContent(url: string): Observable<string> {
+    return this.http.get(url, { responseType: 'text' })
   }
 
   getCompanies() {
@@ -79,7 +79,6 @@ export class DataService {
         const svgLoaders = companies.map((company) =>
           this.getSvgContent(`assets/images/${company.companyLogo}`).pipe(
             map((svgContent) => {
-              company.companyLogo = svgContent
               company.companyLogoContent = this.sanitizer.bypassSecurityTrustHtml(svgContent)
               return company
             })
@@ -298,5 +297,42 @@ export class DataService {
         return Object.values(experiencesByCompany).reverse()
       })
     )
+  }
+
+  public calculateDatePeriod(experience: ResumeExperienceMapped) {
+    const from = experience.positions[experience.positions.length - 1].date.from
+    const to = experience.positions[0].date.to
+
+    const dateFrom = new Date(from)
+    const dateTo = to.toLowerCase() === 'present' ? new Date() : new Date(to)
+
+    const diff = dateTo.getTime() - dateFrom.getTime()
+    const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
+
+    const totalYears = Math.floor(totalExperience / 12)
+    const totalMonths = Math.round(totalExperience % 12)
+
+    const chunks = []
+
+    if (totalYears >= 1) chunks.push(this.language.plural('DATE.YEAR', totalYears))
+    if (totalYears >= 1 && totalMonths >= 1) chunks.push(this.language.get('DATE.AND'))
+    if (totalMonths >= 1) chunks.push(this.language.plural('DATE.MONTH', totalMonths))
+
+    return chunks.join(' ')
+  }
+
+  public translatedDate(date: string): string {
+    if (date.toLowerCase() === 'present') return this.language.get('DATE.PRESENT')
+
+    const dateObject = new Date(date)
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0')
+    const year = dateObject.getFullYear()
+
+    const monthTranslation = this.language.get(`MONTH.${month}`)
+
+    // Get the first three letters of the translated month
+    const monthShort = monthTranslation.substring(0, 3).toUpperCase()
+
+    return `${monthShort} ${year}`
   }
 }

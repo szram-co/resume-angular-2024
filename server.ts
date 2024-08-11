@@ -10,7 +10,6 @@ export function app(): express.Express {
   const server = express()
   const serverDistFolder = dirname(fileURLToPath(import.meta.url))
   const browserDistFolder = resolve(serverDistFolder, '../browser')
-  const indexHtml = join(serverDistFolder, 'index.server.html')
 
   const commonEngine = new CommonEngine()
 
@@ -30,6 +29,15 @@ export function app(): express.Express {
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req
+    const lang = originalUrl.split('/')[1]
+
+    let indexHtml = join(serverDistFolder, 'index.server.html')
+
+    if (lang === 'en') {
+      indexHtml = join(serverDistFolder, 'index.en.server.html')
+    } else if (lang === 'pl') {
+      indexHtml = join(serverDistFolder, 'index.pl.server.html')
+    }
 
     commonEngine
       .render({

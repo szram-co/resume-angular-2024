@@ -5,6 +5,7 @@ import { ResumePosition, ResumeTechnology } from '../../../../app.type'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { LanguageService } from '../../../../services/language.service'
 import { AppDestroy } from '../../../../abstract/AppDestroy.abstract'
+import { DataService } from '../../../../services/data.service'
 
 @Component({
   selector: 'app-resume-timeline-position',
@@ -21,7 +22,10 @@ export class ResumeTimelinePositionComponent extends AppDestroy implements OnIni
 
   readonly TECHNOLOGIES_DISPLAYED: number = 6
 
+  translatedDate = this.dataService.translatedDate
+
   constructor(
+    private dataService: DataService,
     private translate: TranslateService,
     private language: LanguageService
   ) {
@@ -32,21 +36,6 @@ export class ResumeTimelinePositionComponent extends AppDestroy implements OnIni
 
   get currentLanguage() {
     return this.translate.currentLang as 'pl' | 'en'
-  }
-
-  translatedDate(date: string): string {
-    if (date.toLowerCase() === 'present') return this.language.get('DATE.PRESENT')
-
-    const dateObject = new Date(date)
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0')
-    const year = dateObject.getFullYear()
-
-    const monthTranslation = this.language.get(`MONTH.${month}`)
-
-    // Get the first three letters of the translated month
-    const monthShort = monthTranslation.substring(0, 3).toUpperCase()
-
-    return `${monthShort} ${year}`
   }
 
   calculateTechnologies(technologies: ResumeTechnology[]) {

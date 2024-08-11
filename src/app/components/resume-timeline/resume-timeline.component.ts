@@ -32,6 +32,8 @@ export class ResumeTimelineComponent extends AppDestroy implements OnInit {
 
   readonly EXPERIENCES_DISPLAYED: number = 4
 
+  calculateDatePeriod = this.dataService.calculateDatePeriod
+
   constructor(
     private dataService: DataService,
     private translate: TranslateService,
@@ -59,28 +61,6 @@ export class ResumeTimelineComponent extends AppDestroy implements OnInit {
 
   toggleShowMore() {
     this.showMore = !this.showMore
-  }
-
-  calculateDatePeriod(experience: ResumeExperienceMapped) {
-    const from = experience.positions[experience.positions.length - 1].date.from
-    const to = experience.positions[0].date.to
-
-    const dateFrom = new Date(from)
-    const dateTo = to.toLowerCase() === 'present' ? new Date() : new Date(to)
-
-    const diff = dateTo.getTime() - dateFrom.getTime()
-    const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
-
-    const totalYears = Math.floor(totalExperience / 12)
-    const totalMonths = Math.round(totalExperience % 12)
-
-    const chunks = []
-
-    if (totalYears >= 1) chunks.push(this.language.plural('DATE.YEAR', totalYears))
-    if (totalYears >= 1 && totalMonths >= 1) chunks.push(this.language.get('DATE.AND'))
-    if (totalMonths >= 1) chunks.push(this.language.plural('DATE.MONTH', totalMonths))
-
-    return chunks.join(' ')
   }
 
   computeNextPositionStyle(

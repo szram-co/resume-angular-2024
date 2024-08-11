@@ -68,6 +68,8 @@ export class PdfComponent extends AppDestroy implements OnInit {
 
   pdf!: jsPDF
 
+  translatedDate = this.dataService.translatedDate
+
   readonly TECH_TYPE = ResumeTechnologyType
   readonly TECH_GROUP = ResumeTechnologyGroup
 
@@ -151,43 +153,6 @@ export class PdfComponent extends AppDestroy implements OnInit {
         // await this.router.navigate(['/'])
       }
     })
-  }
-
-  calculateDatePeriod(experience: ResumeExperienceMapped) {
-    const from = experience.positions[experience.positions.length - 1].date.from
-    const to = experience.positions[0].date.to
-
-    const dateFrom = new Date(from)
-    const dateTo = to.toLowerCase() === 'present' ? new Date() : new Date(to)
-
-    const diff = dateTo.getTime() - dateFrom.getTime()
-    const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
-
-    const totalYears = Math.floor(totalExperience / 12)
-    const totalMonths = Math.round(totalExperience % 12)
-
-    const chunks = []
-
-    if (totalYears >= 1) chunks.push(this.language.plural('DATE.YEAR', totalYears))
-    if (totalYears >= 1 && totalMonths >= 1) chunks.push(this.language.get('DATE.AND'))
-    if (totalMonths >= 1) chunks.push(this.language.plural('DATE.MONTH', totalMonths))
-
-    return chunks.join(' ')
-  }
-
-  translatedDate(date: string): string {
-    if (date.toLowerCase() === 'present') return this.language.get('DATE.PRESENT')
-
-    const dateObject = new Date(date)
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0')
-    const year = dateObject.getFullYear()
-
-    const monthTranslation = this.language.get(`MONTH.${month}`)
-
-    // Get the first three letters of the translated month
-    const monthShort = monthTranslation.substring(0, 3).toUpperCase()
-
-    return `${monthShort} ${year}`
   }
 
   sortTechnologies(technologies: ResumeTechnology[]) {

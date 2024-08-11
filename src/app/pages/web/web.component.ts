@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { NgClass, NgIf } from '@angular/common'
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core'
+import { isPlatformBrowser, NgClass, NgIf } from '@angular/common'
 import { ResumeHeaderComponent } from '../../components/resume-header/resume-header.component'
 import { ResumeProfileComponent } from '../../components/resume-profile/resume-profile.component'
 import { ResumeSkillsComponent } from '../../components/resume-skills/resume-skills.component'
@@ -34,22 +34,26 @@ export class WebComponent extends AppDestroy implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     super()
     this.browserLang = this.translate.getBrowserLang() ?? 'pl'
   }
 
   get storageLang() {
+    if (!isPlatformBrowser(this.platformId)) return 'pl'
     const lang = localStorage.getItem('LANG')
-    return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'en'
+    return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'pl'
   }
 
   get currentLanguage() {
     return this.translate.currentLang as 'pl' | 'en'
   }
 
-  async ngOnInit() {
+  ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return
+
     this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       const lang = params.get('lang')
 
@@ -67,6 +71,15 @@ export class WebComponent extends AppDestroy implements OnInit {
     })
   }
 
+  private updateSiteMeta() {
+    this.translate.get(['PAGE_TITLE', 'PAGE_DESCRIPTION']).subscribe((data: any) => {
+      this.titleService.setTitle(data?.PAGE_TITLE)
+      this.metaService.updateTag({ property: 'og:title', content: data?.PAGE_TITLE })
+      this.metaService.updateTag({ name: 'description', content: data?.PAGE_DESCRIPTION })
+      this.metaService.updateTag({ property: 'og:description', content: data?.PAGE_DESCRIPTION })
+    })
+  }
+
   private updateSiteLinks() {
     this.metaService.updateTag({
       property: 'og:image',
@@ -76,15 +89,6 @@ export class WebComponent extends AppDestroy implements OnInit {
     this.metaService.updateTag({
       property: 'og:url',
       content: `${environment.url}${this.currentLanguage}/`
-    })
-  }
-
-  private updateSiteMeta() {
-    this.translate.get(['PAGE_TITLE', 'PAGE_DESCRIPTION']).subscribe((data: any) => {
-      this.titleService.setTitle(data?.PAGE_TITLE)
-      this.metaService.updateTag({ property: 'og:title', content: data?.PAGE_TITLE })
-      this.metaService.updateTag({ name: 'description', content: data?.PAGE_DESCRIPTION })
-      this.metaService.updateTag({ property: 'og:description', content: data?.PAGE_DESCRIPTION })
     })
   }
 }

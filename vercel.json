@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/scripts/generate-index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/resume-angular-2024/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(pl|en)",
+      "dest": "/index.$1.server.html"
+    },
+    {
+      "src": "/(pl|en)/(.*)",
+      "dest": "/$1/$2"
+    },
+    {
+      "src": "/",
+      "dest": "/index.pl.server.html"
+    }
+  ]
+}
