@@ -77,14 +77,6 @@ export class WebComponent extends AppDestroy implements OnInit {
       property: 'og:url',
       content: `${environment.url}${this.currentLanguage}/`
     })
-
-    console.warn(
-      '@',
-      this.metaService.updateTag({
-        rel: 'canonical',
-        href: `${environment.url}${this.currentLanguage}`
-      })
-    )
   }
 
   private updateSiteMeta() {
