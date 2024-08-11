@@ -1,14 +1,21 @@
 import { Routes } from '@angular/router'
 import { WebComponent } from './pages/web/web.component'
-import { PdfComponent } from './pages/pdf/pdf.component'
+import { langGuard } from './guards/lang.guard'
 
 export const routes: Routes = [
   {
-    path: '',
-    component: WebComponent
+    path: ':lang',
+    component: WebComponent,
+    canActivate: [langGuard],
+    pathMatch: 'full'
   },
   {
-    path: 'download-pdf',
-    component: PdfComponent
+    path: '',
+    redirectTo: '/pl',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/pl'
   }
 ]

@@ -50,7 +50,7 @@
             class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'en'"
-            (click)="changeLanguage('en')"
+            [routerLink]="['/', 'en']"
           >
             EN
           </button>
@@ -58,7 +58,7 @@
             class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'pl'"
-            (click)="changeLanguage('pl')"
+            [routerLink]="['/', 'pl']"
           >
             PL
           </button>
