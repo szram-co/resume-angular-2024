@@ -6,7 +6,8 @@ import {
   HttpClient,
   provideHttpClient,
   withFetch,
-  withInterceptorsFromDi
+  withInterceptorsFromDi,
+  withJsonpSupport
 } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -18,7 +19,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi(), withJsonpSupport()),
     provideRouter(routes),
     importProvidersFrom(
       TranslateModule.forRoot({
