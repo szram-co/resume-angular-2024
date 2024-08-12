@@ -15,14 +15,14 @@ $header-height: 54px;
   z-index: 99;
   position: fixed;
   left: 0;
-  top: -#{$header-height};
+  top: 0;
   right: 0;
   width: 100%;
   height: $header-height;
   backdrop-filter: var(--resume-header-backdrop);
   -webkit-backdrop-filter: var(--resume-header-backdrop);
-  will-change: backdrop-filter;
-  transform: translateZ(0);
+  will-change: transform;
+  transform: translateZ(0) translateY(-#{$header-height});
   contain: layout;
   color: var(--bs-body-color);
 
@@ -60,11 +60,8 @@ $header-height: 54px;
     animation: show-header 1s ease-in-out forwards;
 
     @keyframes show-header {
-      from {
-        top: -#{$header-height};
-      }
       to {
-        top: 0;
+        transform: translateZ(0) translateY(0);
       }
     }
   }

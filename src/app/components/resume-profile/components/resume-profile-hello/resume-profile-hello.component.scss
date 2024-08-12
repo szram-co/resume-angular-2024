@@ -1,0 +1,58 @@
+@import 'app';
+
+.resume-hello-wrapper {
+  margin: 2rem 0 3rem 0;
+}
+
+.resume-hello {
+  letter-spacing: 2px;
+  background-image: var(--bs-gradient);
+  color: transparent;
+  background-clip: text;
+  display: inline-block;
+  font-family: $font-head;
+  font-weight: 900;
+  @include font-size(6rem);
+
+  @include media-breakpoint-down(xl) {
+    @include font-size(5rem);
+  }
+
+  @include media-breakpoint-down(lg) {
+    text-align: center;
+  }
+}
+
+$hello-speed: 2000ms;
+
+.draw-text {
+  path {
+    fill-opacity: 0;
+    stroke: var(--color-brand-light);
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: arcs;
+    animation: dash-path #{$hello-speed} ease forwards;
+    will-change: stroke, fill-opacity, stroke-dashoffset;
+  }
+
+  @for $i from 1 through 25 {
+    path:nth-child(#{$i}) {
+      animation-delay: #{$i * 100ms};
+    }
+  }
+}
+
+@keyframes dash-path {
+  25% {
+    stroke: var(--color-brand);
+  }
+  50% {
+    fill-opacity: 0;
+  }
+  to {
+    stroke: transparent;
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}

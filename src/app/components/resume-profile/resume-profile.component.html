@@ -42,7 +42,9 @@
           <div class="resume-boxed d-inline-block">Senior Frontend Developer</div>
           <div class="resume-boxed d-inline-block">Fullstack Web Developer</div>
         </div>
-        <h1 class="resume-hello mb-5" [innerHTML]="'HELLO' | translate"></h1>
+
+        <app-resume-profile-hello type="path" />
+
         <div class="resume-description">
           <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
             {{ description }}

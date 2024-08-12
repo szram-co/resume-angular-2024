@@ -4,25 +4,6 @@
   position: relative;
 }
 
-.resume-hello {
-  letter-spacing: 2px;
-  background-image: var(--bs-gradient);
-  color: transparent;
-  background-clip: text;
-  display: inline-block;
-  font-family: $font-head;
-  font-weight: 900;
-  @include font-size(6rem);
-
-  @include media-breakpoint-down(xl) {
-    @include font-size(5rem);
-  }
-
-  @include media-breakpoint-down(lg) {
-    text-align: center;
-  }
-}
-
 .resume-positions {
   @include media-breakpoint-up(md) {
     padding: 3rem 0 2rem;

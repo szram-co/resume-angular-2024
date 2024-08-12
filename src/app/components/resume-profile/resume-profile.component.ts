@@ -6,11 +6,20 @@ import { DataService } from '../../services/data.service'
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { takeUntil } from 'rxjs'
 import { RouterLink } from '@angular/router'
+import { ResumeProfileHelloComponent } from './components/resume-profile-hello/resume-profile-hello.component'
 
 @Component({
   selector: 'app-resume-profile',
   standalone: true,
-  imports: [NgForOf, TranslateModule, NgIf, NgClass, NgStyle, RouterLink],
+  imports: [
+    NgForOf,
+    TranslateModule,
+    NgIf,
+    NgClass,
+    NgStyle,
+    RouterLink,
+    ResumeProfileHelloComponent
+  ],
   templateUrl: './resume-profile.component.html',
   styleUrl: './resume-profile.component.scss'
 })

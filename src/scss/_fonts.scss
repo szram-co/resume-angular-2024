@@ -5,12 +5,25 @@
 // $font-weight: Weight of the font
 // $font-style: Style of the font (default is normal)
 
-@mixin font-src($font-family, $font-url, $font-name, $font-weight, $font-style: normal) {
+@mixin font-src(
+  $font-family,
+  $font-url,
+  $font-name,
+  $font-weight,
+  $font-style: normal,
+  $font-target: 'web'
+) {
   @font-face {
     font-family: $font-family;
     // Combines $font-url and $font-name to form the full path
-    src: url('#{$font-url}#{$font-name}') format('truetype');
-    font-display: auto;
+    @if ($font-target == 'web') {
+      src:
+        url('#{$font-url}#{$font-name}.woff2') format('woff2'),
+        url('#{$font-url}#{$font-name}.woff') format('woff');
+    } @else if ($font-target == 'pdf') {
+      src: url('#{$font-url}#{$font-name}.ttf') format('truetype');
+    }
+    font-display: swap;
     font-style: $font-style;
     font-weight: $font-weight;
     font-stretch: normal;
@@ -40,20 +53,15 @@
 @include addFontFace(
   (
     family: 'Mulish',
-    url: '/assets/fonts/Mulish/static/',
+    url: '/assets/fonts/Mulish/',
+    target: 'web',
     src: (
-      (font: 'Mulish-Black.ttf', weight: 900, style: normal),
-      //(font: 'Mulish-BlackItalic.ttf', weight: 900, style: italic),
-      (font: 'Mulish-ExtraBold.ttf', weight: 800, style: normal),
-      //(font: 'Mulish-ExtraBoldItalic.ttf', weight: 800, style: italic),
-      (font: 'Mulish-Bold.ttf', weight: 700, style: normal),
-      //(font: 'Mulish-BoldItalic.ttf', weight: 700, style: italic),
-      (font: 'Mulish-SemiBold.ttf', weight: 600, style: normal),
-      //(font: 'Mulish-SemiBoldItalic.ttf', weight: 600, style: italic),
-      (font: 'Mulish-Medium.ttf', weight: 500, style: normal),
-      //(font: 'Mulish-MediumItalic.ttf', weight: 500, style: italic),
-      (font: 'Mulish-Regular.ttf', weight: 400, style: normal),
-      //(font: 'Mulish-RegularItalic.ttf', weight: 400, style: italic)
+      (font: 'Mulish-Black', weight: 900, style: normal),
+      (font: 'Mulish-ExtraBold', weight: 800, style: normal),
+      (font: 'Mulish-Bold', weight: 700, style: normal),
+      (font: 'Mulish-SemiBold', weight: 600, style: normal),
+      (font: 'Mulish-Medium', weight: 500, style: normal),
+      (font: 'Mulish-Regular', weight: 400, style: normal)
     )
   )
 );
@@ -62,17 +70,18 @@
   (
     family: 'Poppins',
     url: '/assets/fonts/Poppins/',
+    target: 'web',
     src: (
-      (font: 'Poppins-Black.ttf', weight: 900, style: normal),
-      (font: 'Poppins-BlackItalic.ttf', weight: 900, style: italic),
-      (font: 'Poppins-ExtraBold.ttf', weight: 800, style: normal),
-      (font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: italic),
-      (font: 'Poppins-Bold.ttf', weight: 700, style: normal),
-      (font: 'Poppins-BoldItalic.ttf', weight: 700, style: italic),
-      (font: 'Poppins-Medium.ttf', weight: 500, style: normal),
-      (font: 'Poppins-MediumItalic.ttf', weight: 500, style: italic),
-      (font: 'Poppins-Regular.ttf', weight: 400, style: normal),
-      (font: 'Poppins-Italic.ttf', weight: 400, style: italic)
+      (font: 'Poppins-Black', weight: 900, style: normal),
+      (font: 'Poppins-BlackItalic', weight: 900, style: italic),
+      (font: 'Poppins-ExtraBold', weight: 800, style: normal),
+      (font: 'Poppins-ExtraBoldItalic', weight: 800, style: italic),
+      (font: 'Poppins-Bold', weight: 700, style: normal),
+      (font: 'Poppins-BoldItalic', weight: 700, style: italic),
+      (font: 'Poppins-Medium', weight: 500, style: normal),
+      (font: 'Poppins-MediumItalic', weight: 500, style: italic),
+      (font: 'Poppins-Regular', weight: 400, style: normal),
+      (font: 'Poppins-Italic', weight: 400, style: italic)
     )
   )
 );
@@ -81,9 +90,10 @@
   (
     family: 'Saira Semi Condensed',
     url: '/assets/fonts/SairaSemiCondensed/',
+    target: 'web',
     src: (
-      (font: 'SairaSemiCondensed-Bold.ttf', weight: 700, style: normal),
-      (font: 'SairaSemiCondensed-SemiBold.ttf', weight: 600, style: normal)
+      (font: 'SairaSemiCondensed-Bold', weight: 700, style: normal),
+      (font: 'SairaSemiCondensed-SemiBold', weight: 600, style: normal)
     )
   )
 );
