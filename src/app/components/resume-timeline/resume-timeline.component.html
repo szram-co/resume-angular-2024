@@ -38,7 +38,11 @@
   </ng-container>
 </div>
 
-<button class="btn btn-outline-light btn-show-more btn-sm" (click)="toggleShowMore()">
+<button
+  [attr.aria-label]="'BUTTON.SHOW_MORE_EXPERIENCE' | translate"
+  class="btn btn-outline-light btn-show-more btn-sm"
+  (click)="toggleShowMore()"
+>
   {{
     showMore
       ? ('BUTTON.LESS' | translate)

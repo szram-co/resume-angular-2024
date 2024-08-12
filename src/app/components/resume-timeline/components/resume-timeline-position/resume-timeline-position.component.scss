@@ -150,7 +150,7 @@
   }
 
   &__title {
-    h4 {
+    &__head {
       @include font-size($position-size);
       font-family: $font-head;
       display: block;

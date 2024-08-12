@@ -61,7 +61,11 @@
   },
   "BUTTON": {
     "MORE": "Pokaż więcej",
-    "LESS": "Pokaż mniej"
+    "LESS": "Pokaż mniej",
+    "TOGGLE_THEME": "Zmień odcień strony",
+    "CHANGE_LANGUAGE_EN": "Zmień język strony na angielski",
+    "CHANGE_LANGUAGE_PL": "Zmień język strony na polski",
+    "SHOW_MORE_EXPERIENCE": "Pokaż więcej więcej pozycji doświadczenia"
   },
   "SKILLS": [
     "Praca w Scrum/Agile",

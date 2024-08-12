@@ -38,6 +38,7 @@
         </li>
         <li class="nav-item link-scale ms-auto ms-sm-0">
           <button
+            [attr.aria-label]="'BUTTON.TOGGLE_THEME' | translate"
             class="btn btn-link nav-link text-decoration-none btn-lang"
             (click)="themeToggle()"
           >
@@ -47,6 +48,7 @@
         </li>
         <li class="nav-item link-scale">
           <button
+            [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_EN' | translate"
             class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'en'"
@@ -55,6 +57,7 @@
             EN
           </button>
           <button
+            [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_PL' | translate"
             class="btn btn-link nav-link text-decoration-none btn-lang"
             role="button"
             *ngIf="getCurrentLanguage() !== 'pl'"

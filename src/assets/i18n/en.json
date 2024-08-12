@@ -59,7 +59,11 @@
   },
   "BUTTON": {
     "MORE": "Show more",
-    "LESS": "Show less"
+    "LESS": "Show less",
+    "TOGGLE_THEME": "Change theme color",
+    "CHANGE_LANGUAGE_EN": "Change language to english",
+    "CHANGE_LANGUAGE_PL": "Change language to polish",
+    "SHOW_MORE_EXPERIENCE": "Show more experience positions"
   },
   "SKILLS": [
     "Working in Scrum/Agile",
