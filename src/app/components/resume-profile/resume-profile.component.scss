@@ -2,9 +2,9 @@
 
 .resume-profile {
   position: relative;
-  min-height: 100vh;
 
   &__loading {
+    min-height: 100vh;
     will-change: transform, opacity;
     animation: show-profile 0.5s ease forwards;
   }
