@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/resume-angular-2024",
-            "index": "src/index1.html",
+            "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
@@ -28,11 +28,6 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["src/scss"]
-            },
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
             }
           },
           "configurations": {

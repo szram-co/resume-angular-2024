@@ -10,11 +10,6 @@ import {
 } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import {
-  provideClientHydration,
-  withHttpTransferCacheOptions,
-  withI18nSupport
-} from '@angular/platform-browser' // AoT requires an exported function for factories
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,12 +19,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    provideClientHydration(
-      withI18nSupport(),
-      withHttpTransferCacheOptions({
-        includePostRequests: true
-      })
-    ),
     provideRouter(routes),
     importProvidersFrom(
       TranslateModule.forRoot({
@@ -39,7 +28,6 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient]
         }
       })
-    ),
-    provideClientHydration()
+    )
   ]
 }
