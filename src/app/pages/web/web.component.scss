@@ -12,7 +12,7 @@
 .resume-background {
   position: absolute;
   left: 0;
-  top: -100%;
+  top: 0;
   right: 0;
   height: 100%;
   width: 100%;
@@ -22,15 +22,13 @@
   background-size: cover;
   background-repeat: no-repeat;
 
+  opacity: 0;
+  transform: translateY(-100%);
   animation: show-glow 3s ease-out forwards;
 
   @keyframes show-glow {
-    from {
-      opacity: 0;
-      top: -100%;
-    }
     to {
-      top: 0;
+      transform: translateY(0);
       opacity: 1;
     }
   }

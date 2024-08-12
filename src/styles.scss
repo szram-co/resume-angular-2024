@@ -7,17 +7,9 @@
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/type';
-//@import 'bootstrap/scss/images';
 @import 'bootstrap/scss/containers';
 @import 'bootstrap/scss/grid';
-//@import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/buttons';
-//@import 'bootstrap/scss/button-group';
-//@import 'bootstrap/scss/transitions';
-//@import 'bootstrap/scss/dropdown';
-//@import 'bootstrap/scss/popover';
-//@import 'bootstrap/scss/spinners';
-//@import 'bootstrap/scss/badge';
 @import 'bootstrap/scss/navbar';
 
 // Helpers
@@ -50,6 +42,20 @@
   --company-logo-c: var(--bs-body-color);
   --company-text-b: var(--bs-body-color);
   --company-text-c: var(--bs-body-bg);
+
+  --resume-profile-image: url('/assets/images/profile-image.jpg');
+}
+
+@supports (background-image: url('/assets/images/profile-image.webp')) {
+  :root {
+    --resume-profile-image: url('/assets/images/profile-image.webp');
+  }
+}
+
+@supports (background-image: url('/assets/images/profile-image.avif')) {
+  :root {
+    --resume-profile-image: url('/assets/images/profile-image.avif');
+  }
 }
 
 @include color-mode(dark, true) {

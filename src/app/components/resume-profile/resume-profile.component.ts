@@ -18,6 +18,10 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDest
   isReady = false
   about!: ResumeAbout
 
+  profileImageWebP = 'assets/images/profile-image.webp'
+  profileImageAvif = 'assets/images/profile-image.avif'
+  profileImageJpg = 'assets/images/profile-image.jpg'
+
   constructor(
     private dataService: DataService,
     private translate: TranslateService
