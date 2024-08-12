@@ -48,7 +48,9 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, OnDest
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.about = data
-        this.isReady = true
+        setTimeout(() => {
+          this.isReady = true
+        }, 2000)
       })
   }
 

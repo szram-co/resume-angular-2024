@@ -38,7 +38,7 @@ $hello-speed: 2000ms;
 
   @for $i from 1 through 25 {
     path:nth-child(#{$i}) {
-      animation-delay: #{$i * 100ms};
+      animation-delay: #{$i * 150ms};
     }
   }
 }
