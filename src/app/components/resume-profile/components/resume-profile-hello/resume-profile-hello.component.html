@@ -13,15 +13,14 @@
         <linearGradient
           gradientUnits="userSpaceOnUse"
           id="resume-bg-gradient"
-          x1="-1.00001"
+          x1="0"
           x2="621"
           y1="197"
           y2="37"
         >
-          <stop offset="0" stop-color="#28988E" />
-          <stop offset="0.124153" stop-color="#5CD5CA" />
-          <stop offset="0.682077" stop-color="#2FA99E" />
-          <stop offset="1" stop-color="#02605C" />
+          <ng-container *ngFor="let data of svgGradient">
+            <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
+          </ng-container>
         </linearGradient>
       </defs>
       <g class="draw-text" fill="url(#resume-bg-gradient)">
@@ -108,15 +107,14 @@
         <linearGradient
           gradientUnits="userSpaceOnUse"
           id="resume-bg-gradient"
-          x1="-1.00001"
+          x1="0"
           x2="621"
           y1="197"
           y2="37"
         >
-          <stop offset="0" stop-color="#28988E" />
-          <stop offset="0.124153" stop-color="#5CD5CA" />
-          <stop offset="0.682077" stop-color="#2FA99E" />
-          <stop offset="1" stop-color="#02605C" />
+          <ng-container *ngFor="let data of svgGradient">
+            <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
+          </ng-container>
         </linearGradient>
       </defs>
       <g class="draw-text" fill="url(#resume-bg-gradient)">

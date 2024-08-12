@@ -28,8 +28,8 @@ $hello-speed: 2000ms;
 .draw-text {
   path {
     fill-opacity: 0;
-    stroke: var(--color-brand-light);
-    stroke-width: 1px;
+    stroke: var(--resume-hello-stroke-from);
+    stroke-width: 1.25px;
     stroke-linecap: round;
     stroke-linejoin: arcs;
     animation: dash-path #{$hello-speed} ease forwards;
@@ -45,7 +45,7 @@ $hello-speed: 2000ms;
 
 @keyframes dash-path {
   25% {
-    stroke: var(--color-brand);
+    stroke: var(--resume-hello-stroke-to);
   }
   50% {
     fill-opacity: 0;

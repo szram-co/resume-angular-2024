@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core'
-import { isPlatformBrowser, NgClass, NgIf } from '@angular/common'
+import { NgClass, NgIf } from '@angular/common'
 import { ResumeHeaderComponent } from '../../components/resume-header/resume-header.component'
 import { ResumeProfileComponent } from '../../components/resume-profile/resume-profile.component'
 import { ResumeSkillsComponent } from '../../components/resume-skills/resume-skills.component'
@@ -42,7 +42,6 @@ export class WebComponent extends AppDestroy implements OnInit {
   }
 
   get storageLang() {
-    if (!isPlatformBrowser(this.platformId)) return 'pl'
     const lang = localStorage.getItem('LANG')
     return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'pl'
   }
@@ -52,8 +51,6 @@ export class WebComponent extends AppDestroy implements OnInit {
   }
 
   ngOnInit() {
-    if (!isPlatformBrowser(this.platformId)) return
-
     this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       const lang = params.get('lang')
 

@@ -46,26 +46,18 @@
   --resume-profile-image: url('/assets/images/profile-image.jpg');
 }
 
-@supports (background-image: url('/assets/images/profile-image.webp')) {
-  :root {
-    --resume-profile-image: url('/assets/images/profile-image.webp');
-  }
-}
-
-@supports (background-image: url('/assets/images/profile-image.avif')) {
-  :root {
-    --resume-profile-image: url('/assets/images/profile-image.avif');
-  }
-}
-
 @include color-mode(dark, true) {
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
+  --resume-hello-stroke-from: var(--color-brand-light);
+  --resume-hello-stroke-to: var(--color-brand);
 }
 
 @include color-mode(light, true) {
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
+  --resume-hello-stroke-from: var(--color-brand-dark);
+  --resume-hello-stroke-to: var(--color-brand);
 }
 
 ::selection {
