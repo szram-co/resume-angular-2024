@@ -98,8 +98,8 @@
     display: grid;
     place-items: center;
     width: 12rem;
-    fill: var(--color-light);
-    background: #{lighten($color-dark, 2%)};
+    fill: var(--color-gray);
+    background: #{lighten($color-dark, 1%)};
     aspect-ratio: 16/9;
     border-radius: 0.65rem;
 
