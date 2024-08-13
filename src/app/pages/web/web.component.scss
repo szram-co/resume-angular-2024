@@ -61,18 +61,22 @@
   --slider-scroll-start: 0;
   --slider-scroll-end: calc(-100% - var(--slider-gap));
 
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(xl) {
     --slider-gap: 1.5rem;
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     --slider-gap: 1rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    --slider-gap: 0.5rem;
   }
 
   display: flex;
   flex-direction: column;
   gap: var(--slider-gap);
-  margin: 4rem 0 2rem 0;
+  margin: 4rem 0 3rem 0;
   width: 100%;
   mask-image: linear-gradient(
     var(--slider-direction, to right),
@@ -104,11 +108,11 @@
     border-radius: 0.65rem;
 
     @include media-breakpoint-down(xl) {
-      width: 9rem;
+      width: 10rem;
     }
 
     @include media-breakpoint-down(md) {
-      width: 7rem;
+      width: 8rem;
     }
 
     &__svg {
@@ -116,12 +120,13 @@
       height: 3rem;
 
       @include media-breakpoint-down(xl) {
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
       }
+
       @include media-breakpoint-down(md) {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.75rem;
+        height: 1.75rem;
       }
     }
   }
