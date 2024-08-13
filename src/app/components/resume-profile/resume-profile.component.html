@@ -1,14 +1,14 @@
 <section [ngClass]="{ 'resume-profile': true, 'resume-profile--ready': isReady }">
-  <ng-container *ngIf="!isReady">
-    <div class="resume-profile__loading">
-      <div class="spinner-border" role="status"></div>
-    </div>
-  </ng-container>
-  <div class="container" *ngIf="isReady">
+  <div class="container">
     <div class="row">
       <div class="col col-lg-4 col-12">
-        <div class="resume-picture resume-picture--viewer">
-          <div class="resume-picture__overlay">
+        <ng-template #loading>
+          <div class="resume-loading">
+            <div class="spinner-border" role="status"></div>
+          </div>
+        </ng-template>
+        <div class="resume-picture" #resumeProfile *ngIf="backgroundImageLoaded; else loading">
+          <div class="resume-picture__overlay" *ngIf="isReady">
             <ul class="resume-contact">
               <li>
                 <a class="link-lg" [href]="'mailto:' + about.email">

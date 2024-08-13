@@ -2,36 +2,6 @@
 
 .resume-profile {
   position: relative;
-
-  &__loading {
-    min-height: 100vh;
-    will-change: transform, opacity;
-    animation: show-profile 0.5s ease forwards;
-  }
-
-  &--ready {
-    will-change: transform, opacity;
-    animation: show-profile 0.5s ease forwards;
-  }
-
-  &:not(&--ready) {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @keyframes show-profile {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
 }
 
 .resume-positions {
@@ -81,24 +51,41 @@
   }
 }
 
+.resume-loading {
+  height: 100%;
+  width: 100%;
+  min-height: 35rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fade-loader 0.3s ease forwards;
+}
+
 .resume-picture {
   height: 100%;
   width: 100%;
   position: relative;
   min-height: 35rem;
-  background: var(--resume-profile-image) 45%;
   background-size: cover;
+  background-position: 45% center;
 
-  @include media-breakpoint-down(lg) {
-    background-position: 50% 10%;
+  will-change: transform, opacity;
+  animation: show-picture 2s ease forwards;
+
+  @keyframes show-picture {
+    from {
+      opacity: 0;
+      transform: translateY(-1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  @include media-breakpoint-down(md) {
-    min-height: 25rem;
-  }
-
   @include media-breakpoint-down(lg) {
-    background-position: 50% 10%;
+    background-position: center 10%;
   }
 
   @include media-breakpoint-down(md) {
@@ -213,5 +200,14 @@
   }
   @include media-breakpoint-down(md) {
     padding-bottom: 0.5rem;
+  }
+}
+
+@keyframes fade-loader {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

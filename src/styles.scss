@@ -42,8 +42,6 @@
   --company-logo-c: var(--bs-body-color);
   --company-text-b: var(--bs-body-color);
   --company-text-c: var(--bs-body-bg);
-
-  --resume-profile-image: url('/assets/images/profile-image.jpg');
 }
 
 @include color-mode(dark, true) {
