@@ -285,6 +285,7 @@ export class DataService {
               acc[experience.company].positions.push({
                 name: experience.name,
                 description: experience.description,
+                short_description: experience.short_description,
                 date: experience.date,
                 technologies
               })

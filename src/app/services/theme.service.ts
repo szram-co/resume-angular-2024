@@ -10,6 +10,10 @@ export class ThemeService {
 
   themeDefault: ResumeThemeMode = ResumeThemeMode.DARK
 
+  constructor() {
+    this.themeInitialize()
+  }
+
   get themeStored(): ResumeThemeMode | null {
     return localStorage.getItem(this.THEME_MODE_KEY_NAME) as ResumeThemeMode | null
   }

@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core'
-import { NgClass, NgIf } from '@angular/common'
+import { Component, OnInit } from '@angular/core'
+import { NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common'
 import { ResumeHeaderComponent } from '../../components/resume-header/resume-header.component'
 import { ResumeProfileComponent } from '../../components/resume-profile/resume-profile.component'
 import { ResumeSkillsComponent } from '../../components/resume-skills/resume-skills.component'
@@ -7,9 +7,42 @@ import { ResumeTimelineComponent } from '../../components/resume-timeline/resume
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
-import { Meta, Title } from '@angular/platform-browser'
+import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser'
 import { environment } from '../../../environments/environment'
 import { takeUntil } from 'rxjs'
+import type { SimpleIcon } from 'simple-icons'
+import {
+  siAngular,
+  siBootstrap,
+  siDocker,
+  siGit,
+  siHtml5,
+  siIos,
+  siJasmine,
+  siJavascript,
+  siJira,
+  siMaterialdesign,
+  siNginx,
+  siPhp,
+  siPwa,
+  siSass,
+  siStencil,
+  siStorybook,
+  siTypescript,
+  siVuedotjs,
+  siWebcomponentsdotorg,
+  siWebstorm,
+  siYarn
+} from 'simple-icons'
+
+interface ResumeIcon extends SimpleIcon {
+  html: SafeHtml
+}
+
+interface ResumeStackIcons {
+  upper: ResumeIcon[]
+  down: ResumeIcon[]
+}
 
 @Component({
   selector: 'app-web',
@@ -20,7 +53,10 @@ import { takeUntil } from 'rxjs'
     ResumeProfileComponent,
     ResumeSkillsComponent,
     ResumeTimelineComponent,
-    NgClass
+    NgClass,
+    NgForOf,
+    NgOptimizedImage,
+    NgStyle
   ],
   templateUrl: './web.component.html',
   styleUrl: './web.component.scss'
@@ -29,13 +65,18 @@ export class WebComponent extends AppDestroy implements OnInit {
   browserLang!: string
   isReady = false
 
+  stackIcons: ResumeStackIcons = {
+    upper: [],
+    down: []
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService,
     private titleService: Title,
     private metaService: Meta,
-    @Inject(PLATFORM_ID) private platformId: object
+    private sanitizer: DomSanitizer
   ) {
     super()
     this.browserLang = this.translate.getBrowserLang() ?? 'pl'
@@ -65,6 +106,38 @@ export class WebComponent extends AppDestroy implements OnInit {
       this.updateSiteLinks()
 
       this.isReady = true
+
+      this.stackIcons = {
+        upper: [
+          siJavascript,
+          siTypescript,
+          siAngular,
+          siVuedotjs,
+          siWebstorm,
+          siMaterialdesign,
+          siBootstrap,
+          siPhp,
+          siSass,
+          siPwa
+        ].map((icon) => {
+          return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
+        }),
+        down: [
+          siStencil,
+          siStorybook,
+          siWebcomponentsdotorg,
+          siHtml5,
+          siJasmine,
+          siYarn,
+          siIos,
+          siDocker,
+          siNginx,
+          siJira,
+          siGit
+        ].map((icon) => {
+          return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
+        })
+      }
     })
   }
 

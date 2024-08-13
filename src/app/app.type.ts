@@ -77,6 +77,7 @@ export interface ResumeExperience {
   company: number
   name: TranslatedValue
   description: TranslatedValue
+  short_description: TranslatedValue
   date: DatePeriod
   technologies: number[]
 }
@@ -84,6 +85,7 @@ export interface ResumeExperience {
 export interface ResumePosition {
   name: TranslatedValue
   description: TranslatedValue
+  short_description: TranslatedValue
   date: DatePeriod
   technologies: ResumeTechnology[]
 }
