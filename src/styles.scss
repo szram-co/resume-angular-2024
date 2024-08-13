@@ -45,6 +45,7 @@
 }
 
 @include color-mode(dark, true) {
+  --color-strong: #{lighten($body-bg-dark, 3%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-light);
@@ -52,6 +53,7 @@
 }
 
 @include color-mode(light, true) {
+  --color-strong: #{darken($body-bg, 3%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-dark);

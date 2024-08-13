@@ -98,7 +98,7 @@
     place-items: center;
     width: 10rem;
     fill: var(--color-gray);
-    background-color: var(--bs-secondary-bg);
+    background-color: var(--color-strong);
     aspect-ratio: 3/2;
     border-radius: 0.5rem;
     @include transitions(fill, background-color);
