@@ -76,15 +76,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--slider-gap);
-  margin: 4rem 0 3rem 0;
-  width: 100%;
-  mask-image: linear-gradient(
-    var(--slider-direction, to right),
-    hsl(0 0% 0% / 0),
-    hsl(0 0% 0% / 1) 25%,
-    hsl(0 0% 0% / 1) 75%,
-    hsl(0 0% 0% / 0)
-  );
+  margin: 4rem var(--slider-gap) 3rem;
+  width: 90%;
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .resume-slider {
@@ -97,22 +91,24 @@
   overflow: hidden;
   user-select: none;
   gap: var(--slider-gap);
+  position: relative;
 
   &__icon {
     display: grid;
     place-items: center;
-    width: 12rem;
+    width: 10rem;
     fill: var(--color-gray);
-    background: #{lighten($color-dark, 1%)};
-    aspect-ratio: 16/9;
-    border-radius: 0.65rem;
+    background-color: var(--bs-secondary-bg);
+    aspect-ratio: 3/2;
+    border-radius: 0.5rem;
+    @include transitions(fill, background-color);
 
     @include media-breakpoint-down(xl) {
-      width: 10rem;
+      width: 8rem;
     }
 
     @include media-breakpoint-down(md) {
-      width: 8rem;
+      width: 5rem;
     }
 
     &__svg {
