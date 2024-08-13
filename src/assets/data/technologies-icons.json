@@ -49,19 +49,21 @@
     "name": "RxJS",
     "type": "library",
     "group": "frontend",
-    "icon": "siReactivex"
+    "icon": "siReactiveX"
   },
   {
     "id": 8,
     "name": "NGXS",
     "type": "library",
-    "group": "frontend"
+    "group": "frontend",
+    "icon": null
   },
   {
     "id": 9,
     "name": "Karma",
     "type": "library",
-    "group": "frontend"
+    "group": "frontend",
+    "icon": "siKarma"
   },
   {
     "id": 10,
@@ -91,7 +93,7 @@
     "type": "framework",
     "group": "frontend",
     "leading": true,
-    "icon": "siVuedotjs"
+    "icon": "siVueDotJs"
   },
   {
     "id": 14,
@@ -195,7 +197,7 @@
     "type": "frontend",
     "group": "frontend",
     "leading": true,
-    "icon": "siMaterialdesign"
+    "icon": "siMaterialui"
   },
   {
     "id": 30,
@@ -209,7 +211,8 @@
     "id": 31,
     "name": "CI/CD",
     "type": "tool",
-    "group": "backend"
+    "group": "backend",
+    "icon": null
   },
   {
     "id": 32,
@@ -230,7 +233,8 @@
     "id": 34,
     "name": "AJAX",
     "type": "web",
-    "group": "frontend"
+    "group": "frontend",
+    "icon": null
   },
   {
     "id": 35,
@@ -244,14 +248,16 @@
     "name": "Unit testing",
     "type": "tool",
     "group": "frontend",
-    "leading": true
+    "leading": true,
+    "icon": null
   },
   {
     "id": 37,
     "name": "REST API",
     "type": "web",
     "group": "frontend",
-    "leading": true
+    "leading": true,
+    "icon": null
   },
   {
     "id": 39,
@@ -307,6 +313,7 @@
     "id": 47,
     "name": "Windows",
     "type": "system",
-    "group": "backend"
+    "group": "backend",
+    "icon": "siWindows"
   }
 ]

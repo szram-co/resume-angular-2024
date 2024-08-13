@@ -1,4 +1,5 @@
 import { SafeHtml } from '@angular/platform-browser'
+import type { SimpleIcon } from 'simple-icons'
 
 export enum ResumeThemeMode {
   LIGHT = 'light',
@@ -34,14 +35,22 @@ export enum ResumeTechnologyGroup {
   backend = 'backend'
 }
 
+export interface ResumeTechnologySafeIcon extends SimpleIcon {
+  html: SafeHtml
+}
+
 export interface ResumeTechnology {
   id: number
   name: string
-  skillAssessment: boolean
   type: ResumeTechnologyType
   group: ResumeTechnologyGroup
   leading?: boolean
+  icon?: string
 }
+
+export type ResumeTechnologyWithIcon = MakeRequired<ResumeTechnology, 'icon'>
+
+export type MakeRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
 
 export interface ResumeMappedCompany {
   company: ResumeCompany

@@ -9,30 +9,20 @@
     </div>
 
     <div class="resume-stack">
-      <div class="resume-slider">
-        <div class="resume-slider-group">
-          <div class="resume-slider__icon" *ngFor="let icon of stackIcons.upper">
-            <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
+      <ng-container *ngFor="let icons of stackIcons; let index = index">
+        <div [ngClass]="{ 'resume-slider': true, 'resume-slider--reverse': index === 1 }">
+          <div class="resume-slider-group">
+            <div class="resume-slider__icon" *ngFor="let icon of icons">
+              <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
+            </div>
+          </div>
+          <div aria-hidden="true" class="resume-slider-group">
+            <div class="resume-slider__icon" *ngFor="let icon of icons">
+              <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
+            </div>
           </div>
         </div>
-        <div aria-hidden="true" class="resume-slider-group">
-          <div class="resume-slider__icon" *ngFor="let icon of stackIcons.upper">
-            <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
-          </div>
-        </div>
-      </div>
-      <div class="resume-slider resume-slider--reverse">
-        <div class="resume-slider-group">
-          <div class="resume-slider__icon" *ngFor="let icon of stackIcons.down">
-            <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
-          </div>
-        </div>
-        <div aria-hidden="true" class="resume-slider-group">
-          <div class="resume-slider__icon" *ngFor="let icon of stackIcons.down">
-            <div class="resume-slider__icon__svg" [innerHTML]="icon.html"></div>
-          </div>
-        </div>
-      </div>
+      </ng-container>
     </div>
 
     <section class="resume-experience">

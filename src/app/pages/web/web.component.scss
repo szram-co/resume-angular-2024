@@ -58,18 +58,22 @@
 .resume-stack {
   --slider-gap: 2rem;
   --slider-duration: 60s;
+  --slider-icon-size: 3rem;
   --slider-scroll-start: 0;
   --slider-scroll-end: calc(-100% - var(--slider-gap));
 
   @include media-breakpoint-down(xl) {
+    --slider-icon-size: 2.5rem;
     --slider-gap: 1.5rem;
   }
 
   @include media-breakpoint-down(lg) {
+    --slider-icon-size: 2rem;
     --slider-gap: 1rem;
   }
 
   @include media-breakpoint-down(md) {
+    --slider-icon-size: 1.75rem;
     --slider-gap: 0.5rem;
   }
 
@@ -82,11 +86,6 @@
 }
 
 .resume-slider {
-  &--reverse .resume-slider-group {
-    animation-direction: reverse;
-    animation-delay: -3s;
-  }
-
   display: flex;
   overflow: hidden;
   user-select: none;
@@ -108,23 +107,27 @@
     }
 
     @include media-breakpoint-down(md) {
+      aspect-ratio: 4/3;
+      width: 6rem;
+    }
+
+    @include media-breakpoint-down(sm) {
       width: 5rem;
     }
 
     &__svg {
-      width: 3rem;
-      height: 3rem;
-
-      @include media-breakpoint-down(xl) {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
-
-      @include media-breakpoint-down(md) {
-        width: 1.75rem;
-        height: 1.75rem;
-      }
+      width: var(--slider-icon-size);
+      height: var(--slider-icon-size);
     }
+  }
+
+  &:nth-child(even) .resume-slider-group {
+    animation-direction: reverse;
+    animation-delay: -3s;
+  }
+
+  &:nth-child(3) {
+    --slider-duration: 45s;
   }
 }
 

@@ -7,42 +7,17 @@ import { ResumeTimelineComponent } from '../../components/resume-timeline/resume
 import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
-import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser'
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser'
 import { environment } from '../../../environments/environment'
-import { takeUntil } from 'rxjs'
-import type { SimpleIcon } from 'simple-icons'
+import { map, takeUntil } from 'rxjs'
+import { DataService } from '../../services/data.service'
 import {
-  siAngular,
-  siBootstrap,
-  siDocker,
-  siGit,
-  siHtml5,
-  siIos,
-  siJasmine,
-  siJavascript,
-  siJira,
-  siMaterialdesign,
-  siNginx,
-  siPhp,
-  siPwa,
-  siSass,
-  siStencil,
-  siStorybook,
-  siTypescript,
-  siVuedotjs,
-  siWebcomponentsdotorg,
-  siWebstorm,
-  siYarn
-} from 'simple-icons'
-
-interface ResumeIcon extends SimpleIcon {
-  html: SafeHtml
-}
-
-interface ResumeStackIcons {
-  upper: ResumeIcon[]
-  down: ResumeIcon[]
-}
+  ResumeTechnologyMapped,
+  ResumeTechnologySafeIcon,
+  ResumeTechnologyWithIcon
+} from '../../app.type'
+import type { SimpleIcon } from 'simple-icons'
+import * as SimpleIcons from 'simple-icons'
 
 @Component({
   selector: 'app-web',
@@ -65,10 +40,10 @@ export class WebComponent extends AppDestroy implements OnInit {
   browserLang!: string
   isReady = false
 
-  stackIcons: ResumeStackIcons = {
-    upper: [],
-    down: []
-  }
+  technologies: ResumeTechnologyMapped[] = []
+  stackIcons: Array<ResumeTechnologySafeIcon[]> = []
+
+  readonly simpleIcons: { [key: string]: SimpleIcon } = SimpleIcons
 
   constructor(
     private route: ActivatedRoute,
@@ -76,7 +51,8 @@ export class WebComponent extends AppDestroy implements OnInit {
     private translate: TranslateService,
     private titleService: Title,
     private metaService: Meta,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dataService: DataService
   ) {
     super()
     this.browserLang = this.translate.getBrowserLang() ?? 'pl'
@@ -92,6 +68,41 @@ export class WebComponent extends AppDestroy implements OnInit {
   }
 
   ngOnInit() {
+    this.dataService
+      .getTechnologies()
+      .pipe(
+        takeUntil(this.destroy$),
+        map((technologies) =>
+          technologies
+            .filter(
+              (tech): tech is ResumeTechnologyWithIcon =>
+                'icon' in tech && typeof tech?.icon === 'string'
+            )
+            .map((tech) =>
+              this.simpleIcons?.[tech.icon] ? (this.simpleIcons[tech.icon] as SimpleIcon) : null
+            )
+            .filter((icon): icon is SimpleIcon => icon !== null)
+        )
+      )
+      .subscribe((icons) => {
+        const totalItems = icons.length
+        const itemsPerPart = Math.floor(totalItems / 3)
+        const remainder = totalItems % 3
+
+        const iconsRow1 = icons.slice(0, itemsPerPart + (remainder > 0 ? 1 : 0))
+        const iconsRow2 = icons.slice(
+          iconsRow1.length,
+          iconsRow1.length + itemsPerPart + (remainder > 1 ? 1 : 0)
+        )
+        const iconsRow3 = icons.slice(iconsRow1.length + iconsRow2.length)
+
+        this.stackIcons = [
+          this.mapIconsWithSafe(iconsRow1),
+          this.mapIconsWithSafe(iconsRow2),
+          this.mapIconsWithSafe(iconsRow3)
+        ]
+      })
+
     this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       const lang = params.get('lang')
 
@@ -107,37 +118,45 @@ export class WebComponent extends AppDestroy implements OnInit {
 
       this.isReady = true
 
-      this.stackIcons = {
-        upper: [
-          siJavascript,
-          siTypescript,
-          siAngular,
-          siVuedotjs,
-          siWebstorm,
-          siMaterialdesign,
-          siBootstrap,
-          siPhp,
-          siSass,
-          siPwa
-        ].map((icon) => {
-          return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
-        }),
-        down: [
-          siStencil,
-          siStorybook,
-          siWebcomponentsdotorg,
-          siHtml5,
-          siJasmine,
-          siYarn,
-          siIos,
-          siDocker,
-          siNginx,
-          siJira,
-          siGit
-        ].map((icon) => {
-          return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
-        })
-      }
+      // this.stackIcons = {
+      //   upper: [
+      //     // siJavascript,
+      //     // siTypescript,
+      //     // siAngular,
+      //     // siVuedotjs,
+      //     // siWebstorm,
+      //     // siMaterialdesign,
+      //     // siBootstrap,
+      //     // siPhp,
+      //     // siSass,
+      //     siPwa
+      //   ].map((icon) => {
+      //     return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
+      //   }),
+      //   down: [
+      //     // siStencil,
+      //     // siStorybook,
+      //     // siWebcomponentsdotorg,
+      //     // siHtml5,
+      //     // siJasmine,
+      //     // siYarn,
+      //     // siIos,
+      //     // siDocker,
+      //     // siNginx,
+      //     // siJira,
+      //     // siGit,
+      //     // siApifox,
+      //     siTestinglibrary
+      //   ].map((icon) => {
+      //     return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
+      //   })
+      // }
+    })
+  }
+
+  private mapIconsWithSafe(icons: SimpleIcon[]) {
+    return icons.map((icon): ResumeTechnologySafeIcon => {
+      return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
     })
   }
 
