@@ -1,0 +1,15 @@
+<div
+  *ngIf="technology"
+  [ngClass]="{
+    'resume-slider-item': true,
+    'resume-slider-item--ready': isIconLoaded,
+    'resume-slider-item--loading': !isIconLoaded
+  }"
+>
+  <ng-container *ngIf="isIconLoaded">
+    <div class="resume-slider-icon">
+      <img [attr.src]="iconSrc" [attr.alt]="technology.name" />
+    </div>
+    <div class="resume-slider-name">{{ technology.name }}</div>
+  </ng-container>
+</div>

@@ -22,22 +22,24 @@
   <div class="resume-position__title">
     <div class="resume-position__title__head">{{ position.name[currentLanguage] }}</div>
     <p>{{ position.description[currentLanguage] }}</p>
-    <ul class="resume-position__title__stack">
-      <li
-        *ngFor="let tech of position.technologies; let techIndex = index"
-        [ngClass]="{
-          visible: shouldShowAllTechnologies || techIndex + 1 <= TECHNOLOGIES_DISPLAYED,
-          hidden: !shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
-        }"
-        [ngStyle]="{
-          'animation-delay':
-            shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
-              ? (techIndex + 1 - TECHNOLOGIES_DISPLAYED) * 50 + 'ms'
-              : null
-        }"
-      >
-        {{ tech.name }}
-      </li>
+    <ul class="resume-position__title__stack" *ngIf="position?.technologies">
+      <ng-container *ngFor="let tech of position.technologies; let techIndex = index">
+        <li
+          *ngIf="tech?.name"
+          [ngClass]="{
+            visible: shouldShowAllTechnologies || techIndex + 1 <= TECHNOLOGIES_DISPLAYED,
+            hidden: !shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
+          }"
+          [ngStyle]="{
+            'animation-delay':
+              shouldShowAllTechnologies && techIndex + 1 > TECHNOLOGIES_DISPLAYED
+                ? (techIndex + 1 - TECHNOLOGIES_DISPLAYED) * 50 + 'ms'
+                : null
+          }"
+        >
+          {{ tech.name }}
+        </li>
+      </ng-container>
       <li
         class="show-more"
         *ngIf="!shouldShowAllTechnologies && position.technologies.length > TECHNOLOGIES_DISPLAYED"

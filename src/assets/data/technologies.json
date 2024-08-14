@@ -5,7 +5,7 @@
     "type": "language",
     "group": "frontend",
     "leading": true,
-    "icon": "siTypescript"
+    "icon": "typescript"
   },
   {
     "id": 2,
@@ -13,21 +13,21 @@
     "type": "language",
     "group": "frontend",
     "leading": true,
-    "icon": "siJavascript"
+    "icon": "javascript"
   },
   {
     "id": 3,
     "name": "Stencil",
     "type": "frontend",
     "group": "frontend",
-    "icon": "siStencil"
+    "icon": "stencil"
   },
   {
     "id": 4,
     "name": "Storybook",
     "type": "frontend",
     "group": "frontend",
-    "icon": "siStorybook"
+    "icon": "storybook"
   },
   {
     "id": 5,
@@ -35,21 +35,21 @@
     "type": "framework",
     "group": "frontend",
     "leading": true,
-    "icon": "siAngular"
+    "icon": "angular"
   },
   {
     "id": 6,
     "name": "Web Components",
     "type": "frontend",
     "group": "frontend",
-    "icon": "siWebcomponentsdotorg"
+    "icon": "webcomponentsdotorg"
   },
   {
     "id": 7,
     "name": "RxJS",
     "type": "library",
     "group": "frontend",
-    "icon": "siReactivex"
+    "icon": "reactivex"
   },
   {
     "id": 8,
@@ -68,14 +68,14 @@
     "name": "Docker",
     "type": "tool",
     "group": "backend",
-    "icon": "siDocker"
+    "icon": "docker"
   },
   {
     "id": 11,
     "name": "Nginx",
     "type": "tool",
     "group": "backend",
-    "icon": "siNginx"
+    "icon": "nginx"
   },
   {
     "id": 12,
@@ -83,7 +83,7 @@
     "type": "language",
     "group": "backend",
     "leading": true,
-    "icon": "siPhp"
+    "icon": "php"
   },
   {
     "id": 13,
@@ -91,35 +91,35 @@
     "type": "framework",
     "group": "frontend",
     "leading": true,
-    "icon": "siVuedotjs"
+    "icon": "vuedotjs"
   },
   {
     "id": 14,
     "name": "Webpack",
     "type": "tool",
     "group": "frontend",
-    "icon": "siWebpack"
+    "icon": "webpack"
   },
   {
     "id": 15,
     "name": "Jasmine",
     "type": "library",
     "group": "frontend",
-    "icon": "siJasmine"
+    "icon": "jasmine"
   },
   {
     "id": 16,
     "name": "Electron",
     "type": "tool",
     "group": "frontend",
-    "icon": "siElectron"
+    "icon": "electron"
   },
   {
     "id": 17,
     "name": "Laravel",
     "type": "framework",
     "group": "backend",
-    "icon": "siLaravel"
+    "icon": "laravel"
   },
   {
     "id": 18,
@@ -127,7 +127,7 @@
     "type": "cms",
     "group": "backend",
     "leading": true,
-    "icon": "siWordpress"
+    "icon": "wordpress"
   },
   {
     "id": 19,
@@ -135,7 +135,7 @@
     "type": "cms",
     "group": "backend",
     "leading": true,
-    "icon": "siWoo"
+    "icon": "woo"
   },
   {
     "id": 21,
@@ -143,21 +143,14 @@
     "type": "preprocessor",
     "group": "frontend",
     "leading": true,
-    "icon": "siSass"
+    "icon": "sass"
   },
   {
     "id": 22,
     "name": "LESS",
     "type": "preprocessor",
     "group": "frontend",
-    "icon": "siLess"
-  },
-  {
-    "id": 23,
-    "name": "SASS",
-    "type": "preprocessor",
-    "group": "frontend",
-    "icon": "siSass"
+    "icon": "less"
   },
   {
     "id": 24,
@@ -165,14 +158,14 @@
     "type": "language",
     "group": "frontend",
     "leading": true,
-    "icon": "siCss3"
+    "icon": "css3"
   },
   {
     "id": 25,
     "name": "SQL",
     "type": "language",
     "group": "backend",
-    "icon": "siPostgresql"
+    "icon": "postgresql"
   },
   {
     "id": 26,
@@ -180,14 +173,14 @@
     "type": "design",
     "group": "frontend",
     "leading": true,
-    "icon": "siAdobephotoshop"
+    "icon": "adobephotoshop"
   },
   {
     "id": 27,
     "name": "Illustrator",
     "type": "design",
     "group": "frontend",
-    "icon": "siAdobeillustrator"
+    "icon": "adobeillustrator"
   },
   {
     "id": 29,
@@ -195,7 +188,7 @@
     "type": "frontend",
     "group": "frontend",
     "leading": true,
-    "icon": "siMaterialdesign"
+    "icon": "materialdesign"
   },
   {
     "id": 30,
@@ -203,7 +196,7 @@
     "type": "frontend",
     "group": "frontend",
     "leading": true,
-    "icon": "siBootstrap"
+    "icon": "bootstrap"
   },
   {
     "id": 31,
@@ -216,7 +209,7 @@
     "name": "JIRA",
     "type": "tool",
     "group": "backend",
-    "icon": "siJira"
+    "icon": "jira"
   },
   {
     "id": 33,
@@ -224,7 +217,7 @@
     "type": "language",
     "group": "frontend",
     "leading": true,
-    "icon": "siHtml5"
+    "icon": "html5"
   },
   {
     "id": 34,
@@ -237,7 +230,7 @@
     "name": "OS X",
     "type": "system",
     "group": "backend",
-    "icon": "siApple"
+    "icon": "apple"
   },
   {
     "id": 36,
@@ -258,35 +251,35 @@
     "name": "Linux",
     "type": "system",
     "group": "backend",
-    "icon": "siLinux"
+    "icon": "linux"
   },
   {
     "id": 40,
     "name": "jQuery",
     "type": "library",
     "group": "frontend",
-    "icon": "siJquery"
+    "icon": "jquery"
   },
   {
     "id": 41,
     "name": "PWA",
     "type": "web",
     "group": "frontend",
-    "icon": "siPwa"
+    "icon": "pwa"
   },
   {
     "id": 43,
     "name": "Firebase",
     "type": "tool",
     "group": "backend",
-    "icon": "siFirebase"
+    "icon": "firebase"
   },
   {
     "id": 44,
     "name": "Vercel",
     "type": "tool",
     "group": "backend",
-    "icon": "siVercel"
+    "icon": "vercel"
   },
   {
     "id": 45,
@@ -294,14 +287,14 @@
     "type": "tool",
     "group": "frontend",
     "leading": true,
-    "icon": "siNpm"
+    "icon": "npm"
   },
   {
     "id": 46,
     "name": "YARN",
     "type": "tool",
     "group": "frontend",
-    "icon": "siYarn"
+    "icon": "yarn"
   },
   {
     "id": 47,

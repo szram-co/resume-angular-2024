@@ -9,15 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser'
 import { environment } from '../../../environments/environment'
-import { map, takeUntil } from 'rxjs'
+import { takeUntil } from 'rxjs'
 import { DataService } from '../../services/data.service'
-import {
-  ResumeTechnologyMapped,
-  ResumeTechnologySafeIcon,
-  ResumeTechnologyWithIcon
-} from '../../app.type'
-import type { SimpleIcon } from 'simple-icons'
-import * as SimpleIcons from 'simple-icons'
+import { ResumeTechnologiesComponent } from '../../components/resume-technologies/resume-technologies.component'
 
 @Component({
   selector: 'app-web',
@@ -31,7 +25,8 @@ import * as SimpleIcons from 'simple-icons'
     NgClass,
     NgForOf,
     NgOptimizedImage,
-    NgStyle
+    NgStyle,
+    ResumeTechnologiesComponent
   ],
   templateUrl: './web.component.html',
   styleUrl: './web.component.scss'
@@ -39,11 +34,6 @@ import * as SimpleIcons from 'simple-icons'
 export class WebComponent extends AppDestroy implements OnInit {
   browserLang!: string
   isReady = false
-
-  technologies: ResumeTechnologyMapped[] = []
-  stackIcons: Array<ResumeTechnologySafeIcon[]> = []
-
-  readonly simpleIcons: { [key: string]: SimpleIcon } = SimpleIcons
 
   constructor(
     private route: ActivatedRoute,
@@ -68,41 +58,6 @@ export class WebComponent extends AppDestroy implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService
-      .getTechnologies()
-      .pipe(
-        takeUntil(this.destroy$),
-        map((technologies) =>
-          technologies
-            .filter(
-              (tech): tech is ResumeTechnologyWithIcon =>
-                'icon' in tech && typeof tech?.icon === 'string'
-            )
-            .map((tech) =>
-              this.simpleIcons?.[tech.icon] ? (this.simpleIcons[tech.icon] as SimpleIcon) : null
-            )
-            .filter((icon): icon is SimpleIcon => icon !== null)
-        )
-      )
-      .subscribe((icons) => {
-        const totalItems = icons.length
-        const itemsPerPart = Math.floor(totalItems / 3)
-        const remainder = totalItems % 3
-
-        const iconsRow1 = icons.slice(0, itemsPerPart + (remainder > 0 ? 1 : 0))
-        const iconsRow2 = icons.slice(
-          iconsRow1.length,
-          iconsRow1.length + itemsPerPart + (remainder > 1 ? 1 : 0)
-        )
-        const iconsRow3 = icons.slice(iconsRow1.length + iconsRow2.length)
-
-        this.stackIcons = [
-          this.mapIconsWithSafe(iconsRow1),
-          this.mapIconsWithSafe(iconsRow2),
-          this.mapIconsWithSafe(iconsRow3)
-        ]
-      })
-
     this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       const lang = params.get('lang')
 
@@ -117,46 +72,6 @@ export class WebComponent extends AppDestroy implements OnInit {
       this.updateSiteLinks()
 
       this.isReady = true
-
-      // this.stackIcons = {
-      //   upper: [
-      //     // siJavascript,
-      //     // siTypescript,
-      //     // siAngular,
-      //     // siVuedotjs,
-      //     // siWebstorm,
-      //     // siMaterialdesign,
-      //     // siBootstrap,
-      //     // siPhp,
-      //     // siSass,
-      //     siPwa
-      //   ].map((icon) => {
-      //     return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
-      //   }),
-      //   down: [
-      //     // siStencil,
-      //     // siStorybook,
-      //     // siWebcomponentsdotorg,
-      //     // siHtml5,
-      //     // siJasmine,
-      //     // siYarn,
-      //     // siIos,
-      //     // siDocker,
-      //     // siNginx,
-      //     // siJira,
-      //     // siGit,
-      //     // siApifox,
-      //     siTestinglibrary
-      //   ].map((icon) => {
-      //     return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
-      //   })
-      // }
-    })
-  }
-
-  private mapIconsWithSafe(icons: SimpleIcon[]) {
-    return icons.map((icon): ResumeTechnologySafeIcon => {
-      return { ...icon, html: this.sanitizer.bypassSecurityTrustHtml(icon.svg) }
     })
   }
 

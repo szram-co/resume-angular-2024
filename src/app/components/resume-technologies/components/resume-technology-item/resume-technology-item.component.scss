@@ -1,0 +1,104 @@
+@use 'bootstrap/scss/mixins/breakpoints' as *;
+
+@import 'app';
+
+.resume-slider-item {
+  --slider-icon-size: 3rem;
+
+  @include media-breakpoint-down(xl) {
+    --slider-icon-size: 2.5rem;
+  }
+
+  @include media-breakpoint-down(lg) {
+    --slider-icon-size: 2rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    --slider-icon-size: 1.75rem;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  width: 10rem;
+  background-color: var(--color-preload-1);
+  aspect-ratio: 4/3;
+  border-radius: 0.5rem;
+  @include transitions(color, background-color);
+
+  @include media-breakpoint-down(xl) {
+    width: 8rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    aspect-ratio: 4/3;
+    width: 6rem;
+  }
+
+  @include media-breakpoint-down(sm) {
+    width: 5rem;
+  }
+
+  &--ready {
+    .resume-slider-name,
+    .resume-slider-icon {
+      opacity: 0;
+      animation: 1s fade-in ease forwards;
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: scale(1.2);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &--loading {
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: loading-icon;
+    animation-timing-function: linear;
+    background-image: linear-gradient(
+      to right,
+      transparent 25%,
+      var(--color-preload-2) 30%,
+      transparent 75%
+    );
+    background-size: 400% 100%;
+
+    @keyframes loading-icon {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+}
+
+.resume-slider-name {
+  font-family: $font-condensed;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--bs-body-color);
+  @include transitions(color);
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.resume-slider-icon,
+.resume-slider-icon img {
+  width: var(--slider-icon-size);
+  height: var(--slider-icon-size);
+}

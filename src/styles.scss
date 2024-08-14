@@ -45,7 +45,8 @@
 }
 
 @include color-mode(dark, true) {
-  --color-strong: #{lighten($body-bg-dark, 3%)};
+  --color-preload-1: #{lighten($body-bg-dark, 2%)};
+  --color-preload-2: #{lighten($body-bg-dark, 4%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-light);
@@ -53,7 +54,8 @@
 }
 
 @include color-mode(light, true) {
-  --color-strong: #{darken($body-bg, 3%)};
+  --color-preload-1: #{darken($body-bg, 3%)};
+  --color-preload-2: #{darken($body-bg, 5%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-dark);
