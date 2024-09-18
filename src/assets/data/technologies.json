@@ -301,5 +301,11 @@
     "name": "Windows",
     "type": "system",
     "group": "backend"
+  },
+  {
+    "id": 48,
+    "name": "NgRx",
+    "type": "library",
+    "group": "frontend"
   }
 ]

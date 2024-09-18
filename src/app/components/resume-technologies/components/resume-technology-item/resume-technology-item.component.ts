@@ -27,7 +27,7 @@ export class ResumeTechnologyItemComponent extends AppDestroy implements AfterVi
   }
 
   get iconSrc() {
-    return `${this.ICON_URL}/${this.technology?.icon}/${this.ICON_COLOR.replace('#', '')}/`
+    return `${this.ICON_URL}/${this.technology?.icon}/${this.ICON_COLOR.replace('#', '')}`
   }
 
   private loadIcon() {

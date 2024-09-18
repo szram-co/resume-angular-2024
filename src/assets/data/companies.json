@@ -1,5 +1,21 @@
 [
   {
+    "id": 8,
+    "name": "Adamed Pharma",
+    "companyLogo": "logo-adamed.svg",
+    "location": {
+      "city": "pienkow",
+      "country": "poland"
+    },
+    "style": {
+      "--company-logo-b": "#0E4194",
+      "--company-logo-c": "#fff",
+      "--company-line-c": "#0852A5",
+      "--company-text-b": "var(--company-line-c)",
+      "--company-text-c": "var(--company-logo-b)"
+    }
+  },
+  {
     "id": 7,
     "name": "EagerDevs",
     "companyLogo": "logo-eagerdevs.svg",
