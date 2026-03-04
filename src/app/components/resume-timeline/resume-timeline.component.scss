@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import 'app';
+@use 'app' as *;
 
 .resume-timeline {
   $logo-size: 75px;
@@ -61,9 +61,9 @@
 
   &__dot {
     --company-line-b: linear-gradient(
-      to bottom,
-      var(--company-line-c) 40%,
-      var(--company-line-c-next)
+        to bottom,
+        var(--company-line-c) 40%,
+        var(--company-line-c-next)
     );
 
     display: flex;

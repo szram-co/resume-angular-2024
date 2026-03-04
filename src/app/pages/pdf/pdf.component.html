@@ -1,25 +1,27 @@
-<div #content class="resume-pdf" [ngStyle]="{ width: width + 'px' }" data-bs-theme="light">
+<div #content class="resume-pdf" [ngStyle]="{ width: width() + 'px' }" data-bs-theme="light">
   <!-- profile -->
   <div class="resume-row">
     <div class="resume-col-left">
       <div class="resume-picture-wrapper">
         <div class="resume-picture">
           <div class="resume-contact">
-            <ul class="resume-links" *ngIf="about">
-              <li>
-                <a class="link-lg" [href]="'mailto:' + about.email">
-                  {{ about.email }}
-                </a>
-              </li>
-              <li>
-                <a class="link-lg" [href]="'tel:' + about.phone">
-                  {{ formatPhoneNumber(about.phone) }}
-                </a>
-              </li>
-              <li class="resume-contact-space">
-                {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
-              </li>
-            </ul>
+            @if (about) {
+              <ul class="resume-links">
+                <li>
+                  <a class="link-lg" [href]="'mailto:' + about.email">
+                    {{ about.email }}
+                  </a>
+                </li>
+                <li>
+                  <a class="link-lg" [href]="'tel:' + about.phone">
+                    {{ formatPhoneNumber(about.phone) }}
+                  </a>
+                </li>
+                <li class="resume-contact-space">
+                  {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+                </li>
+              </ul>
+            }
           </div>
           <img class="resume-gradient" src="/assets/images/gradient_img.png" />
           <img class="resume-image" src="/assets/images/profile-image.jpg" />
@@ -35,9 +37,11 @@
         <h1 [innerHTML]="'HELLO' | translate"></h1>
       </div>
       <div class="resume-desc">
-        <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
-          {{ description }}
-        </p>
+        @for (description of 'DESCRIPTION' | translate; track description) {
+          <p class="mb-5">
+            {{ description }}
+          </p>
+        }
       </div>
     </div>
   </div>
@@ -49,9 +53,11 @@
       <!-- skills -->
       <h3 class="resume-header resume-header--first">{{ 'HEAD.SKILLS' | translate }}</h3>
       <ul class="resume-list">
-        <li *ngFor="let skill of 'SKILLS' | translate">
-          {{ skill }}
-        </li>
+        @for (skill of 'SKILLS' | translate; track skill) {
+          <li>
+            {{ skill }}
+          </li>
+        }
       </ul>
 
       <div [ngClass]="['break-company-technologies-' + getCurrentLanguage]"></div>
@@ -104,13 +110,15 @@
       <!-- skills -->
       <h3 class="resume-header">{{ 'HEAD.LINKS' | translate }}</h3>
       <ul class="resume-list resume-list--links">
-        <ng-container *ngIf="about?.links?.length">
-          <li class="nav-item" *ngFor="let link of about.links">
-            <a target="_blank" [href]="link.value">
-              {{ link.name }}
-            </a>
-          </li>
-        </ng-container>
+        @if (about?.links?.length) {
+          @for (link of about?.links ?? []; track link) {
+            <li class="nav-item">
+              <a target="_blank" [href]="link.value">
+                {{ link.name }}
+              </a>
+            </li>
+          }
+        }
       </ul>
     </div>
 
@@ -119,23 +127,21 @@
       <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
       <div class="resume-timeline">
         <div class="company-timeline"></div>
-        <ng-container *ngFor="let experience of experiences; let experienceIndex = index">
+        @for (experience of experiences; track experience; let experienceIndex = $index) {
           <div
             class="company"
             [ngStyle]="{
-              '--company-logo-b': experience?.company?.style?.['--company-logo-b'],
-              '--company-logo-c': experience?.company?.style?.['--company-logo-c']
+              '--company-logo-b': experience.company.style?.['--company-logo-b'],
+              '--company-logo-c': experience.company.style?.['--company-logo-c']
             }"
           >
             <div [ngClass]="['break-company-' + getCurrentLanguage + '-' + experienceIndex]"></div>
             <div class="company-row company-row--center">
               <div class="company-col-box">
                 <div class="company-logo" #experienceLogo>
-                  <img
-                    *ngIf="experienceLogosMap?.[experienceIndex]"
-                    [src]="experienceLogosMap[experienceIndex]"
-                    alt=""
-                  />
+                  @if (experienceLogosMap?.[experienceIndex]) {
+                    <img [src]="experienceLogosMap[experienceIndex]" alt="" />
+                  }
                 </div>
               </div>
               <div class="company-col-dot">
@@ -152,7 +158,7 @@
                 </div>
               </div>
             </div>
-            <ng-container *ngFor="let position of experience.positions; let positionIndex = index">
+            @for (position of experience.positions; track position; let positionIndex = $index) {
               <div
                 [ngClass]="[
                   'break-position-' +
@@ -181,16 +187,18 @@
                     </h4>
                     <p>{{ position.description[getCurrentLanguage] }}</p>
                     <ul class="company-stack">
-                      <li *ngFor="let tech of sortTechnologies(position.technologies)">
-                        {{ tech.name }}
-                      </li>
+                      @for (tech of sortTechnologies(position.technologies); track tech) {
+                        <li>
+                          {{ tech.name }}
+                        </li>
+                      }
                     </ul>
                   </div>
                 </div>
               </div>
-            </ng-container>
+            }
           </div>
-        </ng-container>
+        }
       </div>
     </div>
   </div>

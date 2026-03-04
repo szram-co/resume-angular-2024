@@ -1,6 +1,4 @@
-@use 'bootstrap/scss/mixins/breakpoints' as *;
-
-@import 'app';
+@use 'app' as *;
 
 .resume-technologies {
   --slider-gap: 2rem;

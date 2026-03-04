@@ -1,15 +1,20 @@
-<div
-  *ngIf="technology"
-  [ngClass]="{
-    'resume-slider-item': true,
-    'resume-slider-item--ready': isIconLoaded,
-    'resume-slider-item--loading': !isIconLoaded
-  }"
->
-  <ng-container *ngIf="isIconLoaded">
-    <div class="resume-slider-icon">
-      <img [attr.src]="iconSrc" [attr.alt]="technology.name" />
-    </div>
-    <div class="resume-slider-name">{{ technology.name }}</div>
-  </ng-container>
-</div>
+@if (technology()) {
+  <div
+    [ngClass]="{
+      'resume-slider-item': true,
+      'resume-slider-item--ready': isIconLoaded(),
+      'resume-slider-item--loading': !isIconLoaded()
+    }"
+  >
+    @if (isIconLoaded()) {
+      <div class="resume-slider-icon">
+        @if (hasIconError()) {
+          <span class="resume-slider-icon__fallback">{{ fallbackLabel() }}</span>
+        } @else {
+          <img [attr.src]="iconSrc()" [attr.alt]="technology()?.name" />
+        }
+      </div>
+      <div class="resume-slider-name">{{ technology()?.name }}</div>
+    }
+  </div>
+}

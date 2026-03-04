@@ -1,51 +1,56 @@
 <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
 
 <div class="resume-timeline">
-  <ng-container *ngFor="let experience of displayedExperiences; let experienceIndex = index">
-    <div
-      class="resume-timeline__company"
-      *ngIf="experience?.company"
-      [ngStyle]="experience.company.style"
-    >
-      <div class="resume-timeline__logo">
-        <div class="company-color" [innerHTML]="experience.company.companyLogoContent"></div>
-      </div>
-      <div
-        [ngClass]="{
-          'resume-timeline__dot': true,
-          'resume-timeline__dot--first': experienceIndex === 0
-        }"
-      >
-        <i [ngStyle]="{ '--animation-delay': 400 * experienceIndex + 'ms' }"></i>
-      </div>
-      <div class="resume-timeline__name">
-        <span>
-          {{ experience.company.name }}
-          <span class="resume-timeline__name__location">
-            {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+  @for (
+    experience of displayedExperiences();
+    track experience.company.id;
+    let experienceIndex = $index
+  ) {
+    @if (experience.company) {
+      <div [ngStyle]="experience.company.style" class="resume-timeline__company">
+        <div class="resume-timeline__logo">
+          <div [innerHTML]="experience.company.companyLogoContent" class="company-color"></div>
+        </div>
+        <div
+          [ngClass]="{
+            'resume-timeline__dot': true,
+            'resume-timeline__dot--first': experienceIndex === 0
+          }"
+        >
+          <i [ngStyle]="{ '--animation-delay': 400 * experienceIndex + 'ms' }"></i>
+        </div>
+        <div class="resume-timeline__name">
+          <span>
+            {{ experience.company.name }}
+            <span class="resume-timeline__name__location">
+              {{ 'CITY_FROM.' + experience.company.location.city | uppercase | translate }}
+            </span>
           </span>
-        </span>
-        <em>{{ calculateDatePeriod(experience) }}</em>
+          <em>{{ calculateDatePeriod(experience) }}</em>
+        </div>
+        @for (
+          position of experience.positions;
+          track position.date.from + '-' + position.date.to + '-' + $index;
+          let positionIndex = $index
+        ) {
+          <app-resume-timeline-position
+            [nextPositionStyle]="computeNextPositionStyle(experienceIndex, positionIndex)"
+            [position]="position"
+          />
+        }
       </div>
-
-      <ng-container *ngFor="let position of experience.positions; let positionIndex = index">
-        <app-resume-timeline-position
-          [position]="position"
-          [nextPositionStyle]="computeNextPositionStyle(experienceIndex, positionIndex)"
-        />
-      </ng-container>
-    </div>
-  </ng-container>
+    }
+  }
 </div>
 
 <button
+  (click)="toggleShowMore()"
   [attr.aria-label]="'BUTTON.SHOW_MORE_EXPERIENCE' | translate"
   class="btn btn-outline-light btn-show-more btn-sm"
-  (click)="toggleShowMore()"
 >
   {{
-    showMore
+    showMore()
       ? ('BUTTON.LESS' | translate)
-      : ('BUTTON.MORE' | translate) + ' (' + remainingExperiencesCount + ')'
+      : ('BUTTON.MORE' | translate) + ' (' + remainingExperiencesCount() + ')'
   }}
 </button>

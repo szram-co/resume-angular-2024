@@ -1,18 +1,16 @@
 import {
+  afterNextRender,
   Component,
+  computed,
+  effect,
   ElementRef,
-  Input,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren
+  inject,
+  input,
+  signal,
+  viewChild,
+  viewChildren
 } from '@angular/core'
-import { ResumeHeaderComponent } from '../../components/resume-header/resume-header.component'
-import { NgClass, NgForOf, NgIf, NgStyle, UpperCasePipe } from '@angular/common'
-import { ResumeProfileComponent } from '../../components/resume-profile/resume-profile.component'
-import { ResumeSkillsComponent } from '../../components/resume-skills/resume-skills.component'
-import { ResumeTimelineComponent } from '../../components/resume-timeline/resume-timeline.component'
-import { AppDestroy } from '../../abstract/AppDestroy.abstract'
+import { NgClass, NgStyle, UpperCasePipe } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import {
   ResumeAbout,
@@ -25,87 +23,128 @@ import {
 } from '../../app.type'
 import { HTMLFontFace, jsPDF } from 'jspdf'
 import { DataService } from '../../services/data.service'
-import { Router } from '@angular/router'
 import { LanguageService } from '../../services/language.service'
-import { forkJoin, map, takeUntil } from 'rxjs'
+import { forkJoin } from 'rxjs'
+import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
-    selector: 'app-pdf',
-    imports: [
-        ResumeHeaderComponent,
-        NgIf,
-        ResumeProfileComponent,
-        ResumeSkillsComponent,
-        ResumeTimelineComponent,
-        NgClass,
-        NgStyle,
-        NgForOf,
-        TranslateModule,
-        UpperCasePipe
-    ],
-    templateUrl: './pdf.component.html',
-    styleUrl: './pdf.component.scss'
+  selector: 'app-pdf',
+  imports: [NgClass, NgStyle, TranslateModule, UpperCasePipe],
+  templateUrl: './pdf.component.html',
+  styleUrl: './pdf.component.scss'
 })
-export class PdfComponent extends AppDestroy implements OnInit {
-  @ViewChild('pictureContainer', { static: false }) pictureContainer!: ElementRef<HTMLDivElement>
-  @ViewChild('content', { static: false }) content!: ElementRef<HTMLDivElement>
-  @ViewChildren('experienceLogo') experienceLogos!: QueryList<ElementRef<HTMLDivElement>>
+export class PdfComponent {
+  readonly pictureContainer = viewChild<ElementRef<HTMLDivElement>>('pictureContainer')
+  readonly content = viewChild.required<ElementRef<HTMLDivElement>>('content')
+  readonly experienceLogos = viewChildren<ElementRef<HTMLDivElement>>('experienceLogo')
 
-  @Input() width: number = 1360
-
-  private readonly pageMargin: number = 100
-  private readonly pageAspectRatio: number = 1.414
-
-  readonly pageWidth = this.width + this.pageMargin * 2
-  readonly pageHeight = this.pageWidth * this.pageAspectRatio
-
+  readonly width = input(1360)
   isReady = false
   about!: ResumeAbout
   technologies: ResumeTechnologyMapped[] = []
   experiences: ResumeExperienceMapped[] = []
   experienceLogosMap: string[] = []
-
   pdf!: jsPDF
-
-  translatedDate = this.dataService.translatedDate
-
   readonly TECH_TYPE = ResumeTechnologyType
   readonly TECH_GROUP = ResumeTechnologyGroup
+  private readonly pageMargin = 100
+  readonly pageWidth = computed(() => this.width() + this.pageMargin * 2)
+  private readonly pageAspectRatio = 1.414
+  readonly pageHeight = computed(() => this.pageWidth() * this.pageAspectRatio)
+  private readonly dataService = inject(DataService)
+  private readonly translate = inject(TranslateService)
+  private readonly language = inject(LanguageService)
+  private readonly viewReady = signal(false)
+  private readonly isDownloadStarted = signal(false)
+  private readonly data = toSignal(
+    forkJoin({
+      about: this.dataService.getAbout(),
+      technologies: this.dataService.getCombinedTechnologies(),
+      experiences: this.dataService.getCombinedExperience()
+    }),
+    { initialValue: null }
+  )
 
-  constructor(
-    private dataService: DataService,
-    private router: Router,
-    private translate: TranslateService,
-    private language: LanguageService
-  ) {
-    super()
+  constructor() {
+    afterNextRender(() => {
+      this.viewReady.set(true)
+    })
+
+    effect(() => {
+      const loadedData = this.data()
+      const ready = this.viewReady()
+
+      if (!loadedData || !ready || this.isDownloadStarted()) {
+        return
+      }
+
+      this.isDownloadStarted.set(true)
+
+      this.about = loadedData.about
+      this.technologies = loadedData.technologies
+      this.experiences = loadedData.experiences
+      this.isReady = true
+
+      void this.generatePdf()
+    })
   }
 
   get getCurrentLanguage() {
     return this.translate.currentLang as 'pl' | 'en'
   }
 
-  ngOnInit() {
-    forkJoin([
-      this.dataService.getAbout(),
-      this.dataService.getCombinedTechnologies(),
-      this.dataService.getCombinedExperience()
-    ])
-      .pipe(
-        takeUntil(this.destroy$),
-        map(([aboutData, technologiesData, experienceData]) => {
-          this.about = aboutData
-          this.technologies = technologiesData
-          this.experiences = experienceData
-        })
-      )
-      .subscribe(() => {
-        this.addSvgAsImage()
-
-        setTimeout(() => {
-          this.downloadPDF()
-        }, 1000)
+  get fontFaces(): HTMLFontFace[] {
+    const addFontFace = (font: ResumePDFFontFace) => {
+      return font.src.map((src) => {
+        return {
+          src: [
+            {
+              url: `${font.url}${src.font}`,
+              format: src?.format ?? 'truetype'
+            }
+          ],
+          family: font.family,
+          style: src?.style ?? 'normal',
+          weight: src.weight
+        } as HTMLFontFace
       })
+    }
+
+    return [
+      ...addFontFace({
+        family: 'Mulish',
+        url: '/assets/fonts/Mulish/static/',
+        src: [
+          { font: 'Mulish-Black.ttf', weight: 900 },
+          { font: 'Mulish-ExtraBold.ttf', weight: 800 },
+          { font: 'Mulish-Regular.ttf', weight: 400 }
+        ]
+      }),
+      ...addFontFace({
+        family: 'Saira Semi Condensed',
+        url: '/assets/fonts/SairaSemiCondensed/',
+        src: [
+          { font: 'SairaSemiCondensed-Bold.ttf', weight: 700 },
+          { font: 'SairaSemiCondensed-SemiBold.ttf', weight: 600 }
+        ]
+      }),
+      ...addFontFace({
+        family: 'Poppins',
+        url: '/assets/fonts/Poppins/',
+        src: [
+          { font: 'Poppins-Black.ttf', weight: 900 },
+          { font: 'Poppins-BlackItalic.ttf', weight: 900, style: 'italic' },
+          { font: 'Poppins-ExtraBold.ttf', weight: 800 },
+          { font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
+          { font: 'Poppins-Bold.ttf', weight: 700 },
+          { font: 'Poppins-BoldItalic.ttf', weight: 700, style: 'italic' },
+          { font: 'Poppins-Medium.ttf', weight: 500 },
+          { font: 'Poppins-MediumItalic.ttf', weight: 500, style: 'italic' },
+          { font: 'Poppins-Regular.ttf', weight: 400 },
+          { font: 'Poppins-Italic.ttf', weight: 400, style: 'italic' }
+        ]
+      })
+    ]
   }
 
   async addSvgAsImage() {
@@ -127,8 +166,8 @@ export class PdfComponent extends AppDestroy implements OnInit {
           canvas.height = img.height
           context.drawImage(img, 0, 0)
           const pngDataUrl = canvas.toDataURL('image/png')
-          this.experienceLogosMap.push(pngDataUrl) // Zapisz URL obrazka
-          URL.revokeObjectURL(svgUrl) // Zwolnienie zasobów po użyciu URL
+          this.experienceLogosMap.push(pngDataUrl)
+          URL.revokeObjectURL(svgUrl)
           resolve(true)
         }
       })
@@ -136,10 +175,10 @@ export class PdfComponent extends AppDestroy implements OnInit {
   }
 
   async downloadPDF() {
-    this.pdf = new jsPDF('portrait', 'px', [this.pageWidth, this.pageHeight], true)
+    this.pdf = new jsPDF('portrait', 'px', [this.pageWidth(), this.pageHeight()], true)
     this.pdf.setFontSize(16)
 
-    this.pdf.html(this.content.nativeElement, {
+    this.pdf.html(this.content().nativeElement, {
       margin: [this.pageMargin / 4, this.pageMargin, this.pageMargin / 2, this.pageMargin],
       fontFaces: this.fontFaces,
       x: 0,
@@ -148,8 +187,6 @@ export class PdfComponent extends AppDestroy implements OnInit {
         const documentFilename: string = `resume-szram-${this.getCurrentLanguage}.pdf`
 
         doc.save(documentFilename)
-
-        // await this.router.navigate(['/'])
       }
     })
   }
@@ -166,74 +203,16 @@ export class PdfComponent extends AppDestroy implements OnInit {
       const aEffectivePriority = aPriority === -1 ? 999 : aPriority
       const bEffectivePriority = bPriority === -1 ? 999 : bPriority
 
-      return aEffectivePriority - bEffectivePriority // sort by priority
+      return aEffectivePriority - bEffectivePriority
     })
   }
 
-  get fontFaces(): HTMLFontFace[] {
-    const addFontFace = (font: ResumePDFFontFace) => {
-      return font.src.map((src) => {
-        return {
-          src: [
-            {
-              url: `${font.url}${src.font}`,
-              format: src?.format ?? 'truetype'
-            }
-          ],
-          family: font.family,
-          style: src?.style ?? 'normal',
-          weight: src.weight
-        } as HTMLFontFace
-      })
-    }
+  translatedDate(date: string): string {
+    return this.dataService.translatedDate(date)
+  }
 
-    return [
-      // Mulish
-      ...addFontFace({
-        family: 'Mulish',
-        url: '/assets/fonts/Mulish/static/',
-        src: [
-          { font: 'Mulish-Black.ttf', weight: 900 },
-          // { font: 'Mulish-BlackItalic.ttf', weight: 900, style: 'italic' },
-          { font: 'Mulish-ExtraBold.ttf', weight: 800 },
-          // { font: 'Mulish-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
-          // { font: 'Mulish-Bold.ttf', weight: 700 },
-          // { font: 'Mulish-BoldItalic.ttf', weight: 700, style: 'italic' },
-          // { font: 'Mulish-SemiBold.ttf', weight: 600 },
-          // { font: 'Mulish-SemiBoldItalic.ttf', weight: 600, style: 'italic' },
-          // { font: 'Mulish-Medium.ttf', weight: 500 },
-          // { font: 'Mulish-MediumItalic.ttf', weight: 500, style: 'italic' },
-          { font: 'Mulish-Regular.ttf', weight: 400 }
-          // { font: 'Mulish-Italic.ttf', weight: 400, style: 'italic' }
-        ]
-      }),
-      // Saira Semi Condensed
-      ...addFontFace({
-        family: 'Saira Semi Condensed',
-        url: '/assets/fonts/SairaSemiCondensed/',
-        src: [
-          { font: 'SairaSemiCondensed-Bold.ttf', weight: 700 },
-          { font: 'SairaSemiCondensed-SemiBold.ttf', weight: 600 }
-        ]
-      }),
-      // Poppins
-      ...addFontFace({
-        family: 'Poppins',
-        url: '/assets/fonts/Poppins/',
-        src: [
-          { font: 'Poppins-Black.ttf', weight: 900 },
-          { font: 'Poppins-BlackItalic.ttf', weight: 900, style: 'italic' },
-          { font: 'Poppins-ExtraBold.ttf', weight: 800 },
-          { font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: 'italic' },
-          { font: 'Poppins-Bold.ttf', weight: 700 },
-          { font: 'Poppins-BoldItalic.ttf', weight: 700, style: 'italic' },
-          { font: 'Poppins-Medium.ttf', weight: 500 },
-          { font: 'Poppins-MediumItalic.ttf', weight: 500, style: 'italic' },
-          { font: 'Poppins-Regular.ttf', weight: 400 },
-          { font: 'Poppins-Italic.ttf', weight: 400, style: 'italic' }
-        ]
-      })
-    ]
+  calculateDatePeriod(experience: ResumeExperienceMapped): string {
+    return this.dataService.calculateDatePeriod(experience)
   }
 
   formatPhoneNumber(phone: string): string {
@@ -243,5 +222,13 @@ export class PdfComponent extends AppDestroy implements OnInit {
       return `+${match[1]} ${match[2]} ${match[3]} ${match[4]}`
     }
     return phone
+  }
+
+  private async generatePdf() {
+    await this.addSvgAsImage()
+
+    setTimeout(() => {
+      void this.downloadPDF()
+    }, 1000)
   }
 }

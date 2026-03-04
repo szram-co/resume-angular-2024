@@ -1,16 +1,16 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
-import { AppDestroy } from './abstract/AppDestroy.abstract'
 import { ThemeService } from './services/theme.service'
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet],
-    template: `<router-outlet />`
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  template: `<router-outlet />`
 })
-export class AppComponent extends AppDestroy {
-  constructor(private theme: ThemeService) {
-    super()
+export class AppComponent {
+  private readonly theme = inject(ThemeService)
+
+  constructor() {
     this.theme.themeInitialize()
   }
 }

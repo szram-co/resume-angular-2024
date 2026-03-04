@@ -1,46 +1,51 @@
-<section [ngClass]="{ 'resume-profile': true, 'resume-profile--ready': isReady }">
+<section [ngClass]="{ 'resume-profile': true, 'resume-profile--ready': isReady() }">
   <div class="container">
     <div class="row">
       <div class="col col-lg-4 col-12">
-        <ng-template #loading>
+        @if (backgroundImageLoaded()) {
+          <div class="resume-picture" [ngStyle]="{ 'background-image': backgroundImageStyle() }">
+            @if (isReady()) {
+              <div class="resume-picture__overlay">
+                <ul class="resume-contact">
+                  <li>
+                    <a class="link-lg" [href]="'mailto:' + about().email">
+                      {{ about().email }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="link-lg" [href]="'tel:' + about().phone">
+                      {{ formatPhoneNumber(about().phone) }}
+                    </a>
+                  </li>
+                  <li class="resume-contact-space">
+                    {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+                  </li>
+                </ul>
+                @if (about().links.length) {
+                  <div class="resume-social">
+                    @for (link of about().links; track link) {
+                      <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
+                        <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
+                      </a>
+                    }
+                    <a
+                      [title]="'DOWNLOAD' | translate"
+                      class="link-scale"
+                      target="_blank"
+                      [href]="'/assets/resume-szram-' + currentLanguage + '.pdf'"
+                    >
+                      <span class="bi bi-download fs-2"></span>
+                    </a>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        } @else {
           <div class="resume-loading">
             <div class="spinner-border" role="status"></div>
           </div>
-        </ng-template>
-        <div class="resume-picture" #resumeProfile *ngIf="backgroundImageLoaded; else loading">
-          <div class="resume-picture__overlay" *ngIf="isReady">
-            <ul class="resume-contact">
-              <li>
-                <a class="link-lg" [href]="'mailto:' + about.email">
-                  {{ about.email }}
-                </a>
-              </li>
-              <li>
-                <a class="link-lg" [href]="'tel:' + about.phone">
-                  {{ formatPhoneNumber(about.phone) }}
-                </a>
-              </li>
-              <li class="resume-contact-space">
-                {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
-              </li>
-            </ul>
-            <div class="resume-social" *ngIf="about?.links?.length">
-              <ng-container *ngFor="let link of about.links">
-                <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
-                  <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
-                </a>
-              </ng-container>
-              <a
-                [title]="'DOWNLOAD' | translate"
-                class="link-scale"
-                target="_blank"
-                [href]="'/assets/resume-szram-' + currentLanguage + '.pdf'"
-              >
-                <span class="bi bi-download fs-2"></span>
-              </a>
-            </div>
-          </div>
-        </div>
+        }
       </div>
       <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
         <div class="resume-positions">
@@ -51,9 +56,11 @@
         <app-resume-profile-hello type="path" />
 
         <div class="resume-description">
-          <p class="mb-5" *ngFor="let description of 'DESCRIPTION' | translate">
-            {{ description }}
-          </p>
+          @for (description of 'DESCRIPTION' | translate; track $index) {
+            <p class="mb-5">
+              {{ description }}
+            </p>
+          }
         </div>
       </div>
     </div>

@@ -1,48 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, inject, input, signal } from '@angular/core'
 import { AppHoverClassDirective } from '../../../../directives/app-hover-class.directive'
-import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import { ResumePosition, ResumeTechnology } from '../../../../app.type'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { LanguageService } from '../../../../services/language.service'
-import { AppDestroy } from '../../../../abstract/AppDestroy.abstract'
 import { DataService } from '../../../../services/data.service'
 
 @Component({
-    selector: 'app-resume-timeline-position',
-    imports: [AppHoverClassDirective, NgForOf, NgClass, NgIf, TranslateModule, NgStyle],
-    templateUrl: './resume-timeline-position.component.html',
-    styleUrl: './resume-timeline-position.component.scss'
+  selector: 'app-resume-timeline-position',
+  imports: [AppHoverClassDirective, NgClass, TranslateModule, NgStyle],
+  templateUrl: './resume-timeline-position.component.html',
+  styleUrl: './resume-timeline-position.component.scss'
 })
-export class ResumeTimelinePositionComponent extends AppDestroy implements OnInit {
-  @Input() position!: ResumePosition
-  @Input() nextPositionStyle!: { [key: string]: string }
-
-  shouldShowAllTechnologies = false
-
-  readonly TECHNOLOGIES_DISPLAYED: number = 6
-
-  translatedDate = this.dataService.translatedDate
-
-  constructor(
-    private dataService: DataService,
-    private translate: TranslateService,
-    private language: LanguageService
-  ) {
-    super()
-  }
-
-  ngOnInit() {}
+export class ResumeTimelinePositionComponent {
+  readonly position = input.required<ResumePosition>()
+  readonly nextPositionStyle = input.required<{ [key: string]: string }>()
+  readonly shouldShowAllTechnologies = signal(false)
+  readonly TECHNOLOGIES_DISPLAYED = 6
+  private readonly dataService = inject(DataService)
+  private readonly translate = inject(TranslateService)
 
   get currentLanguage() {
     return this.translate.currentLang as 'pl' | 'en'
   }
 
   calculateTechnologies(technologies: ResumeTechnology[]) {
-    if (this.shouldShowAllTechnologies) return technologies
+    if (this.shouldShowAllTechnologies()) return technologies
     return technologies.slice(0, this.TECHNOLOGIES_DISPLAYED)
   }
 
   showAllTechnologies() {
-    this.shouldShowAllTechnologies = true
+    this.shouldShowAllTechnologies.set(true)
+  }
+
+  translatedDate(date: string): string {
+    return this.dataService.translatedDate(date)
   }
 }

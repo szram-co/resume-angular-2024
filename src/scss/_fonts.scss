@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Mixin to generate a single @font-face
 // $font-family: Name of the font family
 // $font-url: URL to the directory containing the font files
@@ -17,9 +19,8 @@
     font-family: $font-family;
     // Combines $font-url and $font-name to form the full path
     @if ($font-target == 'web') {
-      src:
-        url('#{$font-url}#{$font-name}.woff2') format('woff2'),
-        url('#{$font-url}#{$font-name}.woff') format('woff');
+      src: url('#{$font-url}#{$font-name}.woff2') format('woff2'),
+      url('#{$font-url}#{$font-name}.woff') format('woff');
     } @else if ($font-target == 'pdf') {
       src: url('#{$font-url}#{$font-name}.ttf') format('truetype');
     }
@@ -34,14 +35,19 @@
 // $font: Map containing font family details and an array of font sources
 
 @mixin addFontFace($font) {
-  @each $src in map-get($font, src) {
-    $font-style: if(map-has-key($src, style), map-get($src, style), normal);
+  @each $src in map.get($font, src) {
+    $font-style: normal;
+
+    @if map.has-key($src, style) {
+      $font-style: map.get($src, style);
+    }
+
     @include font-src(
-      map-get($font, family),
-      map-get($font, url),
-      map-get($src, font),
-      map-get($src, weight),
-      $font-style
+        map.get($font, family),
+        map.get($font, url),
+        map.get($src, font),
+        map.get($src, weight),
+        $font-style
     );
   }
 }
@@ -51,49 +57,49 @@
 // Example usage of the addFontFace mixin to create @font-face collections
 
 @include addFontFace(
-  (
-    family: 'Mulish',
-    url: '/assets/fonts/Mulish/',
-    target: 'web',
-    src: (
-      (font: 'Mulish-Black', weight: 900, style: normal),
-      (font: 'Mulish-ExtraBold', weight: 800, style: normal),
-      (font: 'Mulish-Bold', weight: 700, style: normal),
-      (font: 'Mulish-SemiBold', weight: 600, style: normal),
-      (font: 'Mulish-Medium', weight: 500, style: normal),
-      (font: 'Mulish-Regular', weight: 400, style: normal)
+    (
+      family: 'Mulish',
+      url: '/assets/fonts/Mulish/',
+      target: 'web',
+      src: (
+        (font: 'Mulish-Black', weight: 900, style: normal),
+        (font: 'Mulish-ExtraBold', weight: 800, style: normal),
+        (font: 'Mulish-Bold', weight: 700, style: normal),
+        (font: 'Mulish-SemiBold', weight: 600, style: normal),
+        (font: 'Mulish-Medium', weight: 500, style: normal),
+        (font: 'Mulish-Regular', weight: 400, style: normal)
+      )
     )
-  )
 );
 
 @include addFontFace(
-  (
-    family: 'Poppins',
-    url: '/assets/fonts/Poppins/',
-    target: 'web',
-    src: (
-      (font: 'Poppins-Black', weight: 900, style: normal),
-      (font: 'Poppins-BlackItalic', weight: 900, style: italic),
-      (font: 'Poppins-ExtraBold', weight: 800, style: normal),
-      (font: 'Poppins-ExtraBoldItalic', weight: 800, style: italic),
-      (font: 'Poppins-Bold', weight: 700, style: normal),
-      (font: 'Poppins-BoldItalic', weight: 700, style: italic),
-      (font: 'Poppins-Medium', weight: 500, style: normal),
-      (font: 'Poppins-MediumItalic', weight: 500, style: italic),
-      (font: 'Poppins-Regular', weight: 400, style: normal),
-      (font: 'Poppins-Italic', weight: 400, style: italic)
+    (
+      family: 'Poppins',
+      url: '/assets/fonts/Poppins/',
+      target: 'web',
+      src: (
+        (font: 'Poppins-Black', weight: 900, style: normal),
+        (font: 'Poppins-BlackItalic', weight: 900, style: italic),
+        (font: 'Poppins-ExtraBold', weight: 800, style: normal),
+        (font: 'Poppins-ExtraBoldItalic', weight: 800, style: italic),
+        (font: 'Poppins-Bold', weight: 700, style: normal),
+        (font: 'Poppins-BoldItalic', weight: 700, style: italic),
+        (font: 'Poppins-Medium', weight: 500, style: normal),
+        (font: 'Poppins-MediumItalic', weight: 500, style: italic),
+        (font: 'Poppins-Regular', weight: 400, style: normal),
+        (font: 'Poppins-Italic', weight: 400, style: italic)
+      )
     )
-  )
 );
 
 @include addFontFace(
-  (
-    family: 'Saira Semi Condensed',
-    url: '/assets/fonts/SairaSemiCondensed/',
-    target: 'web',
-    src: (
-      (font: 'SairaSemiCondensed-Bold', weight: 700, style: normal),
-      (font: 'SairaSemiCondensed-SemiBold', weight: 600, style: normal)
+    (
+      family: 'Saira Semi Condensed',
+      url: '/assets/fonts/SairaSemiCondensed/',
+      target: 'web',
+      src: (
+        (font: 'SairaSemiCondensed-Bold', weight: 700, style: normal),
+        (font: 'SairaSemiCondensed-SemiBold', weight: 600, style: normal)
+      )
     )
-  )
 );

@@ -1,6 +1,4 @@
-@use 'bootstrap/scss/mixins/breakpoints' as *;
-
-@import 'app';
+@use 'app' as *;
 
 .resume-slider-item {
   --slider-icon-size: 3rem;
@@ -66,10 +64,10 @@
     animation-name: loading-icon;
     animation-timing-function: linear;
     background-image: linear-gradient(
-      to right,
-      transparent 25%,
-      var(--color-preload-2) 30%,
-      transparent 75%
+        to right,
+        transparent 25%,
+        var(--color-preload-2) 30%,
+        transparent 75%
     );
     background-size: 400% 100%;
 
@@ -101,4 +99,24 @@
 .resume-slider-icon img {
   width: var(--slider-icon-size);
   height: var(--slider-icon-size);
+}
+
+.resume-slider-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resume-slider-icon__fallback {
+  width: var(--slider-icon-size);
+  height: var(--slider-icon-size);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-condensed;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bs-body-color);
+  background: color-mix(in srgb, var(--bs-body-color) 14%, transparent);
 }

@@ -15,9 +15,9 @@
   // Iterate through each property and append transition values with commas
   @each $property in $properties {
     $transition-values: append(
-      $transition-values,
-      #{$property} $transition-speed $transition-type,
-      comma
+        $transition-values,
+        #{$property} $transition-speed $transition-type,
+        comma
     );
   }
 

@@ -1,4 +1,4 @@
-@import 'app';
+@use 'app' as *;
 
 .resume-hello-wrapper {
   margin: 2rem 0 3rem 0;

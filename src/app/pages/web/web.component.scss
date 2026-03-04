@@ -1,12 +1,16 @@
-@use 'bootstrap/scss/mixins/color-mode' as *;
-
-@import 'app';
+@use 'app' as *;
 
 .resume-wrapper {
   min-height: 100%;
   width: 100%;
   position: relative;
   z-index: 1;
+  transition: opacity 180ms ease;
+  will-change: opacity;
+}
+
+.resume-wrapper--language-switching {
+  opacity: 0.35;
 }
 
 .resume-background {

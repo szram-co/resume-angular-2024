@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { forkJoin, map, Observable, switchMap } from 'rxjs'
+import { forkJoin, map, Observable, shareReplay, switchMap } from 'rxjs'
 import {
   ResumeAbout,
   ResumeCompany,
@@ -18,11 +18,6 @@ import { LanguageService } from './language.service'
   providedIn: 'root'
 })
 export class DataService {
-  static technologiesMap = new Map<number, ResumeTechnology>()
-  static companiesMap = new Map<number, ResumeCompany>()
-
-  totalExperience: number = 0
-
   priorityTechnologies = [
     ResumeTechnologyType.language,
     ResumeTechnologyType.framework,
@@ -36,36 +31,39 @@ export class DataService {
     ResumeTechnologyType.system,
     ResumeTechnologyType.methodology
   ]
+  private readonly about$ = this.http
+    .get<ResumeAbout>('/assets/data/about.json')
+    .pipe(shareReplay(1))
+  private readonly technologies$ = this.http
+    .get<ResumeTechnology[]>('/assets/data/technologies.json')
+    .pipe(shareReplay(1))
+  private readonly experiences$ = this.http
+    .get<ResumeExperience[]>('/assets/data/experience.json')
+    .pipe(shareReplay(1))
+  private readonly companies$ = this.http.get<ResumeCompany[]>('/assets/data/companies.json').pipe(
+    switchMap((companies) => {
+      const svgLoaders = companies.map((company) =>
+        this.getSvgContent(`assets/images/${company.companyLogo}`).pipe(
+          map((svgContent) => ({
+            ...company,
+            companyLogoContent: this.sanitizer.bypassSecurityTrustHtml(svgContent)
+          }))
+        )
+      )
+
+      return forkJoin(svgLoaders)
+    }),
+    shareReplay(1)
+  )
 
   constructor(
     private http: HttpClient,
     private language: LanguageService,
     private sanitizer: DomSanitizer
-  ) {
-    this.getTechnologies().subscribe((technologies) => {
-      technologies.forEach((technology) =>
-        DataService.technologiesMap.set(technology.id, technology)
-      )
-    })
-
-    this.getExperiences().subscribe((experiences) => {
-      experiences.forEach((experience) => {
-        const dateFrom = new Date(experience.date.from)
-        const dateTo =
-          experience.date.to.toLowerCase() === 'present' ? new Date() : new Date(experience.date.to)
-
-        const diff = dateTo.getTime() - dateFrom.getTime()
-        const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
-
-        this.totalExperience += Math.round(totalExperience)
-      })
-    })
-
-    this.loadCompanies().subscribe()
-  }
+  ) {}
 
   getAbout() {
-    return this.http.get<ResumeAbout>('/assets/data/about.json')
+    return this.about$
   }
 
   getSvgContent(url: string): Observable<string> {
@@ -73,79 +71,49 @@ export class DataService {
   }
 
   getCompanies() {
-    return this.http.get<ResumeCompany[]>('/assets/data/companies.json').pipe(
-      switchMap((companies) => {
-        // Load SVGs for each company
-        const svgLoaders = companies.map((company) =>
-          this.getSvgContent(`assets/images/${company.companyLogo}`).pipe(
-            map((svgContent) => {
-              company.companyLogoContent = this.sanitizer.bypassSecurityTrustHtml(svgContent)
-              return company
-            })
-          )
-        )
-
-        return forkJoin(svgLoaders)
-      })
-    )
+    return this.companies$
   }
 
   getTechnologies() {
-    return this.http.get<ResumeTechnology[]>('/assets/data/technologies.json')
+    return this.technologies$
   }
 
   getExperiences() {
-    return this.http.get<ResumeExperience[]>('/assets/data/experience.json')
+    return this.experiences$
   }
 
   loadCompanies(): Observable<ResumeCompany[]> {
-    return this.getCompanies().pipe(
-      map((companies) => {
-        companies.forEach((company) => {
-          DataService.companiesMap.set(company.id, company)
-        })
-        return companies
-      })
-    )
-  }
-
-  private calculateExperienceScore(
-    months: number,
-    lastUsed: Date,
-    continuousUsage: number,
-    isLeading: boolean
-  ): number {
-    const currentDate = new Date()
-    const monthsSinceLastUsed =
-      (currentDate.getFullYear() - lastUsed.getFullYear()) * 12 +
-      currentDate.getMonth() -
-      lastUsed.getMonth()
-
-    // Adjust the score based on how long ago it was used
-    const rawScore = months / (1 + monthsSinceLastUsed / 12)
-
-    // Apply continuous usage multiplier
-    const continuousUsageMultiplier = 1 + continuousUsage / 36 // Assuming 4 years is a significant continuous usage period
-
-    // Apply leading technology multiplier
-    const leadingMultiplier = isLeading ? 2 : 1
-
-    const adjustedScore = rawScore * continuousUsageMultiplier * leadingMultiplier
-
-    // Scale score to 0 - 100%
-    const maxPossibleScore = this.totalExperience
-    const scaledScore = (adjustedScore / maxPossibleScore) * 100
-
-    return Math.min(100, scaledScore) // Ensure the score does not exceed 100%
+    return this.getCompanies()
   }
 
   getCombinedTechnologies(): Observable<ResumeTechnologyMapped[]> {
-    return forkJoin([this.getTechnologies(), this.getExperiences(), this.loadCompanies()]).pipe(
-      map(([technologies, experiences]) => {
+    return forkJoin({
+      technologies: this.getTechnologies(),
+      experiences: this.getExperiences(),
+      companies: this.getCompanies()
+    }).pipe(
+      map(({ technologies, experiences, companies }) => {
+        const companiesMap = new Map<number, ResumeCompany>(
+          companies.map((company) => [company.id, company])
+        )
+
         const technologyExperienceMap = new Map<number, number>()
         const technologyLastUsedMap = new Map<number, Date>()
         const technologyCompaniesMap = new Map<number, ResumeMappedCompany[]>()
         const technologyContinuousUsageMap = new Map<number, number>()
+
+        const totalExperienceInMonths = experiences.reduce((total, experience) => {
+          const dateFrom = new Date(experience.date.from)
+          const dateTo =
+            experience.date.to.toLowerCase() === 'present'
+              ? new Date()
+              : new Date(experience.date.to)
+
+          const diff = dateTo.getTime() - dateFrom.getTime()
+          const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
+
+          return total + Math.round(totalExperience)
+        }, 0)
 
         experiences.forEach((experience) => {
           const dateFrom = new Date(experience.date.from)
@@ -156,69 +124,56 @@ export class DataService {
 
           const diff = dateTo.getTime() - dateFrom.getTime()
           const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
-
           const totalMonths = Math.round(totalExperience)
 
           experience.technologies.forEach((techId) => {
-            if (technologyExperienceMap.has(techId)) {
-              technologyExperienceMap.set(
-                techId,
-                technologyExperienceMap.get(techId)! + totalMonths
-              )
-            } else {
-              technologyExperienceMap.set(techId, totalMonths)
-            }
+            const existingExperience = technologyExperienceMap.get(techId) ?? 0
+            technologyExperienceMap.set(techId, existingExperience + totalMonths)
 
             const lastUsedDate = technologyLastUsedMap.get(techId)
             if (!lastUsedDate || dateTo > lastUsedDate) {
               technologyLastUsedMap.set(techId, dateTo)
             }
 
-            // Continuous usage calculation
-            if (technologyContinuousUsageMap.has(techId)) {
-              technologyContinuousUsageMap.set(
-                techId,
-                technologyContinuousUsageMap.get(techId)! + totalMonths
-              )
-            } else {
-              technologyContinuousUsageMap.set(techId, totalMonths)
+            const existingContinuousUsage = technologyContinuousUsageMap.get(techId) ?? 0
+            technologyContinuousUsageMap.set(techId, existingContinuousUsage + totalMonths)
+
+            const company = companiesMap.get(experience.company)
+            if (!company) {
+              return
             }
 
             const companyResume: ResumeMappedCompany = {
-              company: DataService.companiesMap.get(experience.company) as ResumeCompany,
+              company,
               months: totalMonths
             }
 
-            if (technologyCompaniesMap.has(techId)) {
-              let companies = technologyCompaniesMap.get(techId) as ResumeMappedCompany[]
-              const companyAdded = companies.find((c) => c.company.id === experience.company)
+            const companiesForTech = technologyCompaniesMap.get(techId) ?? []
+            const existingCompany = companiesForTech.find(
+              (entry) => entry.company.id === company.id
+            )
 
-              if (companyAdded) {
-                companies = companies.map((c) => {
-                  return {
-                    ...c,
-                    months:
-                      c.company.id === companyAdded.company.id ? c.months + totalMonths : c.months
-                  }
-                })
-              } else {
-                companies = [...companies, companyResume]
-              }
-
-              technologyCompaniesMap.set(techId, [...companies])
+            if (existingCompany) {
+              technologyCompaniesMap.set(
+                techId,
+                companiesForTech.map((entry) =>
+                  entry.company.id === company.id
+                    ? { ...entry, months: entry.months + totalMonths }
+                    : entry
+                )
+              )
             } else {
-              technologyExperienceMap.set(techId, totalMonths)
-              technologyCompaniesMap.set(techId, [companyResume])
+              technologyCompaniesMap.set(techId, [...companiesForTech, companyResume])
             }
           })
         })
 
-        const sortedTechnologies = technologies
+        return technologies
           .map<ResumeTechnologyMapped>((technology) => {
-            const totalMonthsExperience = technologyExperienceMap.get(technology.id) || 0
-            const lastUsedDate = technologyLastUsedMap.get(technology.id) || new Date()
-            const continuousUsage = technologyContinuousUsageMap.get(technology.id) || 0
-            const isLeading = technology?.leading || false
+            const totalMonthsExperience = technologyExperienceMap.get(technology.id) ?? 0
+            const lastUsedDate = technologyLastUsedMap.get(technology.id) ?? new Date()
+            const continuousUsage = technologyContinuousUsageMap.get(technology.id) ?? 0
+            const isLeading = technology.leading ?? false
 
             return {
               ...technology,
@@ -228,7 +183,8 @@ export class DataService {
                   totalMonthsExperience,
                   lastUsedDate,
                   continuousUsage,
-                  isLeading
+                  isLeading,
+                  totalExperienceInMonths
                 ),
                 data: {
                   totalMonthsExperience,
@@ -248,20 +204,29 @@ export class DataService {
             const bEffectivePriority = bPriority === -1 ? 999 : bPriority
 
             if (aEffectivePriority === bEffectivePriority) {
-              return b.experience.score - a.experience.score // sort by score descending
+              return b.experience.score - a.experience.score
             }
 
-            return aEffectivePriority - bEffectivePriority // sort by priority
+            return aEffectivePriority - bEffectivePriority
           })
-
-        return sortedTechnologies
       })
     )
   }
 
   getCombinedExperience(): Observable<ResumeExperienceMapped[]> {
-    return forkJoin([this.getExperiences(), this.loadCompanies()]).pipe(
-      map(([experiences]) => {
+    return forkJoin({
+      technologies: this.getTechnologies(),
+      experiences: this.getExperiences(),
+      companies: this.getCompanies()
+    }).pipe(
+      map(({ technologies, experiences, companies }) => {
+        const technologiesMap = new Map<number, ResumeTechnology>(
+          technologies.map((technology) => [technology.id, technology])
+        )
+        const companiesMap = new Map<number, ResumeCompany>(
+          companies.map((company) => [company.id, company])
+        )
+
         const experiencesByCompany = experiences
           .sort((a, b) => {
             const dateA = a.date.to === 'present' ? new Date() : new Date(a.date.to)
@@ -270,14 +235,19 @@ export class DataService {
           })
           .reduce(
             (acc, experience) => {
-              const company = DataService.companiesMap.get(experience.company) as ResumeCompany
-              const technologies = experience.technologies.map(
-                (technologyId) => DataService.technologiesMap.get(technologyId) as ResumeTechnology
-              )
+              const company = companiesMap.get(experience.company)
+
+              if (!company) {
+                return acc
+              }
+
+              const mappedTechnologies = experience.technologies
+                .map((technologyId) => technologiesMap.get(technologyId))
+                .filter((technology): technology is ResumeTechnology => Boolean(technology))
 
               if (!acc[experience.company]) {
                 acc[experience.company] = {
-                  company: company!,
+                  company,
                   positions: []
                 }
               }
@@ -287,7 +257,7 @@ export class DataService {
                 description: experience.description,
                 short_description: experience.short_description,
                 date: experience.date,
-                technologies
+                technologies: mappedTechnologies
               })
 
               return acc
@@ -307,11 +277,19 @@ export class DataService {
     const dateFrom = new Date(from)
     const dateTo = to.toLowerCase() === 'present' ? new Date() : new Date(to)
 
-    const diff = dateTo.getTime() - dateFrom.getTime()
-    const totalExperience = diff / (1000 * 3600 * 24 * 30.44)
+    const { years, months, days } = this.calculateCalendarDiff(dateFrom, dateTo)
+    let totalYears = years
+    let totalMonths = months
 
-    const totalYears = Math.floor(totalExperience / 12)
-    const totalMonths = Math.round(totalExperience % 12)
+    // Produktowo: jeżeli są pozostałe dni, podbijamy miesiące o 1.
+    if (days > 0) {
+      totalMonths += 1
+    }
+
+    if (totalMonths >= 12) {
+      totalYears += Math.floor(totalMonths / 12)
+      totalMonths %= 12
+    }
 
     const chunks = []
 
@@ -330,10 +308,58 @@ export class DataService {
     const year = dateObject.getFullYear()
 
     const monthTranslation = this.language.get(`MONTH.${month}`)
-
-    // Get the first three letters of the translated month
     const monthShort = monthTranslation.substring(0, 3).toUpperCase()
 
     return `${monthShort} ${year}`
+  }
+
+  private calculateCalendarDiff(from: Date, to: Date) {
+    const start = new Date(from.getFullYear(), from.getMonth(), from.getDate())
+    const end = new Date(to.getFullYear(), to.getMonth(), to.getDate())
+
+    if (end < start) {
+      return { years: 0, months: 0, days: 0 }
+    }
+
+    let years = end.getFullYear() - start.getFullYear()
+    let months = end.getMonth() - start.getMonth()
+    let days = end.getDate() - start.getDate()
+
+    if (days < 0) {
+      months -= 1
+      const previousMonthDays = new Date(end.getFullYear(), end.getMonth(), 0).getDate()
+      days += previousMonthDays
+    }
+
+    if (months < 0) {
+      years -= 1
+      months += 12
+    }
+
+    return { years, months, days }
+  }
+
+  private calculateExperienceScore(
+    months: number,
+    lastUsed: Date,
+    continuousUsage: number,
+    isLeading: boolean,
+    maxPossibleScore: number
+  ): number {
+    const currentDate = new Date()
+    const monthsSinceLastUsed =
+      (currentDate.getFullYear() - lastUsed.getFullYear()) * 12 +
+      currentDate.getMonth() -
+      lastUsed.getMonth()
+
+    const rawScore = months / (1 + monthsSinceLastUsed / 12)
+    const continuousUsageMultiplier = 1 + continuousUsage / 36
+    const leadingMultiplier = isLeading ? 2 : 1
+
+    const adjustedScore = rawScore * continuousUsageMultiplier * leadingMultiplier
+    const safeMaxScore = maxPossibleScore > 0 ? maxPossibleScore : 1
+    const scaledScore = (adjustedScore / safeMaxScore) * 100
+
+    return Math.min(100, scaledScore)
   }
 }

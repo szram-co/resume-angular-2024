@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Font sizes
 $font-h1-size: 5.5rem;
 $font-h1-line: $font-h1-size * 1.2;
@@ -43,10 +45,10 @@ $secondary: $color-brand-dark;
 $body-color: $color-dark;
 $body-bg: $color-7;
 
-$body-secondary-color: darken($body-color, 10%);
-$body-secondary-bg: darken($body-bg, 10%);
+$body-secondary-color: color.adjust($body-color, $lightness: -10%);
+$body-secondary-bg: color.adjust($body-bg, $lightness: -10%);
 
-$border-color: darken($body-bg, 15%);
+$border-color: color.adjust($body-bg, $lightness: -15%);
 $border-color-translucent: rgba($body-color, 0.15);
 $link-color: $body-color;
 $link-hover-color: $color-brand;
@@ -57,10 +59,10 @@ $navbar-light-brand-hover-color: $link-hover-color;
 $body-color-dark: $color-white;
 $body-bg-dark: $color-dark;
 
-$body-secondary-color-dark: lighten($body-color-dark, 10%);
-$body-secondary-bg-dark: lighten($body-bg-dark, 5%);
+$body-secondary-color-dark: color.adjust($body-color-dark, $lightness: 10%);
+$body-secondary-bg-dark: color.adjust($body-bg-dark, $lightness: 5%);
 
-$border-color-dark: lighten($body-bg-dark, 15%);
+$border-color-dark: color.adjust($body-bg-dark, $lightness: 15%);
 $border-color-translucent-dark: rgba($body-color-dark, 0.15);
 $link-color-dark: $body-color-dark;
 $link-hover-color-dark: $color-brand;

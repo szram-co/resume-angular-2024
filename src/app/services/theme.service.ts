@@ -42,11 +42,27 @@ export class ThemeService {
     }
   }
 
+  get isDark() {
+    return this.themeAttribute === ResumeThemeMode.DARK
+  }
+
+  get isLight() {
+    return this.themeAttribute === ResumeThemeMode.LIGHT
+  }
+
   themeUpdate(theme: ResumeThemeMode) {
     if (this.themeAttribute === theme) return
 
+    const root = document.documentElement
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    root.classList.add('theme-switching')
+
     this.themeAttribute = theme
     this.themeStored = theme
+
+    setTimeout(() => {
+      root.classList.remove('theme-switching')
+    }, reduceMotion ? 40 : 260)
   }
 
   themeInitialize() {
@@ -61,13 +77,5 @@ export class ThemeService {
     const newTheme =
       this.themeAttribute === ResumeThemeMode.DARK ? ResumeThemeMode.LIGHT : ResumeThemeMode.DARK
     this.themeUpdate(newTheme)
-  }
-
-  get isDark() {
-    return this.themeAttribute === ResumeThemeMode.DARK
-  }
-
-  get isLight() {
-    return this.themeAttribute === ResumeThemeMode.LIGHT
   }
 }

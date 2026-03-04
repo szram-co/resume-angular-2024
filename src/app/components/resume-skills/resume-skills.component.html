@@ -1,8 +1,10 @@
 <h3 class="resume-header resume-header--first">{{ 'HEAD.SKILLS' | translate }}</h3>
 <ul class="resume-list">
-  <li *ngFor="let skill of 'SKILLS' | translate">
-    {{ skill }}
-  </li>
+  @for (skill of 'SKILLS' | translate; track $index) {
+    <li>
+      {{ skill }}
+    </li>
+  }
 </ul>
 
 <h3 class="resume-header">{{ 'HEAD.TECHNOLOGIES' | translate }}</h3>
@@ -48,11 +50,13 @@
 <!-- skills -->
 <h3 class="resume-header">{{ 'HEAD.LINKS' | translate }}</h3>
 <ul class="resume-list resume-list--links">
-  <ng-container *ngIf="about?.links?.length">
-    <li class="nav-item" *ngFor="let link of about.links">
-      <a target="_blank" [href]="link.value">
-        {{ link.name }}
-      </a>
-    </li>
-  </ng-container>
+  @if (about.links.length) {
+    @for (link of about.links; track link.key) {
+      <li class="nav-item">
+        <a target="_blank" [href]="link.value">
+          {{ link.name }}
+        </a>
+      </li>
+    }
+  }
 </ul>

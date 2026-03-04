@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import 'app';
 
 // Fonts
@@ -45,8 +46,8 @@
 }
 
 @include color-mode(dark, true) {
-  --color-preload-1: #{lighten($body-bg-dark, 2%)};
-  --color-preload-2: #{lighten($body-bg-dark, 4%)};
+  --color-preload-1: #{color.adjust($body-bg-dark, $lightness: 2%)};
+  --color-preload-2: #{color.adjust($body-bg-dark, $lightness: 4%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-light);
@@ -54,8 +55,8 @@
 }
 
 @include color-mode(light, true) {
-  --color-preload-1: #{darken($body-bg, 3%)};
-  --color-preload-2: #{darken($body-bg, 5%)};
+  --color-preload-1: #{color.adjust($body-bg, $lightness: -3%)};
+  --color-preload-2: #{color.adjust($body-bg, $lightness: -5%)};
   --resume-bar-color: var(--bs-gradient);
   --resume-bar-background: var(--bs-secondary-bg);
   --resume-hello-stroke-from: var(--color-brand-dark);
@@ -92,6 +93,50 @@ body {
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary) 85%);
     outline: none;
+  }
+}
+
+.theme-switching body,
+.theme-switching .resume-wrapper,
+.theme-switching .resume-header,
+.theme-switching .resume-header__background,
+.theme-switching .resume-profile,
+.theme-switching .resume-picture,
+.theme-switching .resume-technologies,
+.theme-switching .resume-slider-item,
+.theme-switching .resume-timeline,
+.theme-switching .resume-position,
+.theme-switching .company {
+  will-change: background-color, color, border-color, opacity, transform;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --resume-transition-speed: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .resume-wrapper--language-switching {
+    opacity: 1 !important;
   }
 }
 

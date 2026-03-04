@@ -1,32 +1,34 @@
-import { Component, HostListener, OnInit } from '@angular/core'
+import { Component, computed, HostListener, inject, signal } from '@angular/core'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import { DataService } from '../../services/data.service'
-import { ResumeAboutLink, ResumeThemeMode } from '../../app.type'
-import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { takeUntil } from 'rxjs'
+import { ResumeThemeMode } from '../../app.type'
 import { RouterLink } from '@angular/router'
 import { ThemeService } from '../../services/theme.service'
+import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
-    selector: 'app-resume-header',
-    imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule, RouterLink],
-    templateUrl: './resume-header.component.html',
-    styleUrl: './resume-header.component.scss'
+  selector: 'app-resume-header',
+  imports: [NgClass, NgStyle, TranslateModule, RouterLink],
+  templateUrl: './resume-header.component.html',
+  styleUrl: './resume-header.component.scss'
 })
-export class ResumeHeaderComponent extends AppDestroy implements OnInit {
-  links!: ResumeAboutLink[]
-  isScrolled: boolean = false
-  isReady = false
+export class ResumeHeaderComponent {
+  isScrolled = false
+  readonly backgroundOpacity = signal(0.15)
+  private readonly theme = inject(ThemeService)
+  private readonly translate = inject(TranslateService)
+  private readonly dataService = inject(DataService)
+  private readonly about = toSignal(this.dataService.getAbout(), { initialValue: null })
+  readonly links = computed(() => this.about()?.links ?? [])
+  readonly isReady = computed(() => this.about() !== null)
 
-  backgroundOpacity: number = 0.15 // Default opacity
+  get isThemeDark() {
+    return this.theme.themeAttribute === ResumeThemeMode.DARK
+  }
 
-  constructor(
-    private theme: ThemeService,
-    private translate: TranslateService,
-    private dataService: DataService
-  ) {
-    super()
+  get isThemeLight() {
+    return this.theme.themeAttribute === ResumeThemeMode.LIGHT
   }
 
   @HostListener('window:scroll', [])
@@ -43,38 +45,16 @@ export class ResumeHeaderComponent extends AppDestroy implements OnInit {
     const opacityRange = scrollOpacityMax - scrollOpacityMin
 
     if (scrollY >= scrollMax) {
-      this.backgroundOpacity = scrollOpacityMax
+      this.backgroundOpacity.set(scrollOpacityMax)
     } else if (scrollY <= scrollMin) {
-      this.backgroundOpacity = scrollOpacityMin
+      this.backgroundOpacity.set(scrollOpacityMin)
     } else {
-      this.backgroundOpacity = scrollOpacityMin + (scrollY / scrollMax) * opacityRange
+      this.backgroundOpacity.set(scrollOpacityMin + (scrollY / scrollMax) * opacityRange)
     }
-  }
-
-  ngOnInit() {
-    this.dataService
-      .getAbout()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        this.links = data.links
-        this.isReady = true
-      })
-  }
-
-  changeLanguage(language: string) {
-    this.translate.use(language)
   }
 
   getCurrentLanguage() {
     return this.translate.currentLang
-  }
-
-  get isThemeDark() {
-    return this.theme.themeAttribute === ResumeThemeMode.DARK
-  }
-
-  get isThemeLight() {
-    return this.theme.themeAttribute === ResumeThemeMode.LIGHT
   }
 
   themeToggle() {

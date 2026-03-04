@@ -1,15 +1,19 @@
 <div class="resume-technologies">
-  <ng-container *ngFor="let group of technologies; let index = index">
+  @for (group of technologies(); track group; let index = $index) {
     <div
       [ngClass]="{ 'resume-slider': true, 'resume-slider--reverse': index === 1 }"
       [ngStyle]="{ '--slider-duration': 60 + index * 5 + 's' }"
     >
       <div class="resume-slider-group">
-        <app-resume-technology-item *ngFor="let technology of group" [technology]="technology" />
+        @for (technology of group; track technology) {
+          <app-resume-technology-item [technology]="technology" />
+        }
       </div>
       <div class="resume-slider-group" aria-hidden="true">
-        <app-resume-technology-item *ngFor="let technology of group" [technology]="technology" />
+        @for (technology of group; track technology) {
+          <app-resume-technology-item [technology]="technology" />
+        }
       </div>
     </div>
-  </ng-container>
+  }
 </div>

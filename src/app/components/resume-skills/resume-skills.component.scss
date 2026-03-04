@@ -1,7 +1,4 @@
-@use 'bootstrap/scss/mixins/color-mode' as *;
-@use 'bootstrap/scss/vendor/rfs' as *;
-
-@import 'app';
+@use 'app' as *;
 
 .resume-header {
   font-family: $font-head;

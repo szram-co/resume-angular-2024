@@ -1,13 +1,13 @@
-<div class="resume-hello-wrapper" #svgElement>
-  <ng-container *ngIf="type === 'text'">
-    <h1 class="resume-hello" [innerHTML]="'HELLO' | translate"></h1>
-  </ng-container>
-  <ng-container *ngIf="type === 'path' && currentLanguage === 'pl'">
+<div #svgElement class="resume-hello-wrapper">
+  @if (type() === 'text') {
+    <h1 [innerHTML]="'HELLO' | translate" class="resume-hello"></h1>
+  }
+  @if (type() === 'path' && currentLanguage() === 'pl') {
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       height="100%"
-      width="100%"
       viewBox="0 0 647.76172 212.73412"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <linearGradient
@@ -18,9 +18,11 @@
           y1="197"
           y2="37"
         >
-          <ng-container *ngFor="let data of svgGradient">
-            <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
-          </ng-container>
+          @for (data of svgGradient; track data.offset) {
+            <ng-container>
+              <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
+            </ng-container>
+          }
         </linearGradient>
       </defs>
       <g class="draw-text" fill="url(#resume-bg-gradient)">
@@ -95,13 +97,13 @@
         />
       </g>
     </svg>
-  </ng-container>
-  <ng-container *ngIf="type === 'path' && currentLanguage === 'en'">
+  }
+  @if (type() === 'path' && currentLanguage() === 'en') {
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       height="100%"
-      width="100%"
       viewBox="0 0 647.76172 212.73412"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <linearGradient
@@ -112,9 +114,11 @@
           y1="197"
           y2="37"
         >
-          <ng-container *ngFor="let data of svgGradient">
-            <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
-          </ng-container>
+          @for (data of svgGradient; track data.offset) {
+            <ng-container>
+              <stop [attr.offset]="data.offset" [attr.stop-color]="data.color" />
+            </ng-container>
+          }
         </linearGradient>
       </defs>
       <g class="draw-text" fill="url(#resume-bg-gradient)">
@@ -139,7 +143,6 @@
         <path
           d="m 382.4668,20.832031 c -3.71199,0 -6.94332,0.863801 -9.69531,2.591797 -2.23324,1.350329 -4.01706,3.129022 -5.36524,5.322266 l -0.77929,-6.857422 h -16.51172 c 0.256,2.175996 0.44817,4.383051 0.57617,6.623047 0.128,2.239995 0.19141,4.449004 0.19141,6.625 V 70.65625 h 17.08984 v -26.6875 c 0,-3.135994 0.67163,-5.600582 2.01563,-7.392578 1.40799,-1.791997 3.35947,-2.6875 5.85546,-2.6875 1.92,0 3.32862,0.639924 4.22461,1.919922 0.96,1.215997 1.43946,3.327943 1.43946,6.335937 V 70.65625 h 17.08789 v -26.6875 c 0,-3.135994 0.67163,-5.600582 2.01562,-7.392578 1.408,-1.791997 3.35948,-2.6875 5.85547,-2.6875 1.984,0 3.42432,0.639924 4.32031,1.919922 0.896,1.215997 1.34375,3.327943 1.34375,6.335937 V 70.65625 h 17.18555 V 41.568359 c 0,-7.103985 -1.37691,-12.320444 -4.12891,-15.648437 -2.75199,-3.391993 -6.91248,-5.087891 -12.48046,-5.087891 -3.776,0 -7.19949,0.92916 -10.27149,2.785156 -2.44841,1.51072 -4.42195,3.517927 -5.9375,6.003907 -1.15467,-2.744551 -2.78709,-4.817271 -4.91016,-6.197266 -2.49599,-1.727996 -5.5371,-2.591797 -9.12109,-2.591797 z"
         />
-
         <path
           d="M 5.2402344,124.32031 V 192 H 23 v -25.24805 h 15.455078 c 7.807985,0 13.696071,-1.91977 17.664063,-5.75976 3.967992,-3.83999 5.953125,-8.99305 5.953125,-15.45703 0,-6.52799 -1.985133,-11.67909 -5.953125,-15.45508 -3.967992,-3.83999 -9.856078,-5.75977 -17.664063,-5.75977 z M 23,137.85547 h 13.152344 c 3.007994,0 5.246753,0.67163 6.71875,2.01562 1.471997,1.344 2.208984,3.23207 2.208984,5.66407 0,2.43199 -0.736987,4.32006 -2.208984,5.66406 -1.471997,1.28 -3.710756,1.91992 -6.71875,1.91992 H 23 Z"
         />
@@ -175,5 +178,5 @@
         />
       </g>
     </svg>
-  </ng-container>
+  }
 </div>

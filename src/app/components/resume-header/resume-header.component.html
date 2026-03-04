@@ -1,76 +1,84 @@
-<div
-  *ngIf="isReady"
-  [ngClass]="{
-    'resume-header': true,
-    'resume-header--ready': isReady
-  }"
->
-  <nav class="navbar navbar-expand navbar-background">
-    <div class="container">
-      <a class="navbar-brand mb-0 h1 me-auto d-none d-sm-inline-block" [routerLink]="'/'">
-        resume.szram.co
-      </a>
-      <ul class="navbar-nav align-items-center">
-        <ng-container *ngIf="links?.length">
-          <li class="nav-item mx-1 link-scale" *ngFor="let link of links">
-            <a
-              target="_blank"
-              class="btn btn-link nav-link"
-              [href]="link.value"
-              [title]="link.name"
-            >
-              <span [ngClass]="['bi', 'bi-' + link.key]"></span>
-            </a>
+@if (isReady()) {
+  <div
+    [ngClass]="{
+      'resume-header': true,
+      'resume-header--ready': isReady()
+    }"
+  >
+    <nav class="navbar navbar-expand navbar-background">
+      <div class="container">
+        <a class="navbar-brand mb-0 h1 me-auto d-none d-sm-inline-block" [routerLink]="'/'">
+          resume.szram.co
+        </a>
+        <ul class="navbar-nav align-items-center">
+          @if (links().length) {
+            @for (link of links(); track link.key) {
+              <li class="nav-item mx-1 link-scale">
+                <a
+                  target="_blank"
+                  class="btn btn-link nav-link"
+                  [href]="link.value"
+                  [title]="link.name"
+                >
+                  <span [ngClass]="['bi', 'bi-' + link.key]"></span>
+                </a>
+              </li>
+            }
+            <li class="nav-item mx-1 link-scale">
+              <a
+                class="btn btn-link nav-link"
+                target="_blank"
+                [href]="'/assets/resume-szram-' + getCurrentLanguage() + '.pdf'"
+                [title]="'DOWNLOAD' | translate"
+              >
+                <span class="bi bi-download"></span>
+              </a>
+            </li>
+          }
+          <li class="nav-item d-none d-sm-block">
+            <div class="resume-vr"></div>
           </li>
-          <li class="nav-item mx-1 link-scale">
-            <a
-              class="btn btn-link nav-link"
-              target="_blank"
-              [href]="'/assets/resume-szram-' + getCurrentLanguage() + '.pdf'"
-              [title]="'DOWNLOAD' | translate"
+          <li class="nav-item link-scale ms-auto ms-sm-0">
+            <button
+              [attr.aria-label]="'BUTTON.TOGGLE_THEME' | translate"
+              class="btn btn-link nav-link text-decoration-none btn-lang"
+              (click)="themeToggle()"
             >
-              <span class="bi bi-download"></span>
-            </a>
+              @if (isThemeLight) {
+                <i class="bi bi-moon-stars-fill"></i>
+              }
+              @if (isThemeDark) {
+                <i class="bi bi-sun-fill"></i>
+              }
+            </button>
           </li>
-        </ng-container>
-        <li class="nav-item d-none d-sm-block">
-          <div class="resume-vr"></div>
-        </li>
-        <li class="nav-item link-scale ms-auto ms-sm-0">
-          <button
-            [attr.aria-label]="'BUTTON.TOGGLE_THEME' | translate"
-            class="btn btn-link nav-link text-decoration-none btn-lang"
-            (click)="themeToggle()"
-          >
-            <i class="bi bi-moon-stars-fill" *ngIf="isThemeLight"></i>
-            <i class="bi bi-sun-fill" *ngIf="isThemeDark"></i>
-          </button>
-        </li>
-        <li class="nav-item link-scale">
-          <button
-            [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_EN' | translate"
-            class="btn btn-link nav-link text-decoration-none btn-lang"
-            role="button"
-            *ngIf="getCurrentLanguage() !== 'en'"
-            [routerLink]="['/', 'en']"
-          >
-            EN
-          </button>
-          <button
-            [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_PL' | translate"
-            class="btn btn-link nav-link text-decoration-none btn-lang"
-            role="button"
-            *ngIf="getCurrentLanguage() !== 'pl'"
-            [routerLink]="['/', 'pl']"
-          >
-            PL
-          </button>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="resume-header__background" [ngStyle]="{ opacity: backgroundOpacity }"></div>
-</div>
+          <li class="nav-item link-scale">
+            @if (getCurrentLanguage() !== 'en') {
+              <button
+                [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_EN' | translate"
+                class="btn btn-link nav-link text-decoration-none btn-lang"
+                role="button"
+                [routerLink]="['/', 'en']"
+              >
+                EN
+              </button>
+            }
+            @if (getCurrentLanguage() !== 'pl') {
+              <button
+                [attr.aria-label]="'BUTTON.CHANGE_LANGUAGE_PL' | translate"
+                class="btn btn-link nav-link text-decoration-none btn-lang"
+                role="button"
+                [routerLink]="['/', 'pl']"
+              >
+                PL
+              </button>
+            }
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="resume-header__background" [ngStyle]="{ opacity: backgroundOpacity() }"></div>
+  </div>
+}
 
 <div class="resume-header-spacer"></div>

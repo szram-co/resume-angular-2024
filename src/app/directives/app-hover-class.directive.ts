@@ -1,11 +1,11 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core'
+import { Directive, ElementRef, HostListener, input, Renderer2 } from '@angular/core'
 
 @Directive({
   selector: '[appHoverClass]',
   standalone: true
 })
 export class AppHoverClassDirective {
-  @Input('appHoverClass') hoverClass: string = ''
+  readonly hoverClass = input('', { alias: 'appHoverClass' })
 
   constructor(
     private el: ElementRef,
@@ -13,10 +13,10 @@ export class AppHoverClassDirective {
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.renderer.addClass(this.el.nativeElement, this.hoverClass)
+    this.renderer.addClass(this.el.nativeElement, this.hoverClass())
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.renderer.removeClass(this.el.nativeElement, this.hoverClass)
+    this.renderer.removeClass(this.el.nativeElement, this.hoverClass())
   }
 }

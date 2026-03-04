@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import 'app';
+@use 'app' as *;
 
 :host {
   display: contents;
@@ -15,9 +15,9 @@
 
   &__dot {
     --company-line-b: linear-gradient(
-      to bottom,
-      var(--company-line-c) 40%,
-      var(--company-line-c-next)
+        to bottom,
+        var(--company-line-c) 40%,
+        var(--company-line-c-next)
     );
 
     display: flex;

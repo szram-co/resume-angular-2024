@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import 'app';
+@use 'app' as *;
 
 $row-size: 4.6875rem;
 $timeline-size: 0.125rem;

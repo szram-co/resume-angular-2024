@@ -1,88 +1,44 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core'
-import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
+import { Component, computed, inject, signal } from '@angular/core'
+import { NgClass, NgStyle } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ResumeAbout } from '../../app.type'
 import { DataService } from '../../services/data.service'
-import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { takeUntil } from 'rxjs'
-import { RouterLink } from '@angular/router'
 import { ResumeProfileHelloComponent } from './components/resume-profile-hello/resume-profile-hello.component'
+import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
-    selector: 'app-resume-profile',
-    imports: [
-        NgForOf,
-        TranslateModule,
-        NgIf,
-        NgClass,
-        NgStyle,
-        RouterLink,
-        ResumeProfileHelloComponent
-    ],
-    templateUrl: './resume-profile.component.html',
-    styleUrl: './resume-profile.component.scss'
+  selector: 'app-resume-profile',
+  imports: [TranslateModule, NgClass, NgStyle, ResumeProfileHelloComponent],
+  templateUrl: './resume-profile.component.html',
+  styleUrl: './resume-profile.component.scss'
 })
-export class ResumeProfileComponent extends AppDestroy implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('resumeProfile', { static: false }) resumeProfile!: ElementRef<HTMLDivElement>
+export class ResumeProfileComponent {
+  readonly backgroundImageLoaded = signal(false)
+  readonly backgroundImageUrl = '/assets/images/profile-image.jpg'
+  readonly backgroundImageStyle = computed(() =>
+    this.backgroundImageLoaded() ? `url(${this.backgroundImageUrl})` : 'none'
+  )
+  private readonly dataService = inject(DataService)
+  private readonly translate = inject(TranslateService)
+  private readonly aboutData = toSignal(this.dataService.getAbout(), { initialValue: null })
+  readonly isReady = computed(() => this.aboutData() !== null)
+  readonly about = computed<ResumeAbout>(() => {
+    return (
+      this.aboutData() ?? {
+        name: '',
+        email: '',
+        phone: '',
+        links: []
+      }
+    )
+  })
 
-  isReady = false
-  about!: ResumeAbout
-
-  backgroundImageLoaded: boolean = false
-  backgroundImageUrl: string = '/assets/images/profile-image.jpg'
-
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private dataService: DataService,
-    private translate: TranslateService
-  ) {
-    super()
+  constructor() {
+    this.checkIfBackgroundImageLoaded()
   }
 
   get currentLanguage() {
     return this.translate.currentLang as 'pl' | 'en'
-  }
-
-  ngOnInit() {
-    this.dataService
-      .getAbout()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        this.about = data
-        this.isReady = true
-      })
-  }
-
-  ngAfterViewInit() {
-    this.checkIfBackgroundImageLoaded()
-  }
-
-  checkIfBackgroundImageLoaded() {
-    const img = new Image()
-    img.src = this.backgroundImageUrl
-
-    img.onload = () => {
-      this.backgroundImageLoaded = true
-      this.applyBackgroundImage()
-    }
-
-    img.onerror = () => {
-      console.error('Failed to load background image')
-    }
-  }
-
-  applyBackgroundImage() {
-    this.cdr.detectChanges()
-
-    this.resumeProfile.nativeElement.style.backgroundImage = `url(${this.backgroundImageUrl})`
   }
 
   formatPhoneNumber(phone: string): string {
@@ -92,5 +48,18 @@ export class ResumeProfileComponent extends AppDestroy implements OnInit, AfterV
       return `+${match[1]} ${match[2]} ${match[3]} ${match[4]}`
     }
     return phone
+  }
+
+  private checkIfBackgroundImageLoaded() {
+    const img = new Image()
+    img.src = this.backgroundImageUrl
+
+    img.onload = () => {
+      this.backgroundImageLoaded.set(true)
+    }
+
+    img.onerror = () => {
+      console.error('Failed to load background image')
+    }
   }
 }

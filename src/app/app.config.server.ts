@@ -1,4 +1,4 @@
-import { provideServerRendering } from '@angular/ssr';
+import { provideServerRendering } from '@angular/ssr'
 import { ApplicationConfig, mergeApplicationConfig } from '@angular/core'
 import { appConfig } from './app.config'
 

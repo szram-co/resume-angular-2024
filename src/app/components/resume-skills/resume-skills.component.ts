@@ -1,31 +1,39 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
-import { JsonPipe, NgClass, NgForOf, NgIf, NgStyle } from '@angular/common'
 import { ResumeAbout, ResumeTechnologyMapped } from '../../app.type'
 import { DataService } from '../../services/data.service'
-import { AppDestroy } from '../../abstract/AppDestroy.abstract'
-import { forkJoin, takeUntil } from 'rxjs'
+import { forkJoin } from 'rxjs'
+import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
-    selector: 'app-resume-skills',
-    imports: [TranslateModule, NgForOf, JsonPipe, NgStyle, NgClass, NgIf],
-    templateUrl: './resume-skills.component.html',
-    styleUrl: './resume-skills.component.scss'
+  selector: 'app-resume-skills',
+  imports: [TranslateModule],
+  templateUrl: './resume-skills.component.html',
+  styleUrl: './resume-skills.component.scss'
 })
-export class ResumeSkillsComponent extends AppDestroy implements OnInit {
-  about!: ResumeAbout
-  technologies: ResumeTechnologyMapped[] = []
+export class ResumeSkillsComponent {
+  private readonly dataService = inject(DataService)
 
-  constructor(private dataService: DataService) {
-    super()
+  private readonly data = toSignal(
+    forkJoin({
+      about: this.dataService.getAbout(),
+      technologies: this.dataService.getCombinedTechnologies()
+    }),
+    { initialValue: null }
+  )
+
+  get about(): ResumeAbout {
+    return (
+      this.data()?.about ?? {
+        name: '',
+        email: '',
+        phone: '',
+        links: []
+      }
+    )
   }
 
-  ngOnInit() {
-    forkJoin([this.dataService.getAbout(), this.dataService.getCombinedTechnologies()])
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([aboutData, technologiesData]) => {
-        this.about = aboutData
-        this.technologies = technologiesData
-      })
+  get technologies(): ResumeTechnologyMapped[] {
+    return this.data()?.technologies ?? []
   }
 }
