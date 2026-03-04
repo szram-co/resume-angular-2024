@@ -4,10 +4,9 @@ import { AppDestroy } from './abstract/AppDestroy.abstract'
 import { ThemeService } from './services/theme.service'
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet />`
+    selector: 'app-root',
+    imports: [RouterOutlet],
+    template: `<router-outlet />`
 })
 export class AppComponent extends AppDestroy {
   constructor(private theme: ThemeService) {

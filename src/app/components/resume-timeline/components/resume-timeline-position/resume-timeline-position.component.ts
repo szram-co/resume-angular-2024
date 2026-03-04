@@ -8,11 +8,10 @@ import { AppDestroy } from '../../../../abstract/AppDestroy.abstract'
 import { DataService } from '../../../../services/data.service'
 
 @Component({
-  selector: 'app-resume-timeline-position',
-  standalone: true,
-  imports: [AppHoverClassDirective, NgForOf, NgClass, NgIf, TranslateModule, NgStyle],
-  templateUrl: './resume-timeline-position.component.html',
-  styleUrl: './resume-timeline-position.component.scss'
+    selector: 'app-resume-timeline-position',
+    imports: [AppHoverClassDirective, NgForOf, NgClass, NgIf, TranslateModule, NgStyle],
+    templateUrl: './resume-timeline-position.component.html',
+    styleUrl: './resume-timeline-position.component.scss'
 })
 export class ResumeTimelinePositionComponent extends AppDestroy implements OnInit {
   @Input() position!: ResumePosition

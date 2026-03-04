@@ -14,22 +14,21 @@ import { DataService } from '../../services/data.service'
 import { ResumeTechnologiesComponent } from '../../components/resume-technologies/resume-technologies.component'
 
 @Component({
-  selector: 'app-web',
-  standalone: true,
-  imports: [
-    NgIf,
-    ResumeHeaderComponent,
-    ResumeProfileComponent,
-    ResumeSkillsComponent,
-    ResumeTimelineComponent,
-    NgClass,
-    NgForOf,
-    NgOptimizedImage,
-    NgStyle,
-    ResumeTechnologiesComponent
-  ],
-  templateUrl: './web.component.html',
-  styleUrl: './web.component.scss'
+    selector: 'app-web',
+    imports: [
+        NgIf,
+        ResumeHeaderComponent,
+        ResumeProfileComponent,
+        ResumeSkillsComponent,
+        ResumeTimelineComponent,
+        NgClass,
+        NgForOf,
+        NgOptimizedImage,
+        NgStyle,
+        ResumeTechnologiesComponent
+    ],
+    templateUrl: './web.component.html',
+    styleUrl: './web.component.scss'
 })
 export class WebComponent extends AppDestroy implements OnInit {
   browserLang!: string

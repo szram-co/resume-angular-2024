@@ -6,11 +6,10 @@ import { ActivatedRoute } from '@angular/router'
 import { ThemeService } from '../../../../services/theme.service'
 
 @Component({
-  selector: 'app-resume-profile-hello',
-  standalone: true,
-  imports: [NgIf, TranslateModule, NgForOf],
-  templateUrl: './resume-profile-hello.component.html',
-  styleUrl: './resume-profile-hello.component.scss'
+    selector: 'app-resume-profile-hello',
+    imports: [NgIf, TranslateModule, NgForOf],
+    templateUrl: './resume-profile-hello.component.html',
+    styleUrl: './resume-profile-hello.component.scss'
 })
 export class ResumeProfileHelloComponent extends AppDestroy implements OnInit {
   @ViewChild('svgElement', { static: true }) svgElement!: ElementRef<SVGElement>

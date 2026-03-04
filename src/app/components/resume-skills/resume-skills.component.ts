@@ -7,11 +7,10 @@ import { AppDestroy } from '../../abstract/AppDestroy.abstract'
 import { forkJoin, takeUntil } from 'rxjs'
 
 @Component({
-  selector: 'app-resume-skills',
-  standalone: true,
-  imports: [TranslateModule, NgForOf, JsonPipe, NgStyle, NgClass, NgIf],
-  templateUrl: './resume-skills.component.html',
-  styleUrl: './resume-skills.component.scss'
+    selector: 'app-resume-skills',
+    imports: [TranslateModule, NgForOf, JsonPipe, NgStyle, NgClass, NgIf],
+    templateUrl: './resume-skills.component.html',
+    styleUrl: './resume-skills.component.scss'
 })
 export class ResumeSkillsComponent extends AppDestroy implements OnInit {
   about!: ResumeAbout

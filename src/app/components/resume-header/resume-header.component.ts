@@ -9,11 +9,10 @@ import { RouterLink } from '@angular/router'
 import { ThemeService } from '../../services/theme.service'
 
 @Component({
-  selector: 'app-resume-header',
-  standalone: true,
-  imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule, RouterLink],
-  templateUrl: './resume-header.component.html',
-  styleUrl: './resume-header.component.scss'
+    selector: 'app-resume-header',
+    imports: [NgIf, NgClass, NgForOf, NgStyle, TranslateModule, RouterLink],
+    templateUrl: './resume-header.component.html',
+    styleUrl: './resume-header.component.scss'
 })
 export class ResumeHeaderComponent extends AppDestroy implements OnInit {
   links!: ResumeAboutLink[]

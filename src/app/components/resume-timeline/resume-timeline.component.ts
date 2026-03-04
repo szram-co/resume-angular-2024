@@ -10,21 +10,20 @@ import { takeUntil } from 'rxjs'
 import { ResumeTimelinePositionComponent } from './components/resume-timeline-position/resume-timeline-position.component'
 
 @Component({
-  selector: 'app-resume-timeline',
-  standalone: true,
-  imports: [
-    NgForOf,
-    TranslateModule,
-    NgStyle,
-    NgClass,
-    NgOptimizedImage,
-    UpperCasePipe,
-    NgIf,
-    AppHoverClassDirective,
-    ResumeTimelinePositionComponent
-  ],
-  templateUrl: './resume-timeline.component.html',
-  styleUrl: './resume-timeline.component.scss'
+    selector: 'app-resume-timeline',
+    imports: [
+        NgForOf,
+        TranslateModule,
+        NgStyle,
+        NgClass,
+        NgOptimizedImage,
+        UpperCasePipe,
+        NgIf,
+        AppHoverClassDirective,
+        ResumeTimelinePositionComponent
+    ],
+    templateUrl: './resume-timeline.component.html',
+    styleUrl: './resume-timeline.component.scss'
 })
 export class ResumeTimelineComponent extends AppDestroy implements OnInit {
   experiences: ResumeExperienceMapped[] = []

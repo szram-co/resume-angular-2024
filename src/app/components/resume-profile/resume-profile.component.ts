@@ -17,19 +17,18 @@ import { RouterLink } from '@angular/router'
 import { ResumeProfileHelloComponent } from './components/resume-profile-hello/resume-profile-hello.component'
 
 @Component({
-  selector: 'app-resume-profile',
-  standalone: true,
-  imports: [
-    NgForOf,
-    TranslateModule,
-    NgIf,
-    NgClass,
-    NgStyle,
-    RouterLink,
-    ResumeProfileHelloComponent
-  ],
-  templateUrl: './resume-profile.component.html',
-  styleUrl: './resume-profile.component.scss'
+    selector: 'app-resume-profile',
+    imports: [
+        NgForOf,
+        TranslateModule,
+        NgIf,
+        NgClass,
+        NgStyle,
+        RouterLink,
+        ResumeProfileHelloComponent
+    ],
+    templateUrl: './resume-profile.component.html',
+    styleUrl: './resume-profile.component.scss'
 })
 export class ResumeProfileComponent extends AppDestroy implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('resumeProfile', { static: false }) resumeProfile!: ElementRef<HTMLDivElement>

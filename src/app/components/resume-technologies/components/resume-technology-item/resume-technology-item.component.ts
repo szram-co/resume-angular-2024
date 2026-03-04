@@ -4,11 +4,10 @@ import { NgClass, NgForOf, NgIf, NgOptimizedImage } from '@angular/common'
 import { AppDestroy } from '../../../../abstract/AppDestroy.abstract'
 
 @Component({
-  selector: 'app-resume-technology-item',
-  standalone: true,
-  imports: [NgForOf, NgIf, NgClass, NgOptimizedImage],
-  templateUrl: './resume-technology-item.component.html',
-  styleUrl: './resume-technology-item.component.scss'
+    selector: 'app-resume-technology-item',
+    imports: [NgForOf, NgIf, NgClass, NgOptimizedImage],
+    templateUrl: './resume-technology-item.component.html',
+    styleUrl: './resume-technology-item.component.scss'
 })
 export class ResumeTechnologyItemComponent extends AppDestroy implements AfterViewInit {
   @Input() technology: ResumeTechnologyWithIcon | null = null

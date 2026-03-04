@@ -30,22 +30,21 @@ import { LanguageService } from '../../services/language.service'
 import { forkJoin, map, takeUntil } from 'rxjs'
 
 @Component({
-  selector: 'app-pdf',
-  standalone: true,
-  imports: [
-    ResumeHeaderComponent,
-    NgIf,
-    ResumeProfileComponent,
-    ResumeSkillsComponent,
-    ResumeTimelineComponent,
-    NgClass,
-    NgStyle,
-    NgForOf,
-    TranslateModule,
-    UpperCasePipe
-  ],
-  templateUrl: './pdf.component.html',
-  styleUrl: './pdf.component.scss'
+    selector: 'app-pdf',
+    imports: [
+        ResumeHeaderComponent,
+        NgIf,
+        ResumeProfileComponent,
+        ResumeSkillsComponent,
+        ResumeTimelineComponent,
+        NgClass,
+        NgStyle,
+        NgForOf,
+        TranslateModule,
+        UpperCasePipe
+    ],
+    templateUrl: './pdf.component.html',
+    styleUrl: './pdf.component.scss'
 })
 export class PdfComponent extends AppDestroy implements OnInit {
   @ViewChild('pictureContainer', { static: false }) pictureContainer!: ElementRef<HTMLDivElement>

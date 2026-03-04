@@ -7,11 +7,10 @@ import { JsonPipe, NgClass, NgForOf, NgStyle } from '@angular/common'
 import { ResumeTechnologyItemComponent } from './components/resume-technology-item/resume-technology-item.component'
 
 @Component({
-  selector: 'app-resume-technologies',
-  standalone: true,
-  imports: [NgForOf, NgClass, JsonPipe, ResumeTechnologyItemComponent, NgStyle],
-  templateUrl: './resume-technologies.component.html',
-  styleUrl: './resume-technologies.component.scss'
+    selector: 'app-resume-technologies',
+    imports: [NgForOf, NgClass, JsonPipe, ResumeTechnologyItemComponent, NgStyle],
+    templateUrl: './resume-technologies.component.html',
+    styleUrl: './resume-technologies.component.scss'
 })
 export class ResumeTechnologiesComponent extends AppDestroy implements OnInit {
   @Input() rows: number = 3
