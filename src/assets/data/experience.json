@@ -172,16 +172,16 @@
       "en": "Frontend Developer"
     },
     "short_description": {
-      "pl": "Praca w zespole odpowiedzialnym za rozwój i utrzymanie autorskiej aplikacji napisanej w Angularze, która jest wykorzystywana przez naukowców do opracowywania leków.",
-      "en": "Collaboration within a team responsible for the development and maintenance of a proprietary Angular-based application used by scientists for drug discovery."
+      "pl": "Rozwijałem i utrzymywałem złożoną aplikację Angular dla zespołów R&D, projektując rozwiązania frontendowe, w tym autorski design system, standaryzujący komponenty i usprawniający rozwój produktu.",
+      "en": "Developed and maintained a complex Angular application for R&D teams, designing frontend solutions, including a dedicated design system that standardized components and improved product development."
     },
     "description": {
-      "pl": "Praca w zespole odpowiedzialnym za rozwój i utrzymanie autorskiej aplikacji napisanej w Angularze, która jest wykorzystywana przez naukowców do opracowywania leków.",
-      "en": "Collaboration within a team responsible for the development and maintenance of a proprietary Angular-based application used by scientists for drug discovery."
+      "pl": "Odpowiadałem za rozwój i utrzymanie złożonej aplikacji frontendowej w Angularze, wykorzystywanej przez naukowców oraz zespoły R&D w procesie odkrywania leków. Projektowałem i implementowałem moduły do pracy z danymi badawczymi, plikami i datasetami, dbając o spójność architektury, jakość kodu i rozwój skalowalnych komponentów UI. Zaprojektowałem i rozwijałem autorski design system w Angularze dla tego projektu, standaryzując komponenty, porządkując warstwę interfejsu i usprawniając rozwój nowych funkcjonalności. Przekładałem wymagania biznesowe na czytelne rozwiązania frontendowe w obszarach związanych m.in. ze strukturami chemicznymi, peptydami i danymi bioinformatycznymi.",
+      "en": "I was responsible for developing and maintaining a complex Angular frontend application used by scientists and R&D teams in the drug discovery process. I designed and implemented modules for working with research data, files, and datasets, with a strong focus on architecture consistency, code quality, and scalable UI components. I designed and evolved a dedicated Angular design system for the project, standardizing components, bringing consistency to the UI layer, and improving the delivery of new features. I translated business requirements into clear frontend solutions in areas related to chemical structures, peptides, and bioinformatics data."
     },
     "date": {
       "from": "2024-09-01",
-      "to": "present"
+      "to": "2026-03-03"
     },
     "technologies": [1, 2, 5, 48, 10, 7, 9, 21, 30, 32, 33, 35, 36, 37, 41, 45]
   }

@@ -23,7 +23,7 @@ export class ResumeProfileHelloComponent {
 
   readonly currentLanguage = computed<'pl' | 'en'>(() => {
     const lang = this.routeParams().get('lang')
-    return this.resolveLanguage(lang)
+    return this.#resolveLanguage(lang)
   })
 
   private readonly gradientDark = [
@@ -44,7 +44,7 @@ export class ResumeProfileHelloComponent {
     effect(() => {
       this.currentLanguage()
       this.type()
-      this.scheduleStrokesDashOffsetCalculation()
+      this.#scheduleStrokesDashOffsetCalculation()
     })
   }
 
@@ -52,20 +52,20 @@ export class ResumeProfileHelloComponent {
     return this.theme.isDark ? this.gradientDark : this.gradientLight
   }
 
-  private resolveLanguage(lang: string | null): 'pl' | 'en' {
+  #resolveLanguage(lang: string | null): 'pl' | 'en' {
     return lang === 'en' ? 'en' : 'pl'
   }
 
-  private scheduleStrokesDashOffsetCalculation() {
+  #scheduleStrokesDashOffsetCalculation() {
     if (this.frameId !== null) {
       cancelAnimationFrame(this.frameId)
       this.frameId = null
     }
 
-    this.frameId = requestAnimationFrame(() => this.calculateStrokesDashOffset())
+    this.frameId = requestAnimationFrame(() => this.#calculateStrokesDashOffset())
   }
 
-  private calculateStrokesDashOffset() {
+  #calculateStrokesDashOffset() {
     const svgNativeElement = this.svgElement()?.nativeElement
 
     if (!svgNativeElement) {

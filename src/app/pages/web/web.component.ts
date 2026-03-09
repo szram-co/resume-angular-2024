@@ -59,7 +59,7 @@ export class WebComponent {
       const lang = this.routeParams().get('lang')
 
       if (lang?.match(/en|pl/)) {
-        void this.switchLanguage(lang as 'pl' | 'en')
+        void this.#switchLanguage(lang as 'pl' | 'en')
       } else {
         this.router.navigate([`/${this.storageLang}`])
       }
@@ -95,7 +95,7 @@ export class WebComponent {
     return lang?.match(/en|pl/) ? lang : this.browserLang.match(/en|pl/) ? this.browserLang : 'pl'
   }
 
-  private async switchLanguage(lang: 'pl' | 'en') {
+  async #switchLanguage(lang: 'pl' | 'en') {
     if (this.languageSwitchInProgress) {
       this.pendingLanguage = lang
       return
@@ -145,7 +145,7 @@ export class WebComponent {
       if (this.pendingLanguage && this.pendingLanguage !== lang) {
         const nextLanguage = this.pendingLanguage
         this.pendingLanguage = null
-        void this.switchLanguage(nextLanguage)
+        void this.#switchLanguage(nextLanguage)
       }
     }
   }

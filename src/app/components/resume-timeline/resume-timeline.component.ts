@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { NgClass, NgStyle, UpperCasePipe } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { ResumeExperienceMapped } from '../../app.type'
@@ -14,14 +14,6 @@ import { toSignal } from '@angular/core/rxjs-interop'
 })
 export class ResumeTimelineComponent {
   readonly showMore = signal(false)
-  readonly EXPERIENCES_DISPLAYED = 4
-  readonly displayedExperiences = computed(() => {
-    const all = this.experiences()
-    return this.showMore() ? all : all.slice(0, this.EXPERIENCES_DISPLAYED)
-  })
-  readonly remainingExperiencesCount = computed(() => {
-    return Math.max(0, this.experiences().length - this.EXPERIENCES_DISPLAYED)
-  })
   private readonly dataService = inject(DataService)
   readonly experiences = toSignal(this.dataService.getCombinedExperience(), {
     initialValue: [] as ResumeExperienceMapped[]

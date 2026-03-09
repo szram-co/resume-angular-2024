@@ -22,6 +22,60 @@
 // Icons
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+@property --bs-body-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #{$color-white};
+}
+
+@property --bs-body-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #{$color-dark};
+}
+
+@property --color-preload-1 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #{color.adjust($body-bg-dark, $lightness: 2%)};
+}
+
+@property --color-preload-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #{color.adjust($body-bg-dark, $lightness: 4%)};
+}
+
+@property --resume-header-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #{$body-secondary-bg-dark};
+}
+
+@property --resume-bar-background {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #242424;
+}
+
+@property --resume-hello-stroke-from {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #9ac5c3;
+}
+
+@property --resume-hello-stroke-to {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #2a9b91;
+}
+
+@property --resume-bar-color {
+  syntax: '<image>';
+  inherits: true;
+  initial-value: linear-gradient(135deg, #2a9b91, #02605c);
+}
+
 :root {
   --color-black: #{$color-black};
   --color-gray: #{$color-gray};
@@ -33,7 +87,7 @@
   --color-brand-light: #{$color-brand-light};
   --color-light: #{$color-light};
 
-  --resume-transition-speed: 0.3s;
+  --resume-transition-speed: 0.35s;
   --resume-transition-type: ease;
 
   --bs-gradient: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
@@ -43,9 +97,22 @@
   --company-logo-c: var(--bs-body-color);
   --company-text-b: var(--bs-body-color);
   --company-text-c: var(--bs-body-bg);
+  --resume-header-bg: #{$body-secondary-bg-dark};
+
+  transition:
+    --bs-body-color-1 var(--resume-transition-speed) var(--resume-transition-type),
+    --bs-body-bg var(--resume-transition-speed) var(--resume-transition-type),
+    --color-preload-1 var(--resume-transition-speed) var(--resume-transition-type),
+    --color-preload-2 var(--resume-transition-speed) var(--resume-transition-type),
+    --resume-header-bg var(--resume-transition-speed) var(--resume-transition-type),
+    --resume-bar-color var(--resume-transition-speed) var(--resume-transition-type),
+    --resume-bar-background var(--resume-transition-speed) var(--resume-transition-type),
+    --resume-hello-stroke-from var(--resume-transition-speed) var(--resume-transition-type),
+    --resume-hello-stroke-to var(--resume-transition-speed) var(--resume-transition-type);
 }
 
 @include color-mode(dark, true) {
+  --resume-header-bg: #{$body-secondary-bg-dark};
   --color-preload-1: #{color.adjust($body-bg-dark, $lightness: 2%)};
   --color-preload-2: #{color.adjust($body-bg-dark, $lightness: 4%)};
   --resume-bar-color: var(--bs-gradient);
@@ -55,6 +122,7 @@
 }
 
 @include color-mode(light, true) {
+  --resume-header-bg: #{$body-secondary-bg};
   --color-preload-1: #{color.adjust($body-bg, $lightness: -3%)};
   --color-preload-2: #{color.adjust($body-bg, $lightness: -5%)};
   --resume-bar-color: var(--bs-gradient);
@@ -74,7 +142,6 @@ body {
 }
 
 body {
-  @include transitions(background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -93,50 +160,6 @@ body {
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary) 85%);
     outline: none;
-  }
-}
-
-.theme-switching body,
-.theme-switching .resume-wrapper,
-.theme-switching .resume-header,
-.theme-switching .resume-header__background,
-.theme-switching .resume-profile,
-.theme-switching .resume-picture,
-.theme-switching .resume-technologies,
-.theme-switching .resume-slider-item,
-.theme-switching .resume-timeline,
-.theme-switching .resume-position,
-.theme-switching .company {
-  will-change: background-color, color, border-color, opacity, transform;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 220ms;
-  animation-timing-function: ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --resume-transition-speed: 0.01ms;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
-  }
-
-  .resume-wrapper--language-switching {
-    opacity: 1 !important;
   }
 }
 

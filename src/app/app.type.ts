@@ -117,6 +117,20 @@ export interface ResumeAbout {
   links: ResumeAboutLink[]
 }
 
+export interface ResumeRecommendationAuthor {
+  name: string
+  role: string
+  company: string
+  avatar: string
+}
+
+export interface ResumeRecommendation {
+  author: ResumeRecommendationAuthor
+  source: string
+  date: TranslatedValue
+  content: TranslatedValue
+}
+
 export type ResumePDFFontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000
 
 export interface ResumePDFFontSrc {

@@ -33,10 +33,10 @@ export class ResumeTechnologiesComponent {
 
   readonly technologies = computed<ResumeTechnologyWithIcon[][]>(() => {
     const rows = Math.max(1, this.rows())
-    return this.splitArrayIntoChunks(this.technologiesWithIcons(), rows)
+    return this.#splitArrayIntoChunks(this.technologiesWithIcons(), rows)
   })
 
-  private splitArrayIntoChunks(
+  #splitArrayIntoChunks(
     array: ResumeTechnologyWithIcon[],
     numChunks: number
   ): ResumeTechnologyWithIcon[][] {

@@ -7,6 +7,7 @@ import {
   ResumeExperience,
   ResumeExperienceMapped,
   ResumeMappedCompany,
+  ResumeRecommendation,
   ResumeTechnology,
   ResumeTechnologyMapped,
   ResumeTechnologyType
@@ -39,6 +40,9 @@ export class DataService {
     .pipe(shareReplay(1))
   private readonly experiences$ = this.http
     .get<ResumeExperience[]>('/assets/data/experience.json')
+    .pipe(shareReplay(1))
+  private readonly recommendations$ = this.http
+    .get<ResumeRecommendation[]>('/assets/data/recommendations.json')
     .pipe(shareReplay(1))
   private readonly companies$ = this.http.get<ResumeCompany[]>('/assets/data/companies.json').pipe(
     switchMap((companies) => {
@@ -80,6 +84,10 @@ export class DataService {
 
   getExperiences() {
     return this.experiences$
+  }
+
+  getRecommendations() {
+    return this.recommendations$
   }
 
   loadCompanies(): Observable<ResumeCompany[]> {
@@ -179,7 +187,7 @@ export class DataService {
               ...technology,
               experience: {
                 months: totalMonthsExperience,
-                score: this.calculateExperienceScore(
+                score: this.#calculateExperienceScore(
                   totalMonthsExperience,
                   lastUsedDate,
                   continuousUsage,
@@ -277,7 +285,7 @@ export class DataService {
     const dateFrom = new Date(from)
     const dateTo = to.toLowerCase() === 'present' ? new Date() : new Date(to)
 
-    const { years, months, days } = this.calculateCalendarDiff(dateFrom, dateTo)
+    const { years, months, days } = this.#calculateCalendarDiff(dateFrom, dateTo)
     let totalYears = years
     let totalMonths = months
 
@@ -313,7 +321,7 @@ export class DataService {
     return `${monthShort} ${year}`
   }
 
-  private calculateCalendarDiff(from: Date, to: Date) {
+  #calculateCalendarDiff(from: Date, to: Date) {
     const start = new Date(from.getFullYear(), from.getMonth(), from.getDate())
     const end = new Date(to.getFullYear(), to.getMonth(), to.getDate())
 
@@ -339,7 +347,7 @@ export class DataService {
     return { years, months, days }
   }
 
-  private calculateExperienceScore(
+  #calculateExperienceScore(
     months: number,
     lastUsed: Date,
     continuousUsage: number,

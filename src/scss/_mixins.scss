@@ -11,6 +11,7 @@
   $transition-type: var(--resume-transition-type);
 
   $transition-values: ();
+  $will-change-values: ();
 
   // Iterate through each property and append transition values with commas
   @each $property in $properties {
@@ -19,7 +20,9 @@
         #{$property} $transition-speed $transition-type,
         comma
     );
+    $will-change-values: append($will-change-values, $property, comma);
   }
 
   transition: $transition-values;
+  will-change: $will-change-values;
 }

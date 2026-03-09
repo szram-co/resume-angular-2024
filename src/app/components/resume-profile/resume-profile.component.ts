@@ -34,7 +34,7 @@ export class ResumeProfileComponent {
   })
 
   constructor() {
-    this.checkIfBackgroundImageLoaded()
+    this.#checkIfBackgroundImageLoaded()
   }
 
   get currentLanguage() {
@@ -50,7 +50,7 @@ export class ResumeProfileComponent {
     return phone
   }
 
-  private checkIfBackgroundImageLoaded() {
+  #checkIfBackgroundImageLoaded() {
     const img = new Image()
     img.src = this.backgroundImageUrl
 

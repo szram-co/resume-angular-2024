@@ -29,27 +29,14 @@
         @for (tech of position().technologies; track techIndex; let techIndex = $index) {
           @if (tech?.name) {
             <li
-              [ngClass]="{
-                visible: shouldShowAllTechnologies() || techIndex + 1 <= TECHNOLOGIES_DISPLAYED,
-                hidden: !shouldShowAllTechnologies() && techIndex + 1 > TECHNOLOGIES_DISPLAYED
-              }"
               [ngStyle]="{
-                'animation-delay':
-                  shouldShowAllTechnologies() && techIndex + 1 > TECHNOLOGIES_DISPLAYED
-                    ? (techIndex + 1 - TECHNOLOGIES_DISPLAYED) * 50 + 'ms'
-                    : null
+                'animation-delay.ms': (techIndex + 1) * 50
               }"
+              class="visible"
             >
               {{ tech.name }}
             </li>
           }
-        }
-        @if (
-          !shouldShowAllTechnologies() && position().technologies.length > TECHNOLOGIES_DISPLAYED
-        ) {
-          <li (click)="showAllTechnologies()" class="show-more">
-            + {{ position().technologies.length - TECHNOLOGIES_DISPLAYED }}
-          </li>
         }
       </ul>
     }

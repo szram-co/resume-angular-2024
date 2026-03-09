@@ -13,6 +13,7 @@
     "TECHNOLOGIES": "Technologie",
     "TOOLS": "Narzędzia",
     "COURSES": "Kursy",
+    "RECOMMENDATIONS": "Rekomendacje",
     "LINKS": "Linki"
   },
   "COURSE": {
@@ -24,7 +25,7 @@
     "WARSAW": "Warszawa"
   },
   "CITY_FROM": {
-    "PIENKOW": "w Pieńkowie, Polska",
+    "KAJETANY": "w Kajetanach, Polska",
     "WARSAW": "w Warszawie, Polska",
     "GDANSK": "w Gdańsku, Polska",
     "GRUDZIADZ": "w Grudziądzu, Polska"

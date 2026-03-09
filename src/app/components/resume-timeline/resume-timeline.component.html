@@ -1,11 +1,7 @@
 <h2 class="resume-soft">{{ 'HEAD.EXPERIENCE' | translate }}</h2>
 
 <div class="resume-timeline">
-  @for (
-    experience of displayedExperiences();
-    track experience.company.id;
-    let experienceIndex = $index
-  ) {
+  @for (experience of experiences(); track experience.company.id; let experienceIndex = $index) {
     @if (experience.company) {
       <div [ngStyle]="experience.company.style" class="resume-timeline__company">
         <div class="resume-timeline__logo">
@@ -42,15 +38,3 @@
     }
   }
 </div>
-
-<button
-  (click)="toggleShowMore()"
-  [attr.aria-label]="'BUTTON.SHOW_MORE_EXPERIENCE' | translate"
-  class="btn btn-outline-light btn-show-more btn-sm"
->
-  {{
-    showMore()
-      ? ('BUTTON.LESS' | translate)
-      : ('BUTTON.MORE' | translate) + ' (' + remainingExperiencesCount() + ')'
-  }}
-</button>
