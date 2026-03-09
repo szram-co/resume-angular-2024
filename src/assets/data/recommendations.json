@@ -4,7 +4,7 @@
       "name": "Michał Nowacki",
       "role": "Lead Backend Engineer",
       "company": "Reef Technologies",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFLKwUeSKLkpA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1704838726058?e=1774483200&v=beta&t=V2NdpMYBtq6dl1iZgGEVNqqFEG9BKNrKrPhlBAd3sXI"
+      "avatar": "/assets/images/avatar-nowacki-1704838726058.jpeg"
     },
     "source": "LinkedIn",
     "date": {
@@ -18,10 +18,27 @@
   },
   {
     "author": {
+      "name": "Michał Całka",
+      "role": "Python Developer",
+      "company": "Self employed",
+      "avatar": "/assets/images/avatar-calka-1544215422534.jpeg"
+    },
+    "source": "LinkedIn",
+    "date": {
+      "pl": "29 marca 2020",
+      "en": "March 29, 2020"
+    },
+    "content": {
+      "pl": "Patryk był najlepszym, co mogło przydarzyć się naszej firmie. Jego doświadczenie zawodowe i otwartość na nowe rozwiązania mówią same za siebie, co zresztą widać na jego profilu. To, czego tam nie widać, a co moim zdaniem jest najważniejsze, to fakt, że jest po prostu świetnym współpracownikiem: zawsze pomocnym, bardzo hojnym, wrażliwym i życzliwym. Tego nie da się nauczyć. Zawsze dobrze mieć takiego człowieka w zespole.",
+      "en": "Patryk was the best thing that could have happened to our company. His professional experience and openness to new solutions speak for themselves, and you can already see that in his profile. What is not visible there, and what I consider the most important, is that he is simply a great colleague: always helpful, very generous, sensitive, and friendly. That is not something you can learn. It is always good to have a person like that on your team."
+    }
+  },
+  {
+    "author": {
       "name": "Piotr Mikolajczak",
       "role": "System / Data Architect",
       "company": "Frontex",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQEQa-B8ze9-4g/profile-displayphoto-scale_100_100/B4DZfBNHfpG8Ac-/0/1751293131609?e=1774483200&v=beta&t=lzaJaM_ohskTOhlw56ovyYTblSbCZD9qcRpYwug-LVE"
+      "avatar": "/assets/images/avatar-mikolajczak-1751293131609.jpeg"
     },
     "source": "LinkedIn",
     "date": {
@@ -38,7 +55,7 @@
       "name": "Piotr Grędowski",
       "role": "Software developer",
       "company": "Axpo Polska",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQE9c4UHj3_JIw/profile-displayphoto-scale_100_100/B4DZwlHjhiHgAc-/0/1770149266782?e=1774483200&v=beta&t=5v678VbJ4EGvolhGS4KS4wEmzTol6a_SvLZ6EuXI1n0"
+      "avatar": "/assets/images/avatar-gredowski-1770149266782.jpeg"
     },
     "source": "LinkedIn",
     "date": {
@@ -55,7 +72,7 @@
       "name": "Jan Pleszyński",
       "role": "Solutions Architect",
       "company": "STX Next",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFB1zd9_Duydg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1672834740555?e=1774483200&v=beta&t=wgjBcfZQe9MvfvNDjF5R3Zz_X3Cm7C3z_ajIgWaibKU"
+      "avatar": "/assets/images/avatar-pleszynski-1672834740555.jpeg"
     },
     "source": "LinkedIn",
     "date": {
@@ -72,7 +89,7 @@
       "name": "Bartlomiej Biernacki",
       "role": "CTO",
       "company": "Simpligo",
-      "avatar": "https://media.licdn.com/dms/image/v2/C4D03AQF61TWMEbUHUw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1517625235889?e=1774483200&v=beta&t=FdwmyeUIZK4igl1QterMONlbA3eMdvDlsrH9fP2CSHc"
+      "avatar": "/assets/images/avatar-biernacki-1517625235889.jpeg"
     },
     "source": "LinkedIn",
     "date": {
@@ -82,23 +99,6 @@
     "content": {
       "pl": "Pracowałem z Patrykiem przez krótki czas w firmie Indigobird. Chociaż współpracowaliśmy tylko przez kilka miesięcy, szybko zauważyłem, że jest developerem z głębokim zrozumieniem technologii i prawdziwą pasją do tworzenia świetnych produktów.",
       "en": "I've worked with Patryk for a short period of time at Indigobird company. While we worked together only for a few months, I found out that he is a developer with a deep understanding of technology and a real passion for creating great products."
-    }
-  },
-  {
-    "author": {
-      "name": "Michał Całka",
-      "role": "Python Developer",
-      "company": "Self employed",
-      "avatar": "https://media.licdn.com/dms/image/v2/C4D03AQHceL1IPDUPog/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1544215422534?e=1774483200&v=beta&t=h125VLfBsqdZ7N9A6-1rXKgbBncncT9vcCsGqvTUmRA"
-    },
-    "source": "LinkedIn",
-    "date": {
-      "pl": "29 marca 2020",
-      "en": "March 29, 2020"
-    },
-    "content": {
-      "pl": "Patryk był najlepszym, co mogło przydarzyć się naszej firmie. Jego doświadczenie zawodowe i otwartość na nowe rozwiązania mówią same za siebie, co zresztą widać na jego profilu. To, czego tam nie widać, a co moim zdaniem jest najważniejsze, to fakt, że jest po prostu świetnym współpracownikiem: zawsze pomocnym, bardzo hojnym, wrażliwym i życzliwym. Tego nie da się nauczyć. Zawsze dobrze mieć takiego człowieka w zespole.",
-      "en": "Patryk was the best thing that could have happened to our company. His professional experience and openness to new solutions speak for themselves, and you can already see that in his profile. What is not visible there, and what I consider the most important, is that he is simply a great colleague: always helpful, very generous, sensitive, and friendly. That is not something you can learn. It is always good to have a person like that on your team."
     }
   }
 ]
