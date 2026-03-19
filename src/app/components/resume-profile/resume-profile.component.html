@@ -1,53 +1,62 @@
 <section [ngClass]="{ 'resume-profile': true, 'resume-profile--ready': isReady() }">
   <div class="container">
     <div class="row">
-      <div class="col col-lg-4 col-12">
-        @if (backgroundImageLoaded()) {
-          <div [ngStyle]="{ 'background-image': backgroundImageStyle() }" class="resume-picture">
-            @if (isReady()) {
-              <div class="resume-picture__overlay">
-                <ul class="resume-contact">
-                  <li>
-                    <a [href]="'mailto:' + about().email" class="link-lg">
-                      {{ about().email }}
-                    </a>
-                  </li>
-                  <li>
-                    <a [href]="'tel:' + about().phone" class="link-lg">
-                      {{ formatPhoneNumber(about().phone) }}
-                    </a>
-                  </li>
-                  <li class="resume-contact-space">
-                    {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
-                  </li>
-                </ul>
-                @if (about().links.length) {
-                  <div class="resume-social">
-                    @for (link of about().links; track link) {
-                      <a [href]="link.value" [title]="link.name" class="link-scale" target="_blank">
-                        <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
+      <div class="col col-lg-4 col-12 resume-profile__media-col">
+        <div class="resume-picture-pin">
+          @if (backgroundImageLoaded()) {
+            <div [ngStyle]="{ 'background-image': backgroundImageStyle() }" class="resume-picture">
+              @if (isReady()) {
+                <div class="resume-picture__overlay">
+                  <ul class="resume-contact">
+                    <li>
+                      <a [href]="'mailto:' + about().email" class="link-lg">
+                        {{ about().email }}
                       </a>
-                    }
-                    <a
-                      [href]="'/' + getCurrentLanguage() + '/pdf'"
-                      [title]="'DOWNLOAD' | translate"
-                      class="link-scale"
-                      target="_blank"
-                    >
-                      <span class="bi fs-2 bi-download"></span>
-                    </a>
-                  </div>
-                }
-              </div>
-            }
-          </div>
-        } @else {
-          <div class="resume-loading">
-            <div class="spinner-border" role="status"></div>
-          </div>
-        }
+                    </li>
+                    <li>
+                      <a [href]="'tel:' + about().phone" class="link-lg">
+                        {{ formatPhoneNumber(about().phone) }}
+                      </a>
+                    </li>
+                    <li class="resume-contact-space">
+                      {{ 'CITY.WARSAW' | translate }}, {{ 'COUNTRY.POLAND' | translate }}
+                    </li>
+                  </ul>
+                  @if (about().links.length) {
+                    <div class="resume-social">
+                      @for (link of about().links; track link) {
+                        <a
+                          [href]="link.value"
+                          [title]="link.name"
+                          class="link-scale"
+                          target="_blank"
+                        >
+                          <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
+                        </a>
+                      }
+                      <a
+                        [href]="'/' + getCurrentLanguage() + '/pdf'"
+                        [title]="'DOWNLOAD' | translate"
+                        class="link-scale"
+                        target="_blank"
+                      >
+                        <span class="bi fs-2 bi-download"></span>
+                      </a>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="resume-loading">
+              <div class="spinner-border" role="status"></div>
+            </div>
+          }
+        </div>
       </div>
-      <div class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5">
+      <div
+        class="col col-lg-8 col-12 text-center text-lg-start ps-lg-5 resume-profile__content-col"
+      >
         <div class="resume-positions">
           <div class="resume-boxed d-inline-block">Senior Frontend Developer</div>
           <div class="resume-boxed d-inline-block">Fullstack Web Developer</div>

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /**
  * Mixin for setting transition properties based on provided arguments.
  * Uses variables for transition speed and type.
@@ -25,4 +27,49 @@
 
   transition: $transition-values;
   will-change: $will-change-values;
+}
+
+@mixin resume-gradient($property, $start, $middle, $end) {
+  #{$property}: linear-gradient(
+    135deg,
+    #{$start} 0%,
+    #{color.mix($start, $middle, 50.65%)} 19.108865411116216%,
+    #{$middle} 51.554126473740624%,
+    #{color.mix($middle, $end, 66.67%)} 78.22871316241262%,
+    #{$end} 97.7491961414791%
+  );
+}
+
+@mixin resume-gradient-var($property, $start, $middle, $end) {
+  #{$property}: linear-gradient(
+    135deg,
+    #{$start} 0%,
+    color-mix(in srgb, #{$start} 50.65%, #{$middle}) 19.108865411116216%,
+    #{$middle} 51.554126473740624%,
+    color-mix(in srgb, #{$middle} 66.67%, #{$end}) 78.22871316241262%,
+    #{$end} 97.7491961414791%
+  );
+}
+
+@mixin resume-theme-mode(
+  $header-bg,
+  $preload-1,
+  $preload-2,
+  $gradient-start,
+  $gradient-middle,
+  $gradient-end,
+  $bar-background,
+  $stroke-from,
+  $stroke-to
+) {
+  --resume-header-bg: #{$header-bg};
+  --color-preload-1: #{$preload-1};
+  --color-preload-2: #{$preload-2};
+  --color-gradient-start: #{$gradient-start};
+  --color-gradient-middle: #{$gradient-middle};
+  --color-gradient-end: #{$gradient-end};
+  --resume-bar-color: var(--resume-gradient);
+  --resume-bar-background: #{$bar-background};
+  --resume-hello-stroke-from: #{$stroke-from};
+  --resume-hello-stroke-to: #{$stroke-to};
 }

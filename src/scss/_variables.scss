@@ -27,6 +27,9 @@ $font-family-monospace: $font-condensed;
 
 $color-black: #000;
 $color-dark: #1a1a1a;
+$color-gradient-start: #736966;
+$color-gradient-middle: #284743;
+$color-gradient-end: #202524;
 $color-brand-dark: #02605c;
 $color-brand: #2a9b91;
 $color-brand-light: #9ac5c3;
@@ -34,6 +37,9 @@ $color-light: #cbd4d9;
 $color-white: #e8e8e8;
 $color-7: #fff;
 $color-gray: #7a7a78;
+$color-gradient-light-start: color.mix($color-gradient-start, #fff, 38%);
+$color-gradient-light-middle: color.mix($color-gradient-middle, #fff, 28%);
+$color-gradient-light-end: color.mix($color-gradient-end, #fff, 18%);
 
 $glow-left: $color-gray;
 $glow-right: $color-brand;
