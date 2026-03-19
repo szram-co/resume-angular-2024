@@ -1,115 +1,92 @@
 # resume-angular-2024
 
-Modern resume / portfolio built with Angular 21 as a standalone application, with multilingual support, theme switching, and PDF generation.
+Modern resume / portfolio built with Angular 21. The app renders a multilingual CV from JSON data, supports dark and light themes, and can generate downloadable PDF versions.
 
-## About
+## Features
 
-This project renders a resume website from JSON data stored in `src/assets/data`. The application currently supports two main modes:
+- Angular 21 standalone application
+- language-based routing: `/:lang` and `/:lang/pdf`
+- translations with `@ngx-translate/core`
+- dark / light theme with persisted preference
+- PDF generation with `pdfmake`
+- JSON-driven content from `src/assets/data`
 
-- web view available at `/:lang`
-- PDF generation available at `/:lang/pdf`
-
-Currently supported languages:
-
-- `pl`
-- `en`
-
-## Stack
+## Tech Stack
 
 - Angular 21
-- standalone components and `ApplicationConfig`
 - RxJS
+- Bootstrap 5
+- SCSS
 - `@ngx-translate/core`
-- Bootstrap 5 with custom SCSS tokens
-- `pdfmake` for PDF generation
-
-## Main Features
-
-- language-based routing with a guard for `pl` and `en`
-- resume view driven by JSON data
-- dynamic translations from `src/assets/i18n`
-- light mode / dark mode persisted in `localStorage`
-- PDF generation and download
-- lazy-loaded PDF route
-- language-aware meta tags and social share images
+- `pdfmake`
 
 ## Requirements
 
 - Node.js 20+
 - npm
 
-## Installation
+## Getting Started
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-## Running the Project
-
-Development server:
+Start the development server:
 
 ```bash
 npm start
 ```
 
-By default, the application runs at:
+The app runs at `http://localhost:4200`.
 
-```text
-http://localhost:4200
-```
-
-Production build:
+## Available Scripts
 
 ```bash
+npm start
 npm run build
-```
-
-Watch mode:
-
-```bash
 npm run watch
-```
-
-Tests:
-
-```bash
 npm test
 ```
 
-## Routing
-
-Defined routes:
+## Routes
 
 - `/pl`
 - `/en`
 - `/pl/pdf`
 - `/en/pdf`
 
-Additional routing behavior:
+Redirects:
 
-- `/` redirects to `/pl`
-- `/pdf` redirects to `/pl/pdf`
-- unknown routes redirect to `/pl`
+- `/` -> `/pl`
+- `/pdf` -> `/pl/pdf`
+- unknown routes -> `/pl`
 
 ## Project Structure
 
-Key directories and files:
+```text
+src/
+  app/
+    components/   reusable resume UI
+    pages/web/    main web view
+    pages/pdf/    PDF generation and preview
+    services/     data, language, theme, SVG helpers
+    app.config.ts
+    app.routes.ts
+    app.type.ts
+  assets/
+    data/         resume content
+    i18n/         translations
+    images/       images, logos, share assets
+    fonts/        fonts used in UI and PDF
+  scss/           shared variables and mixins
+  styles.scss     global styles and theme tokens
+```
 
-- `src/app/app.config.ts` application and provider configuration
-- `src/app/app.routes.ts` routing definition
-- `src/app/components` resume UI components
-- `src/app/pages/web` main web page
-- `src/app/pages/pdf` PDF view and generation logic
-- `src/app/services` data, language, theme, and SVG-related logic
-- `src/assets/data` resume source data
-- `src/assets/i18n` translations
-- `src/assets/images` images, logos, and social share assets
-- `src/assets/fonts` fonts used by the UI and PDF
-- `src/scss` shared SCSS variables and mixins
+## Data Files
 
-## Data Sources
-
-The project uses the following data files:
+The app uses:
 
 - `src/assets/data/about.json`
 - `src/assets/data/companies.json`
@@ -117,40 +94,26 @@ The project uses the following data files:
 - `src/assets/data/recommendations.json`
 - `src/assets/data/technologies.json`
 
-Relationships between the files:
-
-- `experience.json` references companies via `company`
-- `experience.json` references technologies via the `technologies` array
-- `companies.json` points to logo files via `companyLogo`
-- `recommendations.json` points to author avatars via `author.avatar`
-
-Current data types are defined in:
-
-- `src/app/app.type.ts`
+Data contracts are defined in `src/app/app.type.ts`.
 
 ## Translations
 
-Translation files are stored in:
+Translation files:
 
 - `src/assets/i18n/pl.json`
 - `src/assets/i18n/en.json`
 
-Translations are loaded through `TranslateHttpLoader` configured in `src/app/app.config.ts`.
+Configured in `src/app/app.config.ts` via `TranslateHttpLoader`.
 
 ## Themes
 
-The application supports:
+The app supports `dark` and `light` modes.
 
-- `dark`
-- `light`
+- theme is applied through `data-bs-theme`
+- selected mode is stored in `localStorage` under `resume-theme`
+- system color preference is used on first load
 
-Theme behavior:
-
-- the active theme is applied through the `data-bs-theme` attribute on `documentElement`
-- the selected theme is stored in `localStorage` under the `resume-theme` key
-- system theme preferences are respected on first load
-
-Global tokens and gradients are defined in:
+Theme tokens and gradients live in:
 
 - `src/scss/_variables.scss`
 - `src/scss/_mixins.scss`
@@ -158,38 +121,22 @@ Global tokens and gradients are defined in:
 
 ## PDF
 
-PDF generation is handled by:
+PDF generation is implemented in `src/app/pages/pdf/pdf.component.ts`.
 
-- `src/app/pages/pdf/pdf.component.ts`
-
-Current implementation details:
-
-- uses `pdfmake`
-- loads data and assets asynchronously
-- embeds fonts from `src/assets/fonts`
-- supports two output modes:
-  - in-browser preview (`blob`)
-  - file download (`file`)
+- data and assets are loaded asynchronously
+- fonts are embedded from `src/assets/fonts`
+- output supports in-browser preview and file download
 
 Generated files are language-specific, for example:
 
 - `resume-szram-pl.pdf`
 - `resume-szram-en.pdf`
 
-## Environments
+## Notes
 
-Environment files:
-
-- `src/environments/environment.ts`
-- `src/environments/environment.development.ts`
-
-They are currently used mainly to build correct URLs for meta tags and social share assets.
-
-## Technical Notes
-
-- the application uses `provideHttpClient(withFetch())`
-- routing and bootstrap are based on modern Angular setup without `NgModule`
-- `pdfmake` is listed in `allowedCommonJsDependencies` in `angular.json` to keep the build output clean
+- the app uses `provideHttpClient(withFetch())`
+- bootstrap is configured without `NgModule`
+- `pdfmake` is listed in `allowedCommonJsDependencies` in `angular.json`
 
 ## License
 

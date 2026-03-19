@@ -1,6 +1,6 @@
-import { Component, computed, HostListener, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { NgClass, NgStyle } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { DataService } from '../../services/data.service'
 import { ResumeThemeMode } from '../../app.type'
 import { RouterLink } from '@angular/router'
@@ -9,13 +9,12 @@ import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-resume-header',
-  imports: [NgClass, NgStyle, TranslateModule, RouterLink],
+  imports: [NgClass, TranslateModule, RouterLink],
   templateUrl: './resume-header.component.html',
-  styleUrl: './resume-header.component.scss'
+  styleUrl: './resume-header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResumeHeaderComponent {
-  isScrolled = false
-  readonly backgroundOpacity = signal(0.15)
   private readonly theme = inject(ThemeService)
   private readonly translate = inject(TranslateService)
   private readonly dataService = inject(DataService)
@@ -29,28 +28,6 @@ export class ResumeHeaderComponent {
 
   get isThemeLight() {
     return this.theme.themeAttribute === ResumeThemeMode.LIGHT
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.isScrolled = window.scrollY > 1
-
-    const scrollOpacityMin = 0.15
-    const scrollOpacityMax = 0.75
-
-    const scrollMin = 0
-    const scrollMax = window.innerHeight * 0.75
-
-    const scrollY = window.scrollY
-    const opacityRange = scrollOpacityMax - scrollOpacityMin
-
-    if (scrollY >= scrollMax) {
-      this.backgroundOpacity.set(scrollOpacityMax)
-    } else if (scrollY <= scrollMin) {
-      this.backgroundOpacity.set(scrollOpacityMin)
-    } else {
-      this.backgroundOpacity.set(scrollOpacityMin + (scrollY / scrollMax) * opacityRange)
-    }
   }
 
   getCurrentLanguage() {

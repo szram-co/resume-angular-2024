@@ -1,10 +1,16 @@
+<app-resume-header />
+
 @if (isReady()) {
   <div
     #webRoot
-    [ngClass]="{ 'resume-wrapper': true, 'resume-wrapper--language-switching': isLanguageSwitching() }"
-    [ngStyle]="languageWrapperMinHeight() ? { 'min-height': languageWrapperMinHeight() + 'px' } : null"
+    [ngClass]="{
+      'resume-wrapper': true,
+      'resume-wrapper--language-switching': isLanguageSwitching()
+    }"
+    [ngStyle]="
+      languageWrapperMinHeight() ? { 'min-height': languageWrapperMinHeight() + 'px' } : null
+    "
   >
-    <app-resume-header />
     <div class="resume-container">
       <app-resume-profile />
       <div class="container">
