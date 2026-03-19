@@ -1,15 +1,15 @@
 # resume-angular-2024
 
-Nowoczesne CV / portfolio zbudowane w Angularze 21 jako aplikacja standalone, z obsługą wielu języków, przełączaniem motywu oraz generowaniem PDF.
+Modern resume / portfolio built with Angular 21 as a standalone application, with multilingual support, theme switching, and PDF generation.
 
-## O projekcie
+## About
 
-Projekt renderuje stronę CV na podstawie danych z plików JSON znajdujących się w `src/assets/data`. Aplikacja działa w dwóch głównych trybach:
+This project renders a resume website from JSON data stored in `src/assets/data`. The application currently supports two main modes:
 
-- widok web pod adresami `/:lang`
-- generowanie PDF pod adresami `/:lang/pdf`
+- web view available at `/:lang`
+- PDF generation available at `/:lang/pdf`
 
-Aktualnie wspierane języki:
+Currently supported languages:
 
 - `pl`
 - `en`
@@ -17,60 +17,60 @@ Aktualnie wspierane języki:
 ## Stack
 
 - Angular 21
-- standalone components i `ApplicationConfig`
+- standalone components and `ApplicationConfig`
 - RxJS
 - `@ngx-translate/core`
-- Bootstrap 5 + własne SCSS tokens
-- `pdfmake` do generowania PDF
+- Bootstrap 5 with custom SCSS tokens
+- `pdfmake` for PDF generation
 
-## Najważniejsze funkcje
+## Main Features
 
-- routing językowy z guardem dla `pl` i `en`
-- widok CV oparty o dane z JSON
-- dynamiczne tłumaczenia z `src/assets/i18n`
-- light mode / dark mode zapisywany w `localStorage`
-- generowanie i pobieranie PDF
-- osobny widok PDF ładowany lazy przez router
-- meta tagi i grafiki social share zależne od języka
+- language-based routing with a guard for `pl` and `en`
+- resume view driven by JSON data
+- dynamic translations from `src/assets/i18n`
+- light mode / dark mode persisted in `localStorage`
+- PDF generation and download
+- lazy-loaded PDF route
+- language-aware meta tags and social share images
 
-## Wymagania
+## Requirements
 
 - Node.js 20+
 - npm
 
-## Instalacja
+## Installation
 
 ```bash
 npm install
 ```
 
-## Uruchamianie
+## Running the Project
 
-Serwer developerski:
+Development server:
 
 ```bash
 npm start
 ```
 
-Domyślnie aplikacja działa pod:
+By default, the application runs at:
 
 ```text
 http://localhost:4200
 ```
 
-Build produkcyjny:
+Production build:
 
 ```bash
 npm run build
 ```
 
-Tryb watch:
+Watch mode:
 
 ```bash
 npm run watch
 ```
 
-Testy:
+Tests:
 
 ```bash
 npm test
@@ -78,38 +78,38 @@ npm test
 
 ## Routing
 
-Zdefiniowane ścieżki:
+Defined routes:
 
 - `/pl`
 - `/en`
 - `/pl/pdf`
 - `/en/pdf`
 
-Dodatkowo:
+Additional routing behavior:
 
-- `/` przekierowuje do `/pl`
-- `/pdf` przekierowuje do `/pl/pdf`
-- nieznane adresy przekierowują do `/pl`
+- `/` redirects to `/pl`
+- `/pdf` redirects to `/pl/pdf`
+- unknown routes redirect to `/pl`
 
-## Struktura projektu
+## Project Structure
 
-Najważniejsze katalogi:
+Key directories and files:
 
-- `src/app/app.config.ts` konfiguracja aplikacji i providerów
-- `src/app/app.routes.ts` routing
-- `src/app/components` komponenty UI CV
-- `src/app/pages/web` główny widok strony
-- `src/app/pages/pdf` widok i logika generowania PDF
-- `src/app/services` logika danych, języka, motywu i SVG
-- `src/assets/data` źródło danych CV
-- `src/assets/i18n` tłumaczenia
-- `src/assets/images` obrazy, logotypy i assety social share
-- `src/assets/fonts` fonty używane w UI i PDF
-- `src/scss` współdzielone zmienne i mixiny SCSS
+- `src/app/app.config.ts` application and provider configuration
+- `src/app/app.routes.ts` routing definition
+- `src/app/components` resume UI components
+- `src/app/pages/web` main web page
+- `src/app/pages/pdf` PDF view and generation logic
+- `src/app/services` data, language, theme, and SVG-related logic
+- `src/assets/data` resume source data
+- `src/assets/i18n` translations
+- `src/assets/images` images, logos, and social share assets
+- `src/assets/fonts` fonts used by the UI and PDF
+- `src/scss` shared SCSS variables and mixins
 
-## Dane wejściowe
+## Data Sources
 
-Projekt korzysta z następujących plików:
+The project uses the following data files:
 
 - `src/assets/data/about.json`
 - `src/assets/data/companies.json`
@@ -117,40 +117,40 @@ Projekt korzysta z następujących plików:
 - `src/assets/data/recommendations.json`
 - `src/assets/data/technologies.json`
 
-Powiązania między danymi:
+Relationships between the files:
 
-- `experience.json` referencjonuje firmy przez `company`
-- `experience.json` referencjonuje technologie przez tablicę `technologies`
-- `companies.json` wskazuje pliki logo przez `companyLogo`
-- `recommendations.json` wskazuje avatary autorów przez `author.avatar`
+- `experience.json` references companies via `company`
+- `experience.json` references technologies via the `technologies` array
+- `companies.json` points to logo files via `companyLogo`
+- `recommendations.json` points to author avatars via `author.avatar`
 
-Aktualne typy danych są opisane w:
+Current data types are defined in:
 
 - `src/app/app.type.ts`
 
-## Tłumaczenia
+## Translations
 
-Tłumaczenia znajdują się w:
+Translation files are stored in:
 
 - `src/assets/i18n/pl.json`
 - `src/assets/i18n/en.json`
 
-Ładowanie tłumaczeń jest skonfigurowane przez `TranslateHttpLoader` w `src/app/app.config.ts`.
+Translations are loaded through `TranslateHttpLoader` configured in `src/app/app.config.ts`.
 
-## Motywy
+## Themes
 
-Aplikacja obsługuje tryby:
+The application supports:
 
 - `dark`
 - `light`
 
-Motyw:
+Theme behavior:
 
-- jest ustawiany przez atrybut `data-bs-theme` na `documentElement`
-- jest zapisywany w `localStorage` pod kluczem `resume-theme`
-- respektuje preferencje systemowe przy pierwszym uruchomieniu
+- the active theme is applied through the `data-bs-theme` attribute on `documentElement`
+- the selected theme is stored in `localStorage` under the `resume-theme` key
+- system theme preferences are respected on first load
 
-Globalne tokeny i gradienty są definiowane w:
+Global tokens and gradients are defined in:
 
 - `src/scss/_variables.scss`
 - `src/scss/_mixins.scss`
@@ -158,39 +158,39 @@ Globalne tokeny i gradienty są definiowane w:
 
 ## PDF
 
-Generowanie PDF realizuje komponent:
+PDF generation is handled by:
 
 - `src/app/pages/pdf/pdf.component.ts`
 
-Obecna implementacja:
+Current implementation details:
 
-- używa `pdfmake`
-- ładuje dane i assety asynchronicznie
-- osadza fonty z `src/assets/fonts`
-- wspiera dwa tryby wyjścia:
-  - podgląd w przeglądarce (`blob`)
-  - pobranie pliku (`file`)
+- uses `pdfmake`
+- loads data and assets asynchronously
+- embeds fonts from `src/assets/fonts`
+- supports two output modes:
+  - in-browser preview (`blob`)
+  - file download (`file`)
 
-Plik PDF jest generowany per język, np.:
+Generated files are language-specific, for example:
 
 - `resume-szram-pl.pdf`
 - `resume-szram-en.pdf`
 
-## Środowiska
+## Environments
 
-Pliki środowisk:
+Environment files:
 
 - `src/environments/environment.ts`
 - `src/environments/environment.development.ts`
 
-Służą obecnie głównie do budowania poprawnych adresów URL dla meta tagów i assetów share image.
+They are currently used mainly to build correct URLs for meta tags and social share assets.
 
-## Uwagi techniczne
+## Technical Notes
 
-- aplikacja używa `provideHttpClient(withFetch())`
-- routing i konfiguracja są oparte o nowy bootstrap Angulara bez `NgModule`
-- `pdfmake` jest dodane do `allowedCommonJsDependencies` w `angular.json`, żeby build był czysty
+- the application uses `provideHttpClient(withFetch())`
+- routing and bootstrap are based on modern Angular setup without `NgModule`
+- `pdfmake` is listed in `allowedCommonJsDependencies` in `angular.json` to keep the build output clean
 
-## Licencja
+## License
 
 MIT
