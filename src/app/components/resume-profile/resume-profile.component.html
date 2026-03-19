@@ -3,17 +3,17 @@
     <div class="row">
       <div class="col col-lg-4 col-12">
         @if (backgroundImageLoaded()) {
-          <div class="resume-picture" [ngStyle]="{ 'background-image': backgroundImageStyle() }">
+          <div [ngStyle]="{ 'background-image': backgroundImageStyle() }" class="resume-picture">
             @if (isReady()) {
               <div class="resume-picture__overlay">
                 <ul class="resume-contact">
                   <li>
-                    <a class="link-lg" [href]="'mailto:' + about().email">
+                    <a [href]="'mailto:' + about().email" class="link-lg">
                       {{ about().email }}
                     </a>
                   </li>
                   <li>
-                    <a class="link-lg" [href]="'tel:' + about().phone">
+                    <a [href]="'tel:' + about().phone" class="link-lg">
                       {{ formatPhoneNumber(about().phone) }}
                     </a>
                   </li>
@@ -24,15 +24,15 @@
                 @if (about().links.length) {
                   <div class="resume-social">
                     @for (link of about().links; track link) {
-                      <a class="link-scale" target="_blank" [href]="link.value" [title]="link.name">
+                      <a [href]="link.value" [title]="link.name" class="link-scale" target="_blank">
                         <span [ngClass]="['bi', 'fs-2', 'bi-' + link.key]"></span>
                       </a>
                     }
                     <a
+                      [href]="'/' + getCurrentLanguage() + '/pdf'"
                       [title]="'DOWNLOAD' | translate"
-                      class="link-scale"
+                      class="btn btn-link nav-link"
                       target="_blank"
-                      [href]="'/assets/resume-szram-' + currentLanguage + '.pdf'"
                     >
                       <span class="bi bi-download fs-2"></span>
                     </a>

@@ -37,8 +37,8 @@ export class ResumeProfileComponent {
     this.#checkIfBackgroundImageLoaded()
   }
 
-  get currentLanguage() {
-    return this.translate.currentLang as 'pl' | 'en'
+  getCurrentLanguage() {
+    return this.translate.currentLang
   }
 
   formatPhoneNumber(phone: string): string {

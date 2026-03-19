@@ -3,10 +3,14 @@
   "PAGE_DESCRIPTION": "Hello, i'm Patryk Szram and that site is my virtual portfolio.",
   "HELLO": "Hello, I’m<br />Patryk Szram",
   "DESCRIPTION": [
-    "For a decade, I have been developing my skills as a programmer, gaining experience in web development, specializing in designing responsive web applications tailored to the business needs of clients. I am an engaged, self-taught learner, understanding good programming practices, business goals, and client project requirements.",
-    "My readiness to tackle challenges has always been my hallmark. I'm intrigued by all aspects of web development, from application architecture to code development/maintenance, optimization, and process automation. I also have graphic design skills supported by professional experience in UX/UI and understand the processes of designing materials for print/publication."
+    "For over a decade, I have been building my experience in web development, specializing in responsive web applications tailored to real business needs. I combine strong technical skills with an understanding of product goals and project requirements, focusing on scalable, maintainable, and high-quality solutions.",
+    "I work comfortably across a broad range of frontend challenges — from application architecture and code development to maintenance, optimization, process automation, and improving developer workflows. I also bring graphic design skills supported by professional UX/UI experience, which helps me create products that are not only well implemented, but also usable, consistent, and visually refined."
   ],
   "DOWNLOAD": "Download resume PDF",
+  "PDF": {
+    "CONSENT": "I consent to the processing of my personal data contained in this resume for the purposes of future recruitment processes.",
+    "CONTINUE_NEXT_PAGE": "More on the next page"
+  },
   "HEAD": {
     "EXPERIENCE": "Experience",
     "SKILLS": "Skills",

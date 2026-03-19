@@ -3,10 +3,14 @@
   "PAGE_DESCRIPTION": "Witaj, jestem Patryk Szram, a to jest moje wirtualne portfolio.",
   "HELLO": "Witaj, jestem<br />Patryk Szram",
   "DESCRIPTION": [
-    "Od dekady rozwijam się jako programista zdobywając doświadczenie w web developmentcie, specjalizując się w projektowaniu responsywnych aplikacji webowych dostosowanych do potrzeb biznesowych klientów. Jestem zaangażowanym, szybko uczącym się samoukiem. Rozumiem dobre praktyki programowania, stawiane przede mną cele biznesowe oraz wymagania projektowe klientów.",
-    "Gotowość do podejmowania wyzwań zawsze była moją cechą charakterystyczną. Ciekawi mnie wszystko co związane jest z web developmentem. Architektura aplikacji, rozwijanie/utrzymywanie kodu, optymalizacja i automatyzacja procesów oraz projektowanie środowisk developerskich aby wykorzystywać technologie do zwiększania produktywność czy wydajność aplikacji. Posiadam umiejętności graficzne poparte doświadczeniem zawodowym w UX/UI i rozumiem procesy projektowania materiałów przeznaczonych do druku/publikacji."
+    "Od ponad dekady rozwijam swoje doświadczenie w web developmencie, specjalizując się w tworzeniu responsywnych aplikacji webowych dopasowanych do realnych potrzeb biznesowych. Łączę solidne kompetencje techniczne ze zrozumieniem celów produktowych i wymagań projektowych, stawiając na skalowalność, jakość i utrzymywalność rozwiązań.",
+    "Swobodnie poruszam się w szerokim zakresie zagadnień frontendowych — od architektury aplikacji i rozwijania kodu, po jego utrzymanie, optymalizację, automatyzację procesów oraz usprawnianie środowiska pracy deweloperskiej. Uzupełniam to umiejętnościami graficznymi i doświadczeniem w UX/UI, dzięki czemu dbam nie tylko o implementację, ale również o użyteczność, spójność i jakość odbioru produktu."
   ],
   "DOWNLOAD": "Pobierz CV w PDF",
+  "PDF": {
+    "CONSENT": "Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w niniejszym CV w celu przeprowadzenia przyszłych procesów rekrutacyjnych.",
+    "CONTINUE_NEXT_PAGE": "Kontynuacja doświadczenia na kolejnej stronie"
+  },
   "HEAD": {
     "EXPERIENCE": "Doświadczenie",
     "SKILLS": "Umiejętności",
