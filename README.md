@@ -1,248 +1,196 @@
-# ResumeAngular2024
+# resume-angular-2024
 
-This project is an Angular application designed to manage and display professional experience and skills using data from JSON files.
+Nowoczesne CV / portfolio zbudowane w Angularze 21 jako aplikacja standalone, z obsługą wielu języków, przełączaniem motywu oraz generowaniem PDF.
 
-## Table of Contents
+## O projekcie
 
-- [About](#about)
-- [JSON Data](#json-data)
-- [Installation](#installation)
-- [Development Server](#development-server)
-- [Build](#build)
-- [Fonts](#fonts)
-- [License](#license)
+Projekt renderuje stronę CV na podstawie danych z plików JSON znajdujących się w `src/assets/data`. Aplikacja działa w dwóch głównych trybach:
 
-## About
+- widok web pod adresami `/:lang`
+- generowanie PDF pod adresami `/:lang/pdf`
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3. It serves as a portfolio to showcase various frontend development skills and experiences.
+Aktualnie wspierane języki:
 
-## JSON Data
+- `pl`
+- `en`
 
-The application uses four primary JSON files to manage data:
+## Stack
 
-### about.json
+- Angular 21
+- standalone components i `ApplicationConfig`
+- RxJS
+- `@ngx-translate/core`
+- Bootstrap 5 + własne SCSS tokens
+- `pdfmake` do generowania PDF
 
-This file contains general information about the user.
+## Najważniejsze funkcje
 
-```json
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "phone": "+123456789",
-  "links": [
-    {
-      "key": "github",
-      "name": "GitHub",
-      "value": "https://github.com/johndoe/"
-    },
-    {
-      "key": "linkedin",
-      "name": "LinkedIn",
-      "value": "https://www.linkedin.com/in/johndoe/"
-    }
-  ]
-}
-```
+- routing językowy z guardem dla `pl` i `en`
+- widok CV oparty o dane z JSON
+- dynamiczne tłumaczenia z `src/assets/i18n`
+- light mode / dark mode zapisywany w `localStorage`
+- generowanie i pobieranie PDF
+- osobny widok PDF ładowany lazy przez router
+- meta tagi i grafiki social share zależne od języka
 
-### companies.json
+## Wymagania
 
-This file contains information about the companies where the user has worked.
+- Node.js 20+
+- npm
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Example Company",
-    "companyLogo": "logo-example.svg",
-    "location": {
-      "city": "Example City",
-      "country": "Example Country"
-    },
-    "style": {
-      "--company-logo-bg": "#ffffff",
-      "--company-logo-color": "#000000",
-      "--company-dot": "#000000"
-    }
-  }
-]
-```
-
-### technologies.json
-
-This file contains details about the technologies the user has experience with.
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Angular",
-    "skillAssessment": true,
-    "type": "framework",
-    "group": "frontend"
-  },
-  {
-    "id": 2,
-    "name": "TypeScript",
-    "skillAssessment": true,
-    "type": "language",
-    "group": "frontend"
-  }
-]
-```
-
-### experience.json
-
-This file contains information about the user's professional experience.
-
-```json
-[
-  {
-    "company": 1,
-    "name": {
-      "pl": "Frontend Developer",
-      "en": "Frontend Developer"
-    },
-    "description": {
-      "pl": "Pracowałem jako Frontend Developer w Example Company.",
-      "en": "Worked as a Frontend Developer at Example Company."
-    },
-    "date": {
-      "from": "2020-01-01",
-      "to": "2022-12-31"
-    },
-    "technologies": [
-      1,
-      2
-    ]
-    // List of technology IDs from technologies.json
-  }
-]
-```
-
-## Installation
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+## Instalacja
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/szram-co/resume-angular-2024.git
-
-# Go into the repository
-$ cd resume-angular-2024
-
-# Install dependencies
-$ npm install
+npm install
 ```
 
-## Development Server
+## Uruchamianie
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Serwer developerski:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Fonts
-
-### Adding Fonts to the Project
-
-To include custom fonts in your project, follow these steps:
-
-1. **Place Font Files**: Put your font files in the appropriate directory within your project, maintaining the structure as shown below:
-
-```
-assets
-└── fonts
-    ├── Mulish
-    │   ├── Mulish-Black.ttf
-    │   ├── Mulish-BlackItalic.ttf
-    │   ├── Mulish-Bold.ttf
-    │   ├── ...
-    ├── Poppins
-    │   ├── Poppins-Black.ttf
-    │   ├── Poppins-BlackItalic.ttf
-    │   ├── Poppins-Bold.ttf
-    │   ├── ...
-    └── SairaSemiCondensed
-        ├── SairaSemiCondensed-Bold.ttf
-        ├── SairaSemiCondensed-Medium.ttf
-        ├── ...
+```bash
+npm start
 ```
 
-2. **SCSS Setup**: Use the `addFontFace` mixin to generate the `@font-face` rules for your fonts. Here's an example:
+Domyślnie aplikacja działa pod:
 
-```scss
-@include addFontFace(
-    (
-      family: 'Poppins',
-      url: '/assets/fonts/Poppins/',
-      src: (
-        (font: 'Poppins-Black.ttf', weight: 900, style: normal),
-        (font: 'Poppins-BlackItalic.ttf', weight: 900, style: italic),
-        (font: 'Poppins-ExtraBold.ttf', weight: 800, style: normal),
-        (font: 'Poppins-ExtraBoldItalic.ttf', weight: 800, style: italic), // Add other font styles as needed
-      )
-    )
-);
+```text
+http://localhost:4200
 ```
 
-3. **Angular Component Configuration**: Ensure you add the fonts in the `resume-pdf.component.ts` to enable seamless PDF generation:
+Build produkcyjny:
 
-```typescript
-get fontFaces(): HTMLFontFace[] {
-  const addFontFace = (font: ResumePDFFontFace) => {
-    return font.src.map((src) => {
-      return {
-        src: [
-          {
-            url: `${font.url}${src.font}`,
-            format: src?.format ?? 'truetype'
-          }
-        ],
-        family: font.family,
-        style: src?.style ?? 'normal',
-        weight: src.weight
-      } as HTMLFontFace;
-    });
-  };
-
-  return [
-    ...addFontFace({
-      family: 'Mulish',
-      url: '/assets/fonts/Mulish/static/',
-      src: [
-        { font: 'Mulish-Black.ttf', weight: 900 },
-        { font: 'Mulish-ExtraBold.ttf', weight: 800 },
-        { font: 'Mulish-Bold.ttf', weight: 700 },
-        // Add other font styles as needed
-      ]
-    }),
-    ...addFontFace({
-      family: 'Poppins',
-      url: '/assets/fonts/Poppins/',
-      src: [
-        { font: 'Poppins-Black.ttf', weight: 900 },
-        { font: 'Poppins-BlackItalic.ttf', weight: 900, style: 'italic' },
-        { font: 'Poppins-ExtraBold.ttf', weight: 800 },
-        // Add other font styles as needed
-      ]
-    })
-  ];
-}
-
-// Setup fonts in jsPDF
-async downloadPDF() {
-  this.pdf = new jsPDF()
-
-  this.pdf.html(contentHTML, {
-    fontFaces: this.fontFaces,
-    callback: (doc) => {
-      doc.save(this.filename)
-    }
-  })
-}
+```bash
+npm run build
 ```
 
-## License
+Tryb watch:
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```bash
+npm run watch
+```
+
+Testy:
+
+```bash
+npm test
+```
+
+## Routing
+
+Zdefiniowane ścieżki:
+
+- `/pl`
+- `/en`
+- `/pl/pdf`
+- `/en/pdf`
+
+Dodatkowo:
+
+- `/` przekierowuje do `/pl`
+- `/pdf` przekierowuje do `/pl/pdf`
+- nieznane adresy przekierowują do `/pl`
+
+## Struktura projektu
+
+Najważniejsze katalogi:
+
+- `src/app/app.config.ts` konfiguracja aplikacji i providerów
+- `src/app/app.routes.ts` routing
+- `src/app/components` komponenty UI CV
+- `src/app/pages/web` główny widok strony
+- `src/app/pages/pdf` widok i logika generowania PDF
+- `src/app/services` logika danych, języka, motywu i SVG
+- `src/assets/data` źródło danych CV
+- `src/assets/i18n` tłumaczenia
+- `src/assets/images` obrazy, logotypy i assety social share
+- `src/assets/fonts` fonty używane w UI i PDF
+- `src/scss` współdzielone zmienne i mixiny SCSS
+
+## Dane wejściowe
+
+Projekt korzysta z następujących plików:
+
+- `src/assets/data/about.json`
+- `src/assets/data/companies.json`
+- `src/assets/data/experience.json`
+- `src/assets/data/recommendations.json`
+- `src/assets/data/technologies.json`
+
+Powiązania między danymi:
+
+- `experience.json` referencjonuje firmy przez `company`
+- `experience.json` referencjonuje technologie przez tablicę `technologies`
+- `companies.json` wskazuje pliki logo przez `companyLogo`
+- `recommendations.json` wskazuje avatary autorów przez `author.avatar`
+
+Aktualne typy danych są opisane w:
+
+- `src/app/app.type.ts`
+
+## Tłumaczenia
+
+Tłumaczenia znajdują się w:
+
+- `src/assets/i18n/pl.json`
+- `src/assets/i18n/en.json`
+
+Ładowanie tłumaczeń jest skonfigurowane przez `TranslateHttpLoader` w `src/app/app.config.ts`.
+
+## Motywy
+
+Aplikacja obsługuje tryby:
+
+- `dark`
+- `light`
+
+Motyw:
+
+- jest ustawiany przez atrybut `data-bs-theme` na `documentElement`
+- jest zapisywany w `localStorage` pod kluczem `resume-theme`
+- respektuje preferencje systemowe przy pierwszym uruchomieniu
+
+Globalne tokeny i gradienty są definiowane w:
+
+- `src/scss/_variables.scss`
+- `src/scss/_mixins.scss`
+- `src/styles.scss`
+
+## PDF
+
+Generowanie PDF realizuje komponent:
+
+- `src/app/pages/pdf/pdf.component.ts`
+
+Obecna implementacja:
+
+- używa `pdfmake`
+- ładuje dane i assety asynchronicznie
+- osadza fonty z `src/assets/fonts`
+- wspiera dwa tryby wyjścia:
+  - podgląd w przeglądarce (`blob`)
+  - pobranie pliku (`file`)
+
+Plik PDF jest generowany per język, np.:
+
+- `resume-szram-pl.pdf`
+- `resume-szram-en.pdf`
+
+## Środowiska
+
+Pliki środowisk:
+
+- `src/environments/environment.ts`
+- `src/environments/environment.development.ts`
+
+Służą obecnie głównie do budowania poprawnych adresów URL dla meta tagów i assetów share image.
+
+## Uwagi techniczne
+
+- aplikacja używa `provideHttpClient(withFetch())`
+- routing i konfiguracja są oparte o nowy bootstrap Angulara bez `NgModule`
+- `pdfmake` jest dodane do `allowedCommonJsDependencies` w `angular.json`, żeby build był czysty
+
+## Licencja
+
+MIT
