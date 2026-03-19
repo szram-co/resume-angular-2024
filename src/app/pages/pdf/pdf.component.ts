@@ -70,9 +70,7 @@ export class PdfComponent implements OnDestroy {
           : 'Podgląd PDF został otwarty w przeglądarce.'
       }
 
-      return this.activeLang() === 'en'
-        ? 'PDF file downloaded.'
-        : 'Plik PDF został pobrany.'
+      return this.activeLang() === 'en' ? 'PDF file downloaded.' : 'Plik PDF został pobrany.'
     }
 
     return this.activeLang() === 'en' ? 'Preparing PDF file...' : 'Przygotowywanie pliku PDF...'
@@ -1017,7 +1015,7 @@ export class PdfComponent implements OnDestroy {
       companyBottom: 14,
       companyContentTop: 4,
       experienceHeaderBottom: 10,
-      continueNoteTop: 50,
+      continueNoteTop: 20,
       continueNoteBottom: 0,
       // consentTop: 175,
       lastPageBottomReserve: 42
