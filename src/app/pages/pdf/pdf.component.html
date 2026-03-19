@@ -1,4 +1,4 @@
-@if (status() !== 'ready') {
+@if (status() !== 'ready' || displayMode() === 'file') {
   <section class="pdf-status">
     <h1>{{ title() }}</h1>
     <p>{{ subtitle() }}</p>
@@ -13,6 +13,6 @@
   </section>
 }
 
-@if (pdfUrl(); as previewUrl) {
+@if (displayMode() === 'blob' && pdfUrl(); as previewUrl) {
   <iframe [src]="previewUrl" class="pdf-preview" title="PDF preview"></iframe>
 }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnDestroy, signal } from '@angular/core'
+import { Component, computed, effect, inject, input, OnDestroy, signal } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { toSignal } from '@angular/core/rxjs-interop'
@@ -25,6 +25,7 @@ const remToPdfPt = (rem: number): number => Number((rem * 6.4).toFixed(2))
   styleUrl: './pdf.component.scss'
 })
 export class PdfComponent implements OnDestroy {
+  readonly displayMode = input<'blob' | 'file'>('file')
   readonly status = signal<'loading' | 'ready' | 'error'>('loading')
   readonly errorMessage = signal('')
   readonly pdfUrl = signal<SafeResourceUrl | null>(null)
@@ -63,15 +64,21 @@ export class PdfComponent implements OnDestroy {
     }
 
     if (this.status() === 'ready') {
+      if (this.displayMode() === 'blob') {
+        return this.activeLang() === 'en'
+          ? 'PDF preview opened in browser.'
+          : 'Podgląd PDF został otwarty w przeglądarce.'
+      }
+
       return this.activeLang() === 'en'
-        ? 'PDF preview opened in browser.'
-        : 'Podgląd PDF został otwarty w przeglądarce.'
+        ? 'PDF file downloaded.'
+        : 'Plik PDF został pobrany.'
     }
 
-    return this.activeLang() === 'en' ? 'Generating PDF...' : 'Generowanie PDF...'
+    return this.activeLang() === 'en' ? 'Preparing PDF file...' : 'Przygotowywanie pliku PDF...'
   })
 
-  readonly renderedLang = signal<'pl' | 'en' | null>(null)
+  readonly renderedKey = signal<string | null>(null)
 
   objectUrl: string | null = null
   pdfMakeLoaded = false
@@ -81,26 +88,30 @@ export class PdfComponent implements OnDestroy {
     effect(() => {
       const lang = this.activeLang()
       const data = this.sourceData()
+      const displayMode = this.displayMode()
+      const renderKey = `${lang}:${displayMode}`
 
-      if (!data || this.renderedLang() === lang) {
+      if (!data || this.renderedKey() === renderKey) {
         return
       }
 
-      this.renderedLang.set(lang)
-      void this.#generatePdfPreview(lang, data)
+      void this.#generatePdfOutput(lang, data, displayMode, renderKey)
     })
   }
 
   ngOnDestroy() {
-    if (this.objectUrl) {
-      URL.revokeObjectURL(this.objectUrl)
-      this.objectUrl = null
-    }
+    this.#clearObjectUrl()
   }
 
-  async #generatePdfPreview(lang: 'pl' | 'en', data: ResumeData) {
+  async #generatePdfOutput(
+    lang: 'pl' | 'en',
+    data: ResumeData,
+    displayMode: 'blob' | 'file',
+    renderKey: string
+  ) {
     this.status.set('loading')
     this.errorMessage.set('')
+    this.pdfUrl.set(null)
 
     try {
       await firstValueFrom(this.translate.use(lang))
@@ -112,18 +123,38 @@ export class PdfComponent implements OnDestroy {
       const blob = await pdf.getBlob()
       const url = URL.createObjectURL(blob)
 
-      if (this.objectUrl) {
-        URL.revokeObjectURL(this.objectUrl)
+      this.#clearObjectUrl()
+      this.objectUrl = url
+
+      if (displayMode === 'blob') {
+        this.pdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(`${url}#zoom=175`))
+      } else {
+        this.#downloadFile(url, `resume-szram-${lang}.pdf`)
       }
 
-      this.objectUrl = url
-      this.pdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(`${url}#zoom=175`))
+      this.renderedKey.set(renderKey)
       this.status.set('ready')
     } catch (error) {
-      console.error('PDF preview generation failed', error)
+      console.error('PDF generation failed', error)
       this.status.set('error')
       this.errorMessage.set(String(error))
     }
+  }
+
+  #downloadFile(url: string, fileName: string) {
+    const link = document.createElement('a')
+    link.href = url
+    link.download = fileName
+    link.click()
+  }
+
+  #clearObjectUrl() {
+    if (!this.objectUrl) {
+      return
+    }
+
+    URL.revokeObjectURL(this.objectUrl)
+    this.objectUrl = null
   }
 
   #buildDocument(lang: 'pl' | 'en', data: ResumeData, assets: PdfAssets): TDocumentDefinitions {
