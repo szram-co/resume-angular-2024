@@ -25,7 +25,7 @@
     "@types/pdfmake": "^0.3.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "pdfmake": "^0.3.5",
+    "pdfmake": "^0.3.7",
     "prettier": "^3.3.3",
     "rxjs": "~7.8.0",
     "simple-icons": "^13.5.0",

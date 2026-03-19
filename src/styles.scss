@@ -73,7 +73,12 @@
 @property --resume-bar-color {
   syntax: '<image>';
   inherits: true;
-  initial-value: linear-gradient(135deg, #2a9b91, #02605c);
+  @include resume-gradient(
+    initial-value,
+    $color-gradient-start,
+    $color-gradient-middle,
+    $color-gradient-end
+  );
 }
 
 :root {
@@ -82,6 +87,12 @@
   --color-white: #{$color-white};
 
   --color-dark: #{$color-dark};
+  --color-gradient-start: #{$color-gradient-start};
+  --color-gradient-middle: #{$color-gradient-middle};
+  --color-gradient-end: #{$color-gradient-end};
+  --color-gradient-light-start: #{$color-gradient-light-start};
+  --color-gradient-light-middle: #{$color-gradient-light-middle};
+  --color-gradient-light-end: #{$color-gradient-light-end};
   --color-brand-dark: #{$color-brand-dark};
   --color-brand: #{$color-brand};
   --color-brand-light: #{$color-brand-light};
@@ -90,45 +101,67 @@
   --resume-transition-speed: 0.35s;
   --resume-transition-type: ease;
 
-  --bs-gradient: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+  @include resume-gradient-var(
+    --resume-gradient,
+    var(--color-gradient-start),
+    var(--color-gradient-middle),
+    var(--color-gradient-end)
+  );
 
   --company-line-s: 3px;
   --company-logo-b: var(--bs-body-bg);
   --company-logo-c: var(--bs-body-color);
   --company-text-b: var(--bs-body-color);
   --company-text-c: var(--bs-body-bg);
-  --resume-header-bg: #{$body-secondary-bg-dark};
+  @include resume-theme-mode(
+    rgba($body-secondary-bg-dark, .75),
+    color.adjust($body-bg-dark, $lightness: 2%),
+    color.adjust($body-bg-dark, $lightness: 4%),
+    $color-gradient-start,
+    $color-gradient-middle,
+    $color-gradient-end,
+    $body-secondary-bg-dark,
+    $color-brand-light,
+    $color-brand
+  );
 
-  transition:
-    --bs-body-color-1 var(--resume-transition-speed) var(--resume-transition-type),
-    --bs-body-bg var(--resume-transition-speed) var(--resume-transition-type),
-    --color-preload-1 var(--resume-transition-speed) var(--resume-transition-type),
-    --color-preload-2 var(--resume-transition-speed) var(--resume-transition-type),
-    --resume-header-bg var(--resume-transition-speed) var(--resume-transition-type),
-    --resume-bar-color var(--resume-transition-speed) var(--resume-transition-type),
-    --resume-bar-background var(--resume-transition-speed) var(--resume-transition-type),
-    --resume-hello-stroke-from var(--resume-transition-speed) var(--resume-transition-type),
-    --resume-hello-stroke-to var(--resume-transition-speed) var(--resume-transition-type);
+  transition: --bs-body-color-1 var(--resume-transition-speed) var(--resume-transition-type),
+  --bs-body-bg var(--resume-transition-speed) var(--resume-transition-type),
+  --color-preload-1 var(--resume-transition-speed) var(--resume-transition-type),
+  --color-preload-2 var(--resume-transition-speed) var(--resume-transition-type),
+  --resume-header-bg var(--resume-transition-speed) var(--resume-transition-type),
+  --resume-bar-color var(--resume-transition-speed) var(--resume-transition-type),
+  --resume-bar-background var(--resume-transition-speed) var(--resume-transition-type),
+  --resume-hello-stroke-from var(--resume-transition-speed) var(--resume-transition-type),
+  --resume-hello-stroke-to var(--resume-transition-speed) var(--resume-transition-type);
 }
 
 @include color-mode(dark, true) {
-  --resume-header-bg: #{$body-secondary-bg-dark};
-  --color-preload-1: #{color.adjust($body-bg-dark, $lightness: 2%)};
-  --color-preload-2: #{color.adjust($body-bg-dark, $lightness: 4%)};
-  --resume-bar-color: var(--bs-gradient);
-  --resume-bar-background: var(--bs-secondary-bg);
-  --resume-hello-stroke-from: var(--color-brand-light);
-  --resume-hello-stroke-to: var(--color-brand);
+  @include resume-theme-mode(
+    rgba($body-secondary-bg-dark, .85),
+    color.adjust($body-bg-dark, $lightness: 2%),
+    color.adjust($body-bg-dark, $lightness: 4%),
+    $color-gradient-start,
+    $color-gradient-middle,
+    $color-gradient-end,
+    $body-secondary-bg-dark,
+    $color-brand-light,
+    $color-brand
+  );
 }
 
 @include color-mode(light, true) {
-  --resume-header-bg: #{$body-secondary-bg};
-  --color-preload-1: #{color.adjust($body-bg, $lightness: -3%)};
-  --color-preload-2: #{color.adjust($body-bg, $lightness: -5%)};
-  --resume-bar-color: var(--bs-gradient);
-  --resume-bar-background: var(--bs-secondary-bg);
-  --resume-hello-stroke-from: var(--color-brand-dark);
-  --resume-hello-stroke-to: var(--color-brand);
+  @include resume-theme-mode(
+    rgba($body-secondary-bg, .85),
+    color.adjust($body-bg, $lightness: -3%),
+    color.adjust($body-bg, $lightness: -5%),
+    $color-gradient-light-start,
+    $color-gradient-light-middle,
+    $color-gradient-light-end,
+    $body-secondary-bg,
+    $color-brand-dark,
+    $color-brand
+  );
 }
 
 ::selection {
