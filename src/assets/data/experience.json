@@ -181,8 +181,28 @@
     },
     "date": {
       "from": "2024-09-01",
-      "to": "2026-03-03"
+      "to": "2026-04-01"
     },
     "technologies": [1, 2, 5, 48, 10, 7, 9, 21, 30, 32, 33, 35, 36, 37, 41, 45]
+  },
+  {
+    "company": 9,
+    "name": {
+      "pl": "Senior Frontend Developer",
+      "en": "Senior Frontend Developer"
+    },
+    "short_description": {
+      "pl": "",
+      "en": ""
+    },
+    "description": {
+      "pl": "",
+      "en": ""
+    },
+    "date": {
+      "from": "2026-04-22",
+      "to": "present"
+    },
+    "technologies": [1, 5, 21]
   }
 ]

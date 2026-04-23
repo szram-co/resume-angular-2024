@@ -1,5 +1,21 @@
 [
   {
+    "id": 9,
+    "name": "Billennium S.A.",
+    "companyLogo": "logo-billennium.svg",
+    "location": {
+      "city": "warsaw",
+      "country": "poland"
+    },
+    "style": {
+      "--company-logo-b": "#fff",
+      "--company-logo-c": "#333",
+      "--company-line-c": "#666",
+      "--company-text-b": "var(--company-line-c)",
+      "--company-text-c": "var(--company-logo-b)"
+    }
+  },
+  {
     "id": 8,
     "name": "Adamed Pharma S.A.",
     "companyLogo": "logo-adamed.svg",
